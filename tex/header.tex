@@ -1,0 +1,94 @@
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, citecolor = [rgb]{0.153,0.255,0.545}, urlcolor = black, colorlinks = true, linkcolor = [rgb]{0.153,0.255,0.545}}
+\usepackage{bbm}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{xstring} % \IfSubStr
+\usepackage{xifthen}
+\usepackage{framed}
+\usepackage{mathrsfs}
+\usepackage{stmaryrd}
+% \usepackage{todonotes}
+
+% Commands - common symbols
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\EE}{\mathbb{E}}
+\renewcommand{\AA}{\mathbb{A}}
+\newcommand{\dif}{d}
+\newcommand{\id}{\textup{id}}
+\newcommand{\bdot}{{\mathbin{\vcenter{\hbox{\scalebox{0.67}{$\bullet$}}}}}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\renewcommand{\mod}{\textup{ mod }}
+\newcommand{\isom}{\cong}
+
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\iHom}{\underline{Hom}}
+\DeclareMathOperator*{\colim}{colim}
+
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\braket}[2]{\langle#1\!\mid\!#2\rangle}
+
+% Renew commands
+\renewcommand{\labelitemi}{\tiny$\blacksquare$}
+
+% Indentation and spacing
+\setlength{\itemindent}{0cm}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{0.5\baselineskip}
+\renewcommand{\baselinestretch}{1.25}
+
+% Topic counter & environment
+\newcounter{topics}
+\makeatletter
+\newenvironment{topic}[2]%
+{\refstepcounter{topics}%
+\protected@edef\@currentlabelname{#2}%
+\label{topic:\cat:#1}%
+\begin{framed}
+%\begin{center}\begin{tabular}{|p{1\textwidth}|}\hline\vspace{0cm}}{\vspace{0.25cm}\\\hline\end{tabular}\end{center}}
+}{\end{framed}}
+\makeatother
+\setlength{\topsep}{0pt}
+
+\newenvironment{example}[1]%
+{\begin{framed}\textbf{Example (\nameref{topic:\cat:#1})}.}{\end{framed}}
+
+\newenvironment{problem}%
+{\begin{framed}\textbf{Problem}.}{\end{framed}}
+
+\newenvironment{algorithm}%
+{\begin{framed}\textbf{Algorithm}.\begin{enumerate}[label=(\arabic*)]}{\end{enumerate}\end{framed}}
+
+% Topic reference
+% \newcommand{\tref}[2]{\textbf{#2} (\textbf{\IfSubStr{#1}{:}{\nameref{topic:#1}}{\nameref{topic:\cat:#1}}})}%
+\newcommand{\tref}[2]{\IfSubStr{#1}{:}{\hyperref[topic:#1]{#2}}{\hyperref[topic:\cat:#1]{#2}}}%
+
+% Proof environment
+\renewenvironment{proof}{\hfill \break \textbf{Proof}.}{\qed}
+
+% Image command
+\newcommand{\img}[1]{\begin{framed} \centering \texttt{#1}\end{framed}}

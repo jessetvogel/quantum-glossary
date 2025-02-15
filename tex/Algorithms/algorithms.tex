@@ -1,0 +1,27 @@
+\begin{topic}{deutsch-jozsa-algorithm}{Deutsch--Jozsa algorithm}
+    The \emph{Deutsch--Jozsa algorithm} is a quantum algorithm to solve the following problem:
+    
+    \textbf{Problem}: Given $x \in \{ 0, 1 \}^N$ for some $N = 2^n$, such that either all $x_i$ are equal (in this case, $x$ is called `constant'), or $N / 2$ of the $x_i$ are $0$ and $N / 2$ are $1$ (in this case, $x$ is called `balanced'). Determine whether $x$ is constant or balanced.
+    
+    \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Start in the $n$-qubit state $\ket{0^n}$.
+        \item Apply a Hadamard gate to each qubit to obtain the state
+        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n } \ket{i} . \]
+        \item Apply the oracle $\mathcal{O}$ to obtain the state
+        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} \ket{i} . \]
+        \item Apply a Hadamard gate to each qubit to obtain the state
+        \[ \frac{1}{2^n} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} \sum_{j \in \{ 0, 1 \}^n} (-1)^{i \cdot j} \ket{j} . \]
+        In particular, the amplitude of the $\ket{0^n}$-state in the final superposition is
+        \[ \frac{1}{2^n} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} = \begin{cases}
+            1 & \textup{if } x_i = 0 \textup{ for all } i , \\
+            -1 & \textup{if } x_i = 1 \textup{ for all } i , \\
+            0 & \textup{if } x \textup{ is balanced} .
+        \end{cases} \]
+        Measuring will yield $\ket{0^n}$ if $x$ is constant, and any other state if $x$ is balanced.
+    \end{enumerate}
+\end{topic}
+
+\begin{topic}{shor-algorithm}{Shor's algorithm}
+    
+\end{topic}

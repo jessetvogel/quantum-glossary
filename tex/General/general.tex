@@ -1,0 +1,47 @@
+\begin{topic}{separable-state}{separable state}
+    Let $\mathcal{H}_1, \ldots, \mathcal{H}_n$ be the Hilbert spaces of $n$ quantum systems. A state $\ket{\psi} \in \mathcal{H}_1 \otimes \cdots \otimes \mathcal{H}_n$ is \emph{separable} if it can be written as $\ket{\psi} = \ket{\psi_1} \otimes \cdots \otimes \ket{\psi_n}$ for some $\ket{\psi}_i \in \mathcal{H}_i$.
+\end{topic}
+
+\begin{topic}{entangled-state}{entangled state}
+    Let $\mathcal{H}_1, \ldots, \mathcal{H}_n$ be the Hilbert spaces of $n$ quantum systems. A state $\ket{\psi} \in \mathcal{H}_1 \otimes \cdots \otimes \mathcal{H}_n$ is \emph{entangled} if it is not \tref{separable-state}{separable}, that is, if it cannot be written as $\ket{\psi} = \ket{\psi_1} \otimes \cdots \otimes \ket{\psi_n}$ for some $\ket{\psi}_i \in \mathcal{H}_i$.
+\end{topic}
+
+\begin{topic}{density-matrix}{density matrix}
+    Let $\mathcal{H}$ be the Hilbert space of a quantum system. A \emph{density matrix}, also known as \emph{density operator}, on $\mathcal{H}$ is a bounded operator $\rho \colon \mathcal{H} \to \mathcal{H}$ which is positive-definite and has trace $\tr(\rho) = 1$.
+\end{topic}
+
+\begin{example}{density-matrix}
+    In general, any density matrix $\rho$ can be written as
+    \[ \rho = \sum_{i = 1}^{m} p_i \ket{\psi_i} \bra{\psi_i} \]
+    for some $\ket{\psi_i} \in \mathcal{H}$ and $0 \le p_i \le 1$ with $\sum_{i = 1}^{m} p_i = 1$. If $p_i = 1$ for some $i$, then $\rho$ is called \tref{pure-state}{pure}. Otherwise, $\rho$ is called \tref{mixed-state}{mixed}.
+\end{example}
+
+\begin{topic}{pure-state}{pure state}
+    Let $\mathcal{H}$ be the Hilbert space of a quantum system. A \emph{pure state} is a \tref{density-matrix}{density matrix} of the form $\rho = \ket{\psi} \bra{\psi}$ for some $\ket{\psi} \in \mathcal{H}$.
+\end{topic}
+
+\begin{topic}{mixed-state}{mixed state}
+    Let $\mathcal{H}$ be the Hilbert space of a quantum system. A \emph{mixed state} is a \tref{density-matrix}{density matrix} which is not a \tref{pure-state}{pure state}.
+\end{topic}
+
+\begin{topic}{purity}{purity}
+    The \emph{purity} of a \tref{density-matrix}{density matrix} $\rho$ is the trace of its square, that is, $\tr(\rho^2)$.
+\end{topic}
+
+\begin{example}{purity}
+    When $\rho = \ket{\psi} \bra{\psi}$ is \tref{pure-state}{pure}, the purity of $\rho$ is $\tr(\rho^2) = \braket{\psi}{\psi}^2 = 1$. In general, the purity satisfies $(\dim \mathcal{H})^{-1} \le \tr(\rho^2) \le 1$.
+\end{example}
+
+\begin{example}{purity}
+    The purity of a density matrix $\rho$ is conserved under unitary transformations. That is, for any unitary transformation $U$,
+    \[ \tr((U \rho U^\dag)^2) = \tr(\rho^2) \]
+    using that $UU^\dag = U^\dag U = 1$ and the cyclic property of the trace.
+\end{example}
+
+\begin{topic}{reduced-density-matrix}{reduced density matrix}
+    Let $\mathcal{H}_1$ and $\mathcal{H}_2$ be the Hilbert spaces of two quantum systems. Given a \tref{density-matrix}{density matrix} $\rho$ on $\mathcal{H}_1 \otimes \mathcal{H}_2$, the \emph{reduced density matrix} of $\rho$ on $\mathcal{H}_1$ is the density matrix
+    \[ \rho_1 = \tr_2(\rho) \]
+    given by the partial trace over $\mathcal{H}_2$. Explicitly, the partial trace $\tr_2$ is given by
+    \[ \tr_2 \left( \ket{\psi} \bra{\psi'} \otimes \ket{\varphi} \bra{\varphi'} \right) = \braket{\varphi'}{\varphi} \cdot \ket{\psi} \bra{\psi'} \]
+    for all $\ket{\psi}, \ket{\psi'} \in \mathcal{H}_1$ and $\ket{\varphi}, \ket{\varphi'} \in \mathcal{H}_2$ and extended linearly.
+\end{topic}
