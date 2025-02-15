@@ -56,7 +56,7 @@
 
 body {
     --font-family: "Palatino-Linotype", serif;
-    --clr-background-body: hsl(329 20.5% 97%);
+    --clr-background-body: hsl(329 20.5% 96%);
     /* #f2eff1; */
     --clr-text-main: rgba(0, 0, 0, 0.8);
     --clr-shadow: rgba(0, 0, 0, 0.12);
@@ -64,9 +64,9 @@ body {
     --clr-autocomplete-topic-highlight: #222222;
     --clr-category: #e2a32d;
     --clr-link: #1a7d8e;
-    --clr-loading-icon: #121212;
+    --clr-loading-icon: #151515;
     --clr-background-input: #ffffff;
-    --clr-background-example: rgba(0, 0, 0, 0.033);
+    --clr-background-example: rgba(58, 53, 53, 0.033);
     --clr-background-highlight: rgba(0, 0, 0, 0.08);
     --clr-background-tooltip: #fefdfc;
     --clr-list-marker: rgba(0, 0, 0, 0.5);
@@ -75,15 +75,16 @@ body {
 
 body.dark {
     --font-family: "Palatino-Linotype", serif;
-    --clr-background-body: #1a1918;
+    --clr-background-body: hsl(330, 30%, 7.8%);
     --clr-text-main: rgba(255, 255, 255, 0.75);
     --clr-shadow: rgba(0, 0, 0, 0.12);
     --clr-autocomplete-topic-default: rgba(255, 255, 255, 0.6);
     --clr-autocomplete-topic-highlight: rgba(255, 255, 255, 0.87);
-    --clr-category: #328421;
-    --clr-link: #2a74a6;
+    --clr-category: #e2a32d;
+    --clr-link: #35a5f0;
     --clr-loading-icon: rgba(255, 255, 255, 0.75);
-    --clr-background-input: #242424;
+    --clr-background-input: hsl(329 20.5% 15%);
+    ;
     --clr-background-example: rgba(255, 255, 255, 0.05);
     --clr-background-highlight: rgba(255, 255, 255, 0.08);
     --clr-background-tooltip: #323232;

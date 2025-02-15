@@ -312,12 +312,23 @@ function getURLParameter(name) {
     }
     return null;
 }
+
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2)
-        return parts.pop().split(';').shift();
+    name += "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
+
 function initTheme() {
     const cookieTheme = getCookie('theme');
     if (cookieTheme !== undefined)
@@ -327,10 +338,10 @@ function initTheme() {
     document.getElementById('button-theme').addEventListener('click', function () {
         document.cookie = `theme=${setTheme(null) ? 'dark' : 'light'}`;
     });
-    // setTimeout(function () {
-    //     const sheet = window.document.styleSheets[0];
-    //     sheet.insertRule('body, input { transition: background-color 0.5s, color 0.5s; }', sheet.cssRules.length);
-    // }, 100);
+    setTimeout(function () {
+        const sheet = window.document.styleSheets[0];
+        sheet.insertRule('body, input { transition: background-color 0.5s, color 0.5s; }', sheet.cssRules.length);
+    }, 100);
 }
 function setTheme(dark) {
     if (dark === true) {
