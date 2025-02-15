@@ -46,8 +46,8 @@ fn main() {
         // Open file
         let file = match File::open(path) {
             Err(err) => {
-                println!("{}: failed to open file '{path:?}' ({err})", "Error".red());
-                return;
+                println!("{}: Failed to open file '{path:?}' ({err})", "Error".red());
+                std::process::exit(1);
             }
             Ok(file) => file,
         };
@@ -61,12 +61,24 @@ fn main() {
             Err(error) => {
                 println!("{}", "failed".red());
                 println!("\n{}", error.message);
-                return;
+                std::process::exit(1);
             }
         }
     }
 
-    // Step 3: Write `topics.js`
+    // Step 3: Check if all referenced topics exist
+    let topics = parser.topics();
+    for (uid_from, uid_to) in parser.references() {
+        if !topics.contains_key(uid_to) {
+            println!(
+                "{}: Topic '{uid_from}' contains reference to non-existent topic '{uid_to}'",
+                "Error".red()
+            );
+            std::process::exit(1);
+        }
+    }
+
+    // Step 4: Write `topics.js`
     match write_topics_js(&parser) {
         Ok(()) => {}
         Err(err) => {
@@ -75,11 +87,11 @@ fn main() {
                 "Error".red(),
                 TOPICS_JS
             );
-            return;
+            std::process::exit(1);
         }
     }
 
-    // Step 4: Write `examples.js`
+    // Step 5: Write `examples.js`
     match write_examples_js(&parser) {
         Ok(()) => {}
         Err(err) => {
@@ -88,7 +100,7 @@ fn main() {
                 "Error".red(),
                 TOPICS_JS
             );
-            return;
+            std::process::exit(1);
         }
     }
 

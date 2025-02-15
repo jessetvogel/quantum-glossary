@@ -9,22 +9,26 @@ use crate::lexer::{Lexer, Token, TokenKind};
 
 pub struct Parser {
     lexer: Option<Lexer>,
-    topics: HashMap<String, String>,
-    examples: HashSet<String>,
     current_token: Option<Token>,
     current_file: Option<File>,
-    target_directory: &'static str,
+    topics: HashMap<String, String>,
+    examples: HashSet<String>,
+    references: HashSet<(String, String)>,
+    current_topic: String,
     current_prefix: String,
+    target_directory: &'static str,
 }
 
 impl Parser {
     pub fn new(target_directory: &'static str) -> Self {
         Self {
             lexer: None,
-            topics: HashMap::new(),
-            examples: HashSet::new(),
             current_token: None,
             current_file: None,
+            topics: HashMap::new(),
+            examples: HashSet::new(),
+            references: HashSet::new(),
+            current_topic: String::new(),
             current_prefix: String::new(),
             target_directory,
         }
@@ -38,6 +42,11 @@ impl Parser {
     /// Returns a hashset of all topics that have examples.
     pub fn examples(&self) -> &HashSet<String> {
         &self.examples
+    }
+
+    // Returns a hashset of all references between topics
+    pub fn references(&self) -> &HashSet<(String, String)> {
+        &self.references
     }
 
     pub fn parse(&mut self, prefix: &str, file: File) -> Result<(), ParserError> {
@@ -69,7 +78,7 @@ impl Parser {
         let topic = self.consume(&TokenKind::Text)?; // TODO: suffix is bad name
         self.expect("}")?;
         self.expect("{")?;
-        let name = self.consume(&TokenKind::Text)?;
+        let name = escape_special_chars(self.consume(&TokenKind::Text)?);
         self.expect("}")?;
 
         let uid = self.uid(&topic);
@@ -77,7 +86,8 @@ impl Parser {
             return Err(ParserError::new(format!("Identifier {uid} already used.")));
         }
 
-        self.topics.insert(uid, name);
+        self.topics.insert(uid.clone(), name);
+        self.current_topic = uid;
 
         self.open_topic_file(&topic)?;
 
@@ -208,8 +218,8 @@ impl Parser {
                 || self.encounters_data("[")?
                 || self.encounters_data("]")?
             {
-                let data = self.take()?;
-                self.write(&data)?; // TODO: special_chars
+                let data = escape_special_chars(self.take()?);
+                self.write(&data)?;
                 continue;
             }
 
@@ -336,13 +346,25 @@ impl Parser {
     fn parse_tref(&mut self) -> Result<(), ParserError> {
         self.expect("\\tref")?;
         self.expect("{")?;
-        let uid = self.consume(&TokenKind::Text)?; // TODO: parse_identifier (with prefix)
+        let uid = self.parse_uid()?;
         self.expect("}")?;
         self.expect("{")?;
         self.write(&format!("<a href=\"#{uid}\">"))?;
         self.parse_content()?;
         self.expect("}")?;
-        self.write("</a>")
+        self.write("</a>")?;
+        self.references.insert((self.current_topic.clone(), uid));
+        Ok(())
+    }
+
+    fn parse_uid(&mut self) -> Result<String, ParserError> {
+        let topic = self.consume(&TokenKind::Text)?;
+        let uid = if topic.contains(':') {
+            topic
+        } else {
+            format!("{}:{}", self.current_prefix, topic)
+        };
+        Ok(uid)
     }
 
     fn parse_img(&mut self) -> Result<(), ParserError> {
@@ -540,4 +562,14 @@ impl From<String> for ParserError {
             message: format!("{value}\n\n{}", Backtrace::capture()),
         }
     }
+}
+
+fn escape_special_chars(mut s: String) -> String {
+    s = s.replace('`', "‘");
+    s = s.replace('\'', "’");
+    s = s.replace("``", "“");
+    s = s.replace('"', "”");
+    s = s.replace("\'\'", "”");
+    s = s.replace("--", "–");
+    return s;
 }
