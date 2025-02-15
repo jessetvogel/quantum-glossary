@@ -1,4 +1,4 @@
-const autoComplete = {
+const autocomplete = {
     input: null,
     options: null,
     numOptions: 0,
@@ -65,33 +65,33 @@ function boldenTokens(str, tokens) {
     return out.join('');
 }
 function initAutoComplete() {
-    autoComplete.input = document.getElementById('input-search');
-    autoComplete.options = document.getElementById('auto-complete-options');
-    autoComplete.input.addEventListener('input', updateAutoComplete);
-    autoComplete.input.addEventListener('keydown', function (event) {
+    autocomplete.input = document.getElementById('input-search');
+    autocomplete.options = document.getElementById('auto-complete-options');
+    autocomplete.input.addEventListener('input', updateAutoComplete);
+    autocomplete.input.addEventListener('keydown', function (event) {
         var _a;
         if (event.key == 'ArrowDown') {
-            if (autoComplete.selected < autoComplete.numOptions - 1)
-                autoCompleteSelect(autoComplete.selected + 1);
+            if (autocomplete.selected < autocomplete.numOptions - 1)
+                autoCompleteSelect(autocomplete.selected + 1);
         }
         if (event.key == 'ArrowUp') {
-            if (autoComplete.selected > -1)
-                autoCompleteSelect(autoComplete.selected - 1);
+            if (autocomplete.selected > -1)
+                autoCompleteSelect(autocomplete.selected - 1);
         }
         if (event.key == 'Enter') {
-            let option = autoComplete.options.querySelector('div.select');
+            let option = autocomplete.options.querySelector('div.select');
             let id = null;
             if (option == null)
-                option = autoComplete.options.querySelector('div');
+                option = autocomplete.options.querySelector('div');
             if (option != null)
                 id = (_a = option.querySelector('.identifier')) === null || _a === void 0 ? void 0 : _a.innerText;
             if (id != null)
                 gotoTopic(id);
         }
         if (event.key == 'Escape')
-            autoComplete.input.blur();
+            autocomplete.input.blur();
     });
-    autoComplete.input.addEventListener('focusout', () => autoComplete.options.innerHTML = '');
+    autocomplete.input.addEventListener('focusout', () => autocomplete.options.innerHTML = '');
     window.addEventListener('keydown', function (event) {
         if (event.altKey && event.code == 'KeyF') {
             const input = document.getElementById('input-search');
@@ -102,18 +102,18 @@ function initAutoComplete() {
         }
     });
     for (const id in topics)
-        autoComplete.topicTokens[id] = computeTokens(topics[id]);
+        autocomplete.topicTokens[id] = computeTokens(topics[id]);
 }
 function updateAutoComplete() {
     var _a;
-    let value = autoComplete.input.value;
+    let value = autocomplete.input.value;
     setSearchCategory(null);
-    autoComplete.options.innerHTML = '';
-    autoComplete.selected = -1;
-    autoComplete.numOptions = 0;
+    autocomplete.options.innerHTML = '';
+    autocomplete.selected = -1;
+    autocomplete.numOptions = 0;
     if (value == '')
         return;
-    autoComplete.options.innerHTML = '<label class="loading" style="display: block;"></label>';
+    autocomplete.options.innerHTML = '<label class="loading" style="display: block;"></label>';
     const prefix = ((_a = value.match(/^\w+:/)) === null || _a === void 0 ? void 0 : _a[0]) || null;
     if (prefix != null)
         value = value.substring(prefix.length).trim();
@@ -122,7 +122,7 @@ function updateAutoComplete() {
     for (const id in topics) {
         if (prefix != null && !id.startsWith(prefix))
             continue;
-        const matchedTokens = findMatch(tokens, autoComplete.topicTokens[id]);
+        const matchedTokens = findMatch(tokens, autocomplete.topicTokens[id]);
         if ((matchedTokens == null || matchedTokens.length == 0) && (value || prefix == null))
             continue;
         const category = categories[id.substring(0, id.indexOf(':'))];
@@ -133,11 +133,11 @@ function updateAutoComplete() {
         elem.addEventListener('mousedown', () => gotoTopic(id));
         results.push({ index, topic, elem });
     }
-    autoComplete.options.innerHTML = '';
+    autocomplete.options.innerHTML = '';
     if (results.length == 0) {
         const option = document.createElement('div');
         option.innerHTML = '<span style="color: var(--clr-autoComplete-topic-default); opacity: 0.5;">no results</span>';
-        autoComplete.options.appendChild(option);
+        autocomplete.options.appendChild(option);
         return;
     }
     results.sort(function (a, b) {
@@ -145,16 +145,16 @@ function updateAutoComplete() {
             return a.index - b.index;
         return a.topic.localeCompare(b.topic, 'en', { sensitivity: 'base' });
     });
-    autoComplete.numOptions = results.length;
+    autocomplete.numOptions = results.length;
     for (const result of results)
-        autoComplete.options.appendChild(result.elem);
+        autocomplete.options.appendChild(result.elem);
 }
 ;
 function autoCompleteSelect(i) {
     var _a;
-    const options = Array.from(autoComplete.options.querySelectorAll('div'));
-    (_a = options[autoComplete.selected]) === null || _a === void 0 ? void 0 : _a.classList.remove('select');
-    autoComplete.selected = i;
+    const options = Array.from(autocomplete.options.querySelectorAll('div'));
+    (_a = options[autocomplete.selected]) === null || _a === void 0 ? void 0 : _a.classList.remove('select');
+    autocomplete.selected = i;
     if (i >= 0 && i < options.length) {
         options[i].classList.add('select');
         options[i].scrollIntoView({
@@ -216,11 +216,11 @@ const KaTeXOptions = {
         "\\iHom": "\\underline{\\Hom}"
     }
 };
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', function () {
     initAutoComplete();
     checkUrlFragment();
     initTheme();
-};
+});
 window.addEventListener('popstate', checkUrlFragment);
 function loadTopic(id) {
     const content = document.getElementById('content');
@@ -264,8 +264,8 @@ function loadTopic(id) {
 function gotoTopic(id) {
     loadTopic(id);
     const topic = capitalize(topics[id]);
-    autoComplete.input.value = topic;
-    autoComplete.options.innerHTML = '';
+    autocomplete.input.value = topic;
+    autocomplete.options.innerHTML = '';
     setSearchCategory(categories[id.substring(0, id.indexOf(':'))]);
     window.history.pushState(id, 'Math: ' + id, '#' + id);
 }
@@ -274,7 +274,7 @@ function checkUrlFragment() {
     if (id !== '') {
         document.getElementById('content').innerHTML = '';
         loadTopic(id);
-        autoComplete.input.value = capitalize(topics[id]);
+        autocomplete.input.value = capitalize(topics[id]);
         setSearchCategory(categories[id.substring(0, id.indexOf(':'))]);
         return;
     }
@@ -312,7 +312,6 @@ function getURLParameter(name) {
     }
     return null;
 }
-
 function getCookie(name) {
     name += "=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -328,7 +327,6 @@ function getCookie(name) {
     }
     return "";
 }
-
 function initTheme() {
     const cookieTheme = getCookie('theme');
     if (cookieTheme !== undefined)
