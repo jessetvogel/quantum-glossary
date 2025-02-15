@@ -75,7 +75,7 @@ impl Parser {
     fn parse_topic(&mut self) -> Result<(), ParserError> {
         self.expect("}")?;
         self.expect("{")?;
-        let topic = self.consume(&TokenKind::Text)?; // TODO: suffix is bad name
+        let topic = self.consume(&TokenKind::Text)?;
         self.expect("}")?;
         self.expect("{")?;
         let name = escape_special_chars(self.consume(&TokenKind::Text)?);
@@ -290,7 +290,7 @@ impl Parser {
         self.write("<span class=\"math inline\">\\(")?;
         while !self.encounters_data("$")? {
             let data = self.take()?;
-            self.write(&data)?; // TODO: special_chars ?
+            self.write(&data)?;
         }
         self.expect("$")?;
         self.write("\\)</span>")
@@ -301,7 +301,7 @@ impl Parser {
         self.write("<span class=\"math display\">\\[")?;
         while !self.encounters_data("\\]")? {
             let data = self.take()?;
-            self.write(&data)?; // TODO: special_chars ?
+            self.write(&data)?;
         }
         self.expect("\\]")?;
         self.write("\\]</span>")
@@ -371,7 +371,6 @@ impl Parser {
         self.expect("\\img")?;
         self.expect("{")?;
         let filename = self.consume(&TokenKind::Text)?;
-        // TODO: check if filename actually exists !
         self.expect("}")?;
         self.write(&format!(
             "<img class=\"math-img\" src=\"data/img/{filename}\" alt />"

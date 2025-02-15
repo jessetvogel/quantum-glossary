@@ -213,7 +213,10 @@ const KaTeXOptions = {
         "\\mod": "\\text{ mod }",
         "\\mapsfrom": "\\leftarrow\\mathrel{\\mkern-3.2mu\\raisebox{.7mu}{$\\shortmid$}}",
         "\\isom": "\\cong",
-        "\\iHom": "\\underline{\\Hom}"
+        "\\iHom": "\\underline{\\Hom}",
+        "\\bra": "\\langle #1 |",
+        "\\ket": "| #1 \\rangle",
+        "\\braket": "\\langle #1 \\! \\mid \\! #2 \\rangle"
     }
 };
 document.addEventListener('DOMContentLoaded', function () {

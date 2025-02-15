@@ -1,14 +1,7 @@
-// TODO: Support UTF-8 non-ASCII
-//       Keep a buffer of the char indices with .char_indices()
-
-// TODO: make private what must be private
-
 use std::{
     fs::File,
     io::{BufRead, BufReader, Result},
 };
-
-use regex::Regex;
 
 const SEPARATORS: &[&str] = &[
     "{", "}", "\\[", "\\]", "$", "\\&", "\\#", "\\\\", "\\{", "\\}", "\\;", "\\,", "\\ ", "\\!",
@@ -50,9 +43,6 @@ pub struct Lexer {
     line: usize,
     token_start: usize,
     token_end: usize,
-    re_command: Regex,
-    re_text: Regex,
-    re_whitespace: Regex,
 }
 
 impl Lexer {
@@ -64,9 +54,6 @@ impl Lexer {
             line: 0,
             token_start: 0,
             token_end: 0,
-            re_command: Regex::new(r"^\\\w+$").unwrap(),
-            re_text: Regex::new(r"^[^{}\\\[\]$=\s][^{}\\\[\]$=\n]*$").unwrap(),
-            re_whitespace: Regex::new(r"^[^\S\n]+$").unwrap(),
         }
     }
 
@@ -88,7 +75,6 @@ impl Lexer {
 
         loop {
             if self.token_end + 1 >= self.char_indices.len() {
-                // TODO: remove + 1 ?
                 break;
             }
             self.token_end += 1; // try increasing selection
@@ -134,41 +120,53 @@ impl Lexer {
         &self.buffer[i..j]
     }
 
+    fn is_separator(expr: &str) -> bool {
+        SEPARATORS.contains(&expr)
+    }
+
+    fn is_command(expr: &str) -> bool {
+        let mut chars = expr.chars();
+        chars.next() == Some('\\') && chars.all(|c| c.is_ascii_alphabetic())
+    }
+
+    fn is_text(expr: &str) -> bool {
+        let excluded = &['{', '}', '\\', '[', ']', '$', '=', '\t', '\n'];
+        expr.chars().nth(0) != Some(' ') && expr.chars().all(|c| !excluded.contains(&c))
+    }
+
+    fn is_newline(expr: &str) -> bool {
+        expr == "\n"
+    }
+
+    fn is_whitespace(expr: &str) -> bool {
+        expr.chars().all(|c| c == ' ' || c == '\t')
+    }
+
     fn is_token(&self, expr: &str) -> bool {
-        if SEPARATORS.contains(&expr) {
-            return true;
-        }
-        if self.re_command.is_match(&expr) {
-            return true;
-        }
-        if self.re_text.is_match(&expr) {
-            return true;
-        }
-        if self.re_whitespace.is_match(&expr) {
-            return true;
-        }
-        if expr == "\n" {
-            return true;
-        }
-        return false;
+        Lexer::is_separator(expr)
+            || Lexer::is_command(expr)
+            || Lexer::is_text(expr)
+            || Lexer::is_newline(expr)
+            || Lexer::is_whitespace(expr)
     }
 
     fn to_token(&self, expr: &str) -> Token {
-        // panic if invalid, because is_token should be checked before!
-        if SEPARATORS.contains(&expr) {
+        if Lexer::is_separator(expr) {
             return self.create_token(TokenKind::Separator, expr.to_owned());
         }
-        if expr == "\n" {
+        if Lexer::is_newline(expr) {
             return self.create_token(TokenKind::Newline, expr.to_owned());
         }
-        if self.re_whitespace.is_match(&expr) {
+        if Lexer::is_whitespace(expr) {
             return self.create_token(TokenKind::Whitespace, expr.to_owned());
         }
-        if self.re_command.is_match(&expr) {
+        if Lexer::is_command(expr) {
             return self.create_token(TokenKind::Command, expr.to_owned());
         }
-
-        self.create_token(TokenKind::Text, expr.to_owned())
+        if Lexer::is_text(expr) {
+            return self.create_token(TokenKind::Text, expr.to_owned());
+        }
+        panic!("Function `to_token` called with invalid expression");
     }
 
     fn create_token(&self, kind: TokenKind, data: String) -> Token {
