@@ -45,3 +45,15 @@
     \[ \tr_2 \left( \ket{\psi} \bra{\psi'} \otimes \ket{\varphi} \bra{\varphi'} \right) = \braket{\varphi'}{\varphi} \cdot \ket{\psi} \bra{\psi'} \]
     for all $\ket{\psi}, \ket{\psi'} \in \mathcal{H}_1$ and $\ket{\varphi}, \ket{\varphi'} \in \mathcal{H}_2$ and extended linearly.
 \end{topic}
+
+\begin{topic}{no-cloning-theorem}{no-cloning theorem}
+    Consider two quantum systems, $A$ and $B$, with a common Hilbert space $\mathcal{H}_A = \mathcal{H}_B = \mathcal{H}$. The \emph{no-cloning theorem} states that there exists no unitary operation $U$ on $\mathcal{H}_A \otimes \mathcal{H}_B$ such that
+    \[ U (\ket{\psi} \otimes \ket{\phi}) = \ket{\psi} \otimes \ket{\psi} \]
+    for all $\ket{\psi} \in \mathcal{H}$ and any $\ket{\phi} \in \mathcal{H}$.
+\end{topic}
+
+\begin{example}{no-cloning-theorem}
+    \begin{proof}
+        If such an operation $U$ would exist, it would not be linear in $\ket{\psi}$, and hence would not be unitary.
+    \end{proof}
+\end{example}
