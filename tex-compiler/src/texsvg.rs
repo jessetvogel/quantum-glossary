@@ -40,6 +40,8 @@ use std::{
     process::Command,
 };
 
+use colored::Colorize;
+
 pub struct TexSvg {
     file: File,
     hasher: DefaultHasher,
@@ -78,50 +80,20 @@ impl TexSvg {
 
         // Compute svg path from hash
         let hash = self.hasher.finish();
-        let svg_filename = format!("{hash}.svg");
-        let svg_path = format!("{target_directory}/{svg_filename}");
+        let filename_svg = format!("{hash}.svg");
+        let path_to_svg = format!("{target_directory}/{filename_svg}");
 
         // Close file by dropping self
         drop(self);
 
         // Compile to svg only if svg does not yet exist
-        if !Path::new(&svg_path).exists() {
-            match Command::new("pdflatex")
-                .args([
-                    "-halt-on-error",
-                    "-interaction=nonstopmode",
-                    &format!("-output-directory={TMP_DIRECTORY}"),
-                    &format!("{TMP_DIRECTORY}/tmp.tex"),
-                ])
-                .output()
-            {
-                Ok(output) => {
-                    if output.status.code() != Some(0) {
-                        return Err(format!(
-                            "Failed to run `pdflatex`: {}",
-                            String::from_utf8_lossy(&output.stdout)
-                        ));
-                    }
-                }
-                Err(err) => {
-                    return Err(format!("Failed to run `pdflatex`: {err:?}"));
-                }
-            }
-
-            match Command::new("pdf2svg")
-                .args([&format!("{TMP_DIRECTORY}/tmp.pdf"), &svg_path])
-                .output()
-            {
-                Ok(output) => {
-                    if output.status.code() != Some(0) {
-                        return Err(format!(
-                            "Failed to run `pdf2svg`: {}",
-                            String::from_utf8_lossy(&output.stderr)
-                        ));
-                    }
-                }
-                Err(err) => {
-                    return Err(format!("Failed to run `pdf2svg`: {err:?}"));
+        // Do not fail on failed `pdflatex` or `pdf2svg` (only show warnings)
+        if !Path::new(&path_to_svg).exists() {
+            if let Err(err) = TexSvg::pdflatex() {
+                println!("\n{}: {err}", "Warning".yellow());
+            } else {
+                if let Err(err) = TexSvg::pdf2svg(&path_to_svg) {
+                    println!("\n{}: {err}", "Warning".yellow());
                 }
             }
         }
@@ -129,6 +101,43 @@ impl TexSvg {
         // Delete temporary directory
         fs::remove_dir_all(TMP_DIRECTORY).unwrap();
 
-        Ok(svg_filename)
+        Ok(filename_svg)
+    }
+
+    fn pdflatex() -> Result<(), String> {
+        match Command::new("pdflatex")
+            .args([
+                "-halt-on-error",
+                "-interaction=nonstopmode",
+                &format!("-output-directory={TMP_DIRECTORY}"),
+                &format!("{TMP_DIRECTORY}/tmp.tex"),
+            ])
+            .output()
+        {
+            Ok(output) => {
+                if output.status.code() != Some(0) {
+                    return Err("Failed to run `pdflatex`".to_owned());
+                } else {
+                    Ok(())
+                }
+            }
+            Err(err) => Err(format!("Failed to run `pdflatex` ({})", err.to_string())),
+        }
+    }
+
+    fn pdf2svg(path_to_svg: &str) -> Result<(), String> {
+        match Command::new("pdf2svg")
+            .args([&format!("{TMP_DIRECTORY}/tmp.pdf"), path_to_svg])
+            .output()
+        {
+            Ok(output) => {
+                if output.status.code() != Some(0) {
+                    Err("Failed to run `pdf2svg`".into())
+                } else {
+                    Ok(())
+                }
+            }
+            Err(err) => Err(format!("Failed to run `pdf2svg` ({})", err.to_string())),
+        }
     }
 }
