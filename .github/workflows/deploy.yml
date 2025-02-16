@@ -30,6 +30,9 @@ jobs:
         with:
           toolchain: stable
 
+      - name: Install TeX Live & pdf2svg
+        run: sudo apt-get update && sudo apt-get install -y texlive-latex-base pdf2svg
+
       - name: Build and run TeX compiler
         run: cd tex-compiler && cargo run
 

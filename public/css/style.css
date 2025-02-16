@@ -63,7 +63,7 @@ body.dark {
     --clr-list-marker: rgba(255, 255, 255, 0.5);
 }
 
-body.dark .display-math-svg {
+body.dark img.display.math.svg {
     filter: invert(87%);
 }
 
@@ -316,13 +316,13 @@ br {
     margin-bottom: 8px;
 }
 
-img.display-math-svg {
+img.display.math.svg {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 32px;
     margin-bottom: 32px;
-    scale: 1.33;
+    scale: 1.5;
     max-width: 75%;
     /* to prevent overflow-x */
     transition: filter var(--transition-time);

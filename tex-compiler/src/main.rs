@@ -9,6 +9,7 @@ use parser::Parser;
 
 mod lexer;
 mod parser;
+mod texsvg;
 
 const SOURCE_DIRECTORY: &str = "../tex";
 const TARGET_DIRECTORY: &str = "../public/data";
@@ -17,11 +18,12 @@ const EXAMPLES_JS: &str = "../public/data/examples.js";
 const CATEGORIES: &[(&str, &str)] = &[("ALG", "Algorithms"), ("GEN", "General")];
 
 fn main() {
-    // Step 0: Make sure TARGET_DIRECTORY exists, and topics and examples subdirectories
+    // Step 0: Make sure TARGET_DIRECTORY exists, and `topics`, `examples`, `svg` subdirectories
     for path in &[
         TARGET_DIRECTORY,
         &format!("{TARGET_DIRECTORY}/topics"),
         &format!("{TARGET_DIRECTORY}/examples"),
+        &format!("{TARGET_DIRECTORY}/svg"),
     ] {
         if let Err(err) = create_dir_all(path) {
             println!(
@@ -60,7 +62,7 @@ fn main() {
             }
             Err(error) => {
                 println!("{}", "failed".red());
-                println!("\n{}", error.message);
+                println!("\n{}: {}", "Error".red(), error.message);
                 std::process::exit(1);
             }
         }
@@ -71,7 +73,7 @@ fn main() {
     for (uid_from, uid_to) in parser.references() {
         if !topics.contains_key(uid_to) {
             println!(
-                "{}: Topic '{uid_from}' contains reference to non-existent topic '{uid_to}'",
+                "\n{}: Topic '{uid_from}' contains reference to non-existent topic '{uid_to}'",
                 "Error".red()
             );
             std::process::exit(1);

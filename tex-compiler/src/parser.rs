@@ -1,11 +1,13 @@
 use std::{
-    backtrace::Backtrace,
     collections::{HashMap, HashSet},
     fs::{File, OpenOptions},
     io::Write,
 };
 
-use crate::lexer::{Lexer, Token, TokenKind};
+use crate::{
+    lexer::{Lexer, Token, TokenKind},
+    texsvg::TexSvg,
+};
 
 pub struct Parser {
     lexer: Option<Lexer>,
@@ -298,13 +300,28 @@ impl Parser {
 
     fn parse_display_math(&mut self) -> Result<(), ParserError> {
         self.expect("\\[")?;
-        self.write("<span class=\"math display\">\\[")?;
-        while !self.encounters_data("\\]")? {
-            let data = self.take()?;
-            self.write(&data)?;
-        }
-        self.expect("\\]")?;
-        self.write("\\]</span>")
+        self.skip_whitespace()?;
+        if self.encounters_data("\\svg")? {
+            self.advance()?;
+            let mut texsvg = TexSvg::new();
+            while !self.encounters_data("\\]")? {
+                texsvg.feed(&self.take()?)?;
+            }
+            self.expect("\\]")?;
+            let filename = texsvg.compile(&format!("{}/svg", self.target_directory))?;
+            self.write(&format!(
+                "<img class=\"math display svg\" src=\"data/svg/{filename}\" alt />"
+            ))?;
+        } else {
+            self.write("<span class=\"math display\">\\[")?;
+            while !self.encounters_data("\\]")? {
+                let data = self.take()?;
+                self.write(&data)?;
+            }
+            self.expect("\\]")?;
+            self.write("\\]</span>")?;
+        };
+        Ok(())
     }
 
     fn parse_textbf(&mut self) -> Result<(), ParserError> {
@@ -405,6 +422,7 @@ impl Parser {
             .write(true)
             .append(append)
             .create(!append)
+            .truncate(!append)
             .open(&path)
         {
             Ok(file) => file,
@@ -474,8 +492,8 @@ impl Parser {
             Some(token) => {
                 if token.kind != *kind {
                     Err(format!(
-                        "Expected token of kind '{kind:?}' but received token of kind '{:?}'",
-                        token.kind
+                        "Expected token of kind '{kind:?}' but received token of kind '{:?}', at line {} position {}",
+                        token.kind, token.line, token.position
                     )
                     .into())
                 } else {
@@ -558,7 +576,7 @@ impl From<std::io::Error> for ParserError {
 impl From<String> for ParserError {
     fn from(value: String) -> Self {
         Self {
-            message: format!("{value}\n\n{}", Backtrace::capture()),
+            message: format!("{value}"),
         }
     }
 }

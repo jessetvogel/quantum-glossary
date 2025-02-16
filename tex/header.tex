@@ -7,6 +7,7 @@
 \usepackage{mathtools}
 \usepackage{tikz-cd}
 \usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{quantikz}
 \usepackage{enumitem}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, citecolor = [rgb]{0.153,0.255,0.545}, urlcolor = black, colorlinks = true, linkcolor = [rgb]{0.153,0.255,0.545}}
@@ -37,6 +38,9 @@
 \newcommand{\norm}[1]{\left\|#1\right\|}
 \renewcommand{\mod}{\textup{ mod }}
 \newcommand{\isom}{\cong}
+\renewcommand{\bra}[1]{\langle#1|}
+\renewcommand{\ket}[1]{|#1\rangle}
+\renewcommand{\braket}[2]{\langle#1\!\mid\!#2\rangle}
 
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\coker}{coker}
@@ -47,9 +51,8 @@
 \DeclareMathOperator{\iHom}{\underline{Hom}}
 \DeclareMathOperator*{\colim}{colim}
 
-\newcommand{\bra}[1]{\langle#1|}
-\newcommand{\ket}[1]{|#1\rangle}
-\newcommand{\braket}[2]{\langle#1\!\mid\!#2\rangle}
+% SVG hack
+\newcommand{\svg}{}
 
 % Renew commands
 \renewcommand{\labelitemi}{\tiny$\blacksquare$}
