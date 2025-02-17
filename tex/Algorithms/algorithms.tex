@@ -22,6 +22,34 @@
     \end{enumerate}
 \end{topic}
 
+\begin{topic}{simon-algorithm}{Simon's algorithm}
+    \emph{Simon's algorithm} is a quantum algorithm to solve the following problem:
+
+    \textbf{Problem}: Given $x = (x_0, \ldots, x_{N - 1})$ for some $N = 2^n$, where $x_i \in \{ 0, 1 \}^n$, with the property that there is some unknown non-zero $s \in \{ 0, 1 \}^n$ such that $x_i = x_j$ if and only if ($i = j$ or $i = j \oplus s$). Determine $s$.
+
+    Note that $x$, viewed as a function from $\{ 0, \ldots, N - 1 \}$ to $\{ 0, \ldots, N - 1 \}$ is a $2$-to-$1$ function, whose $2$-to-$1$-ness is encoded by the unknown \textit{mask} $s$.
+
+    \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} \ket{y} = \ket{i} \ket{y \oplus x_i}$ for all $i \in \{ 0, 1 \}^n$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Start in the $2n$-qubit state $\ket{0^n} \otimes \ket{0^n}$.
+        \item Apply Hadamard gates to the first $n$ qubits to obtain the state
+        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \ket{0^n} . \]
+        \item Apply the oracle $\mathcal{O}$ to obtain the state
+        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \ket{x_i} . \]
+        \item Measure the last $n$ qubits to obtain some value $x_i$. The state will now have collapsed to
+        \[ \frac{1}{\sqrt{2}} (\ket{i} + \ket{i \oplus s}) \ket{x_i} . \]
+        \item Apply Hadamard gates to the first $n$ qubits to obtain the state
+        \[ \begin{aligned}
+            \frac{1}{\sqrt{2^{n + 1}}} \left( \sum_{j \in \{ 0, 1 \}^n} (-1)^{i \cdot j} \ket{j} + \sum_{j \in \{ 0, 1 \}^n} (-1)^{(i \oplus s) \cdot j} \ket{j} \right) \\
+            = \frac{1}{\sqrt{2^{n + 1}}} \left( \sum_{j \in \{ 0, 1 \}^n} (-1)^{i \cdot j} (1 + (-1)^{s \cdot j}) \ket{j} \right) .
+        \end{aligned} \]
+        \item Measure the first $n$ qubits to obtain some value $j \in \{ 0, 1 \}^n$. Since $\ket{j}$ has non-zero amplitude if and only if $s \cdot j \equiv 0 \mod 2$, this measurement yields a random element uniformly distributed from the set $\{ j \in \{ 0, 1 \}^n \mid s \cdot j \equiv 0 \mod 2 \}$. Such an element corresponds to a linear equation that gives information about $s$.
+        \item Repeat the above until $n - 1$ linearly independent equations are obtained.
+        \item Solve for $s$.
+    \end{enumerate}
+    Simon's algorithm uses $O(n)$ calls to $\mathcal{O}$, and polynomially in $n$ many operations to solve for $s$.
+\end{topic}
+
 % \begin{topic}{shor-algorithm}{Shor's algorithm}
     
 % \end{topic}
