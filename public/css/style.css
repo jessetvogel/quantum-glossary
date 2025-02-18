@@ -47,7 +47,7 @@ body {
 
 body.dark {
     --font-family: "Palatino-Linotype", serif;
-    --clr-background-body: hsl(330, 30%, 7.8%);
+    --clr-background-body: hsl(334.3, 14.3%, 9.6%);
     --clr-text-main: rgba(255, 255, 255, 0.75);
     --clr-shadow: rgba(0, 0, 0, 0.12);
     --clr-autocomplete-topic-default: rgba(255, 255, 255, 0.6);
@@ -55,7 +55,7 @@ body.dark {
     --clr-category: #e2a32d;
     --clr-link: #35a5f0;
     --clr-loading-icon: rgba(255, 255, 255, 0.75);
-    --clr-background-input: hsl(329 20.5% 15%);
+    --clr-background-input: hsl(327.7, 16%, 15.9%);
     ;
     --clr-background-example: rgba(255, 255, 255, 0.05);
     --clr-background-highlight: rgba(255, 255, 255, 0.08);

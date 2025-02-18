@@ -22,6 +22,23 @@
     \end{enumerate}
 \end{topic}
 
+\begin{topic}{bernstein-vazirani-algorithm}{Bernstein--Vazirani algorithm}
+    The \emph{Bernstein--Vazirani algorithm} is a quantum algorithm to solve the following problem:
+    
+    \textbf{Problem}: Given $x \in \{ 0, 1 \}^N$ for some $N = 2^n$, such that $x_i = (i \cdot s) \mod 2$ for some unknown $s \in \{ 0, 1 \}^n$. The problem is to determine $s$.
+
+    \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Start with the $n$-qubit state $\ket{0^n}$.
+        \item Apply a Hadamard gate to each qubit to obtain the state
+        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n } \ket{i} . \]
+        \item Apply the oracle $\mathcal{O}$ to obtain the state
+        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} \ket{i} = \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{i \cdot s} \ket{i} . \]
+        \item Apply a Hadamard gate to each qubit to obtain the state $\ket{s}$.
+        \item Measure the qubits to find $s$.
+    \end{enumerate}
+\end{topic}
+
 \begin{topic}{simon-algorithm}{Simon's algorithm}
     \emph{Simon's algorithm} is a quantum algorithm to solve the following problem:
 
@@ -49,21 +66,6 @@
     \end{enumerate}
     Simon's algorithm uses $O(n)$ calls to $\mathcal{O}$, and polynomially in $n$ many operations to solve for $s$.
 \end{topic}
-
-\begin{topic}{quantum-fourier-transform}{Quantum Fourier transform}
-    For $N = 2^n$, the \emph{$N$-quantum Fourier transform} is the \tref{qubit}{$n$-qubit} gate given by the unitary operation
-    \[ F_N = \frac{1}{\sqrt{N}} \begin{pmatrix}
-        \omega_N^{0, 0} & \cdots & \omega_N^{0, N - 1} \\
-        \vdots & \ddots & \vdots \\
-        \omega_N^{N - 1, 0} & \cdots & \omega_N^{N - 1, N - 1}
-    \end{pmatrix} \]
-    with $\omega_N^{j, k} = \exp(2 \pi i j k / N)$ for all $0 \le j, k \le N - 1$.
-\end{topic}
-
-\begin{example}{quantum-fourier-transform}
-    For $N = 2$, the quantum Fourier transform reduces to the \tref{hadamard-gate}{Hadamard gate}
-    \[ F_N = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} = H . \]
-\end{example}
 
 \begin{topic}{kitaev-phase-estimation-algorithm}{Kitaev's phase estimation algorithm}
     Given a unitary $U$ and eigenvector $\ket{\psi}$ whose eigenvalue is $\lambda = \exp(2 \pi i \phi)$ for some $\phi \in [0, 1)$, \emph{Kitaev's phase estimation algorithm} is a quantum algorithm to compute $\phi$, given $U$ and $\ket{\psi}$.

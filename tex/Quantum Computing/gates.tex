@@ -4,24 +4,88 @@
         H \ket{0} &= \frac{1}{\sqrt{2}} (\ket{0} + \ket{1}) \\
         H \ket{1} &= \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) .
     \end{aligned} \]
+    In quantum circuits, the Hadamard gate is usually depicted as follows:
+    \[ \svg \begin{quantikz}
+        \qw & \gate{H} & \qw
+    \end{quantikz} \]
 \end{topic}
 
 \begin{topic}{cnot-gate}{CNOT gate}
-    The \emph{CNOT gate} is the \tref{qubit}{$2$-qubit} gate given by
-    \[ \begin{aligned}
-        \textup{CNOT} \ket{0} \ket{b} &= \ket{0} \ket{b} \\
-        \textup{CNOT} \ket{1} \ket{b} &= \ket{1} \ket{1 - b}
-    \end{aligned} \]
-    for $b \in \{ 0, 1 \}$.
+    The \emph{CNOT gate}, also known as the \emph{controlled NOT gate}, is the \tref{qubit}{$2$-qubit} gate given by
+    \[ \textup{CNOT} (\ket{b_1} \otimes \ket{b_2}) = \ket{b_1} \otimes \ket{b_1 \oplus b_2} \]
+    for $b_1, b_2 \in \{ 0, 1 \}$. In quantum circuits, the CNOT gate is usually depicted as follows:
+    \[ \svg \begin{quantikz}
+        \qw & \ctrl{1} & \qw \\
+        \qw & \targ{} & \qw
+    \end{quantikz} \]
 \end{topic}
 
 \begin{topic}{toffoli-gate}{Toffoli gate}
-    The \emph{Toffoli gate}, also known as the \emph{CCNOT gate}, is the \tref{qubit}{$3$-qubit} gate $T$ given by
+    The \emph{Toffoli gate}, also known as the \emph{CCNOT gate}, is the \tref{qubit}{$3$-qubit} gate given by
     \[ \begin{aligned}
-        \textup{CCNOT} \ket{00} \ket{b} &= \ket{00} \ket{b} \\
-        \textup{CCNOT} \ket{01} \ket{b} &= \ket{01} \ket{b} \\
-        \textup{CCNOT} \ket{10} \ket{b} &= \ket{10} \ket{b} \\
-        \textup{CCNOT} \ket{11} \ket{b} &= \ket{11} \ket{1 - b}
+        \textup{CCNOT} (\ket{00} \otimes \ket{b}) &= \ket{00} \otimes \ket{b} \\
+        \textup{CCNOT} (\ket{01} \otimes \ket{b}) &= \ket{01} \otimes \ket{b} \\
+        \textup{CCNOT} (\ket{10} \otimes \ket{b}) &= \ket{10} \otimes \ket{b} \\
+        \textup{CCNOT} (\ket{11} \otimes \ket{b}) &= \ket{11} \otimes \ket{1 - b}
     \end{aligned} \]
-    for $b \in \{ 0, 1 \}$.
+    for $b \in \{ 0, 1 \}$. In quantum circuits, the Toffoli gate is usually depicted as follows:
+    \[ \svg \begin{quantikz}
+        \qw & \ctrl{2} & \qw \\
+        \qw & \ctrl{1} & \qw \\
+        \qw & \targ{} & \qw
+    \end{quantikz} \]
+\end{topic}
+
+\begin{topic}{quantum-fourier-transform}{Quantum Fourier transform}
+    For $N = 2^n$, the \emph{$N$-quantum Fourier transform} is the \tref{qubit}{$n$-qubit} gate given by the unitary operation
+    \[ F_N = \frac{1}{\sqrt{N}} \begin{pmatrix}
+        \omega_N^{0, 0} & \cdots & \omega_N^{0, N - 1} \\
+        \vdots & \ddots & \vdots \\
+        \omega_N^{N - 1, 0} & \cdots & \omega_N^{N - 1, N - 1}
+    \end{pmatrix} \]
+    with $\omega_N^{j, k} = \exp(2 \pi i j k / N)$ for all $0 \le j, k \le N - 1$.
+\end{topic}
+
+\begin{example}{quantum-fourier-transform}
+    For $N = 2$, the quantum Fourier transform reduces to the \tref{hadamard-gate}{Hadamard gate}
+    \[ F_N = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} = H . \]
+\end{example}
+
+\begin{topic}{fredkin-gate}{Fredkin gate}
+    The \emph{Fredkin gate}, also known as the \emph{controlled swap gate}, is a \tref{qubit}{$3$-qubit} gate given by
+    \[ \begin{aligned}
+        F \ket{0} \otimes \ket{b_1 b_2} &= \ket{0} \otimes \ket{b_1 b_2} \\
+        F \ket{1} \otimes \ket{b_1 b_2} &= \ket{1} \otimes \ket{b_2 b_1}
+    \end{aligned} \]
+    for $b_1, b_2 \in \{ 0, 1 \}$. In quantum circuits, the Fredkin gate is usually depicted as follows:
+    \[ \svg \begin{quantikz}
+        \qw & \ctrl{2} & \qw \\
+        \qw & \swap{1} & \qw \\
+        \qw & \targX{} & \qw
+    \end{quantikz} \]
+\end{topic}
+
+\begin{topic}{pauli-gates}{Pauli gates}
+    The \emph{Pauli $X$-, $Y$- and $Z$-gate} are three \tref{qubit}{$1$-qubit} gates that act via the Pauli matrices, that is,
+    \[ X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad Y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \quad Z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} \]
+    with respect to the standard basis given by $\ket{0}$ and $\ket{1}$. In quantum circuits, the Pauli gates are usually depicted as follows:
+    \[ \svg \begin{quantikz} \qw & \gate{X} & \qw \end{quantikz} \begin{quantikz} \qw & \gate{Y} & \qw \end{quantikz} \begin{quantikz} \qw & \gate{Z} & \qw \end{quantikz} \]
+\end{topic}
+
+\begin{topic}{phase-shift-gates}{phase shift gates}
+    A \emph{phase shift gate} is a \tref{qubit}{$1$-qubit} gate of the form
+    \[ P(\phi) = \begin{pmatrix} 1 & 0 \\ 0 & e^{i \phi} \end{pmatrix} \]
+    for some $\phi \in [0, 2 \pi]$, with respect to the standard basis given by $\ket{0}$ and $\ket{1}$.
+
+    In particular, $S = P(\pi/2)$ is known as the \emph{$S$-gate} and $T = P(\pi/4)$ is known as the \emph{$T$-gate}.
+\end{topic}
+
+\begin{topic}{rotation-operator-gates}{Rotation operator gates}
+    The \emph{rotation operator gates} are the three families of \tref{qubit}{$1$-qubit} gates given by
+    \[ \begin{aligned}
+        R_X(\theta) &= \exp(-i X \theta / 2) =  \begin{pmatrix} \cos(\theta) / 2 & - i \sin(\theta / 2) \\ - i \sin(\theta / 2) & \cos(\theta) \end{pmatrix} \\[15pt]
+        R_Y(\theta) &= \exp(-i Y \theta / 2) =  \begin{pmatrix} \cos(\theta) / 2 & - \sin(\theta / 2) \\ \sin(\theta / 2) & \cos(\theta) \end{pmatrix} \\[15pt]
+        R_Z(\theta) &= \exp(-i Z \theta / 2) =  \begin{pmatrix} \exp(-i \theta / 2) & 0 \\ 0 & \exp(i \theta / 2) \end{pmatrix}
+    \end{aligned} \]
+    where $\theta \in [0, 4\pi]$, with respect to the standard basis given by $\ket{0}$ and $\ket{1}$.
 \end{topic}
