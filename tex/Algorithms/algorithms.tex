@@ -50,6 +50,21 @@
     Simon's algorithm uses $O(n)$ calls to $\mathcal{O}$, and polynomially in $n$ many operations to solve for $s$.
 \end{topic}
 
+\begin{topic}{quantum-fourier-transform}{Quantum Fourier transform}
+    For $N = 2^n$, the \emph{$N$-quantum Fourier transform} is the \tref{qubit}{$n$-qubit} gate given by the unitary operation
+    \[ F_N = \frac{1}{\sqrt{N}} \begin{pmatrix}
+        \omega_N^{0, 0} & \cdots & \omega_N^{0, N - 1} \\
+        \vdots & \ddots & \vdots \\
+        \omega_N^{N - 1, 0} & \cdots & \omega_N^{N - 1, N - 1}
+    \end{pmatrix} \]
+    with $\omega_N^{j, k} = \exp(2 \pi i j k / N)$ for all $0 \le j, k \le N - 1$.
+\end{topic}
+
+\begin{example}{quantum-fourier-transform}
+    For $N = 2$, the quantum Fourier transform reduces to the \tref{hadamard-gate}{Hadamard gate}
+    \[ F_N = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} = H . \]
+\end{example}
+
 % \begin{topic}{shor-algorithm}{Shor's algorithm}
     
 % \end{topic}
