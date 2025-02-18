@@ -5,7 +5,7 @@
     
     \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
     \begin{enumerate}[label=(\arabic*)]
-        \item Start in the $n$-qubit state $\ket{0^n}$.
+        \item Start with the $n$-qubit state $\ket{0^n}$.
         \item Apply a Hadamard gate to each qubit to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n } \ket{i} . \]
         \item Apply the oracle $\mathcal{O}$ to obtain the state
@@ -31,7 +31,7 @@
 
     \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} \ket{y} = \ket{i} \ket{y \oplus x_i}$ for all $i \in \{ 0, 1 \}^n$.
     \begin{enumerate}[label=(\arabic*)]
-        \item Start in the $2n$-qubit state $\ket{0^n} \otimes \ket{0^n}$.
+        \item Start with the $2n$-qubit state $\ket{0^n} \otimes \ket{0^n}$.
         \item Apply Hadamard gates to the first $n$ qubits to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \ket{0^n} . \]
         \item Apply the oracle $\mathcal{O}$ to obtain the state
@@ -51,7 +51,7 @@
 \end{topic}
 
 \begin{topic}{quantum-fourier-transform}{Quantum Fourier transform}
-    For $N = 2^n$, the \emph{$N$-quantum Fourier transform} is the \tref{qubit}{$n$-qubit} gate given by the unitary operation
+    For $N = 2^n$, the \emph{$N$-quantum Fourier transform} is the \tref{GEN:qubit}{$n$-qubit} gate given by the unitary operation
     \[ F_N = \frac{1}{\sqrt{N}} \begin{pmatrix}
         \omega_N^{0, 0} & \cdots & \omega_N^{0, N - 1} \\
         \vdots & \ddots & \vdots \\
@@ -64,6 +64,24 @@
     For $N = 2$, the quantum Fourier transform reduces to the \tref{hadamard-gate}{Hadamard gate}
     \[ F_N = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} = H . \]
 \end{example}
+
+\begin{topic}{kitaev-phase-estimation-algorithm}{Kitaev's phase estimation algorithm}
+    Given a unitary $U$ and eigenvector $\ket{\psi}$ whose eigenvalue is $\lambda = \exp(2 \pi i \phi)$ for some $\phi \in [0, 1)$, \emph{Kitaev's phase estimation algorithm} is a quantum algorithm to compute $\phi$, given $U$ and $\ket{\psi}$.
+
+    \textbf{Algorithm}: For simplicity, assume that $\phi$ can be expressed with $n$ bits of precision, that is, $\phi = \phi_1 / 2 + \phi_2 / 4 + \ldots + \phi_i / 2^n$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Start with the $2n$-qubit state $\ket{0^n} \otimes \ket{\psi}$.
+        \item For $N = 2^n$, apply the \tref{quantum-fourier-transform}{quantum Fourier transform} $F_N$ to the first $n$ qubits to obtain the state
+        \[ \frac{1}{\sqrt{N}} \sum_{j = 0}^{N - 1} \ket{j} \otimes \ket{\psi} . \]
+        (Alternatively, applying the $n$-fold \tref{hadamard-gate}{Hadamard gate} $H^{\otimes n}$ has the same effect.)
+        \item Apply the operation $\ket{j} \otimes \ket{\psi} \mapsto \ket{j} \otimes U^j \ket{\psi} = \exp(2 \pi i \phi j) \ket{j} \otimes \ket{\psi}$. This can be implemented, for instance, using controlled $U$ gates. This yields the state
+        \[ \frac{1}{\sqrt{N}} \sum_{j = 0}^{N - 1} \exp(2 \pi i \phi j) \ket{j} \otimes \ket{\psi} . \]
+        \item Apply the inverse quantum Fourier transform $F_N^{-1}$ to the first $n$ qubits to obtain the state
+        \[ \ket{\phi_1 \phi_2 \cdots \phi_n} \otimes \ket{\psi} . \]
+        \item Measure first $n$ qubits to obtain $\phi$.
+    \end{enumerate}
+\end{topic}
+
 
 % \begin{topic}{shor-algorithm}{Shor's algorithm}
     
