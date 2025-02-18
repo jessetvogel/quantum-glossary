@@ -33,11 +33,11 @@
     \begin{enumerate}[label=(\arabic*)]
         \item Start with the $2n$-qubit state $\ket{0^n} \otimes \ket{0^n}$.
         \item Apply Hadamard gates to the first $n$ qubits to obtain the state
-        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \ket{0^n} . \]
+        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \otimes \ket{0^n} . \]
         \item Apply the oracle $\mathcal{O}$ to obtain the state
-        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \ket{x_i} . \]
+        \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \otimes \ket{x_i} . \]
         \item Measure the last $n$ qubits to obtain some value $x_i$. The state will now have collapsed to
-        \[ \frac{1}{\sqrt{2}} (\ket{i} + \ket{i \oplus s}) \ket{x_i} . \]
+        \[ \frac{1}{\sqrt{2}} (\ket{i} + \ket{i \oplus s}) \otimes \ket{x_i} . \]
         \item Apply Hadamard gates to the first $n$ qubits to obtain the state
         \[ \begin{aligned}
             \frac{1}{\sqrt{2^{n + 1}}} \left( \sum_{j \in \{ 0, 1 \}^n} (-1)^{i \cdot j} \ket{j} + \sum_{j \in \{ 0, 1 \}^n} (-1)^{(i \oplus s) \cdot j} \ket{j} \right) \\
@@ -51,7 +51,7 @@
 \end{topic}
 
 \begin{topic}{quantum-fourier-transform}{Quantum Fourier transform}
-    For $N = 2^n$, the \emph{$N$-quantum Fourier transform} is the \tref{GEN:qubit}{$n$-qubit} gate given by the unitary operation
+    For $N = 2^n$, the \emph{$N$-quantum Fourier transform} is the \tref{qubit}{$n$-qubit} gate given by the unitary operation
     \[ F_N = \frac{1}{\sqrt{N}} \begin{pmatrix}
         \omega_N^{0, 0} & \cdots & \omega_N^{0, N - 1} \\
         \vdots & \ddots & \vdots \\
@@ -81,7 +81,6 @@
         \item Measure first $n$ qubits to obtain $\phi$.
     \end{enumerate}
 \end{topic}
-
 
 % \begin{topic}{shor-algorithm}{Shor's algorithm}
     

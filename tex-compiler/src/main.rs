@@ -15,7 +15,7 @@ const SOURCE_DIRECTORY: &str = "../tex";
 const TARGET_DIRECTORY: &str = "../public/data";
 const TOPICS_JS: &str = "../public/data/topics.js";
 const EXAMPLES_JS: &str = "../public/data/examples.js";
-const CATEGORIES: &[(&str, &str)] = &[("ALG", "Algorithms"), ("GEN", "General")];
+const CATEGORIES: &[(&str, &str)] = &[("COM", "Quantum Computing"), ("GEN", "General")];
 
 fn main() {
     // Step 0: Make sure TARGET_DIRECTORY exists, and `topics`, `examples`, `svg` subdirectories
@@ -85,7 +85,7 @@ fn main() {
         Ok(()) => {}
         Err(err) => {
             println!(
-                "{}: Failed to write to {} ({err})",
+                "{}: Failed to write to '{}' ({err})",
                 "Error".red(),
                 TOPICS_JS
             );
@@ -98,7 +98,7 @@ fn main() {
         Ok(()) => {}
         Err(err) => {
             println!(
-                "{}: Failed to write to {} ({err})",
+                "{}: Failed to write to '{}' ({err})",
                 "Error".red(),
                 TOPICS_JS
             );
@@ -114,7 +114,18 @@ fn find_tex_files() -> Vec<(&'static str, PathBuf)> {
     let mut tex_files = Vec::new();
     for &(prefix, category) in CATEGORIES {
         let path = format!("{SOURCE_DIRECTORY}/{category}");
-        for entry in fs::read_dir(path).unwrap() {
+        let entries = match fs::read_dir(&path) {
+            Ok(entries) => entries,
+            Err(err) => {
+                println!(
+                    "{}: Failed to read directory '{}' ({err})",
+                    "Error".red(),
+                    path,
+                );
+                std::process::exit(1);
+            }
+        };
+        for entry in entries {
             let entry = entry.unwrap();
             if entry.file_type().unwrap().is_file()
                 && entry

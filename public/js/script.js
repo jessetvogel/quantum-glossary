@@ -183,7 +183,7 @@ function capitalize(str) {
     return str.substring(0, i) + str[i].toUpperCase() + str.substring(i + 1);
 }
 const categories = {
-    "ALG": "Algorithms",
+    "COM": "Quantum Computing",
     "GEN": "General",
 };
 const KaTeXOptions = {
