@@ -57,3 +57,20 @@
         If such an operation $U$ would exist, it would not be linear in $\ket{\psi}$, and hence would not be unitary.
     \end{proof}
 \end{example}
+
+\begin{topic}{uncertainty-principle}{uncertainty principle}
+    Let $A$ and $B$ be two observables on a Hilbert space $\mathcal{H}$. For any state $\ket{\psi} \in \mathcal{H}$, denote by
+    \[ \begin{aligned}
+        \sigma_A^2 &= \bra{\psi} (A - \bra{\psi} A \ket{\psi})^2 \ket{\psi} = \bra{\psi} A^2 \ket{\psi} - \bra{\psi} A \ket{\psi}^2 \\
+        \sigma_B^2 &= \bra{\psi} (B - \bra{\psi} B \ket{\psi})^2 \ket{\psi} = \bra{\psi} B^2 \ket{\psi} - \bra{\psi} B \ket{\psi}^2
+    \end{aligned} \]
+    the \textit{variance} of $A$ and $B$. The \emph{uncertainty principle} states that
+    \[ \sigma_A^2 \sigma_B^2 \ge \left(\frac{1}{2 i} [A, B] \right)^2 \]
+    for all states $\ket{\psi} \in \mathcal{H}$, where $[A, B] = AB - BA$ denotes the commutator of $A$ of $B$.
+\end{topic}
+
+\begin{example}{uncertainty-principle}
+    For $A = x$ and $B = p = - i \hbar \tfrac{\partial}{\partial x}$ the position and momentum operators of a particle, the uncertainty principle reduces to the \textit{Heisenberg uncertainty principle}
+    \[ \sigma_x^2 \sigma_p^2 \ge \left(\frac{1}{2 i} [x, p] \right)^2 = \frac{\hbar^2}{4} \]
+    since $[x, p] = i \hbar$.
+\end{example}

@@ -6,7 +6,7 @@
     \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
     \begin{enumerate}[label=(\arabic*)]
         \item Start with the $n$-qubit state $\ket{0^n}$.
-        \item Apply a Hadamard gate to each qubit to obtain the state
+        \item Apply a \tref{hadamard-gate}{Hadamard gate} to each qubit to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n } \ket{i} . \]
         \item Apply the oracle $\mathcal{O}$ to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} \ket{i} . \]
@@ -30,7 +30,7 @@
     \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
     \begin{enumerate}[label=(\arabic*)]
         \item Start with the $n$-qubit state $\ket{0^n}$.
-        \item Apply a Hadamard gate to each qubit to obtain the state
+        \item Apply a \tref{hadamard-gate}{Hadamard gate} to each qubit to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n } \ket{i} . \]
         \item Apply the oracle $\mathcal{O}$ to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} \ket{i} = \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{i \cdot s} \ket{i} . \]
@@ -49,7 +49,7 @@
     \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} \ket{y} = \ket{i} \ket{y \oplus x_i}$ for all $i \in \{ 0, 1 \}^n$.
     \begin{enumerate}[label=(\arabic*)]
         \item Start with the $2n$-qubit state $\ket{0^n} \otimes \ket{0^n}$.
-        \item Apply Hadamard gates to the first $n$ qubits to obtain the state
+        \item Apply \tref{hadamard-gate}{Hadamard gates} to the first $n$ qubits to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \otimes \ket{0^n} . \]
         \item Apply the oracle $\mathcal{O}$ to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \otimes \ket{x_i} . \]
