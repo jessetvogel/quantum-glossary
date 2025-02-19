@@ -3,12 +3,12 @@
     
     \textbf{Problem}: Given $x \in \{ 0, 1 \}^N$ for some $N = 2^n$, such that either all $x_i$ are equal (in this case, $x$ is called `constant'), or $N / 2$ of the $x_i$ are $0$ and $N / 2$ are $1$ (in this case, $x$ is called `balanced'). Determine whether $x$ is constant or balanced.
     
-    \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
+    \textbf{Algorithm}: Denote by $\mathcal{O}$ the query which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
     \begin{enumerate}[label=(\arabic*)]
         \item Start with the $n$-qubit state $\ket{0^n}$.
         \item Apply a \tref{hadamard-gate}{Hadamard gate} to each qubit to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n } \ket{i} . \]
-        \item Apply the oracle $\mathcal{O}$ to obtain the state
+        \item Apply the query $\mathcal{O}$ to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} \ket{i} . \]
         \item Apply a Hadamard gate to each qubit to obtain the state
         \[ \frac{1}{2^n} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} \sum_{j \in \{ 0, 1 \}^n} (-1)^{i \cdot j} \ket{j} . \]
@@ -27,12 +27,12 @@
     
     \textbf{Problem}: Given $x \in \{ 0, 1 \}^N$ for some $N = 2^n$, such that $x_i = (i \cdot s) \mod 2$ for some unknown $s \in \{ 0, 1 \}^n$. The problem is to determine $s$.
 
-    \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
+    \textbf{Algorithm}: Denote by $\mathcal{O}$ the query which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$.
     \begin{enumerate}[label=(\arabic*)]
         \item Start with the $n$-qubit state $\ket{0^n}$.
         \item Apply a \tref{hadamard-gate}{Hadamard gate} to each qubit to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n } \ket{i} . \]
-        \item Apply the oracle $\mathcal{O}$ to obtain the state
+        \item Apply the query $\mathcal{O}$ to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{x_i} \ket{i} = \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} (-1)^{i \cdot s} \ket{i} . \]
         \item Apply a Hadamard gate to each qubit to obtain the state $\ket{s}$.
         \item Measure the qubits to find $s$.
@@ -46,12 +46,12 @@
 
     Note that $x$, viewed as a function from $\{ 0, \ldots, N - 1 \}$ to $\{ 0, \ldots, N - 1 \}$ is a $2$-to-$1$ function, whose $2$-to-$1$-ness is encoded by the unknown \textit{mask} $s$.
 
-    \textbf{Algorithm}: Denote by $\mathcal{O}$ the oracle which acts as $\mathcal{O} \ket{i} \ket{y} = \ket{i} \ket{y \oplus x_i}$ for all $i \in \{ 0, 1 \}^n$.
+    \textbf{Algorithm}: Denote by $\mathcal{O}$ the query which acts as $\mathcal{O} \ket{i} \ket{y} = \ket{i} \ket{y \oplus x_i}$ for all $i \in \{ 0, 1 \}^n$.
     \begin{enumerate}[label=(\arabic*)]
         \item Start with the $2n$-qubit state $\ket{0^n} \otimes \ket{0^n}$.
         \item Apply \tref{hadamard-gate}{Hadamard gates} to the first $n$ qubits to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \otimes \ket{0^n} . \]
-        \item Apply the oracle $\mathcal{O}$ to obtain the state
+        \item Apply the query $\mathcal{O}$ to obtain the state
         \[ \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n} \ket{i} \otimes \ket{x_i} . \]
         \item Measure the last $n$ qubits to obtain some value $x_i$. The state will now have collapsed to
         \[ \frac{1}{\sqrt{2}} (\ket{i} + \ket{i \oplus s}) \otimes \ket{x_i} . \]
@@ -87,3 +87,30 @@
 % \begin{topic}{shor-algorithm}{Shor's algorithm}
     
 % \end{topic}
+
+\begin{topic}{grover-search-algorithm}{Grover's search algorithm}
+    \emph{Grover's search algorithm} is a quantum algorithm to solve the following problem:
+
+    \textbf{Problem}: Given $x \in \{ 0, 1 \}^N$ for some $N = 2^n$, find some $i \in \{ 0, 1 \}^n$ such that $x_i = 1$.
+
+    \textbf{Algorithm}: Denote by $\mathcal{O}$ the query which acts as $\mathcal{O} \ket{i} = (-1)^{x_i} \ket{i}$ for all $i \in \{ 0, 1 \}^n$. Denote by $R$ the unitary operation given by $R \ket{0^n} = \ket{0^n}$ and $R \ket{i} = - \ket{i}$ for $i \ne 0^n$. Define the \textit{Grover iterate} to be the operation $\mathcal{G} = H^{\otimes n} R H^{\otimes n} \mathcal{O}$, where $H$ is the \tref{hadamard-gate}{Hadamard gate}.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Start with the $n$-qubit state $\ket{0^n}$.
+        \item Apply a Hadamard gate to each qubit to obtain the uniform state
+        \[ \ket{U} = \frac{1}{\sqrt{2^n}} \sum_{i \in \{ 0, 1 \}^n } \ket{i} . \]
+        \item Write $\ket{U} = \sin(\theta_0) \ket{G} + \cos(\theta_0) \ket{B}$ for $\theta_0 = \arcsin(\sqrt{t / N})$ and
+        \[ \ket{G} = \frac{1}{\sqrt{t}} \sum_{i \mid x_i = 1} \ket{i}, \quad \ket{B} = \frac{1}{\sqrt{N - t}} \sum_{i \mid x_i = 0} \ket{i} , \]
+        where $t$ is the number of $x_i$ equal to $1$.
+        \item Observe that the Grover iterate $\mathcal{G}$ is the composite of $\mathcal{O}$ and $H^{\otimes n} R H^{\otimes n} = 2 \ket{U} \bra{U} - I$. In the $2$-dimensional plane spanned by $\ket{G}$ and $\ket{B}$, this corresponds to a reflection through $\ket{B}$ followed by a reflection through $\ket{U}$. Therefore,
+        \[ \mathcal{G}^k \ket{U} = \sin(\theta_k) \ket{G} + \cos(\theta_k) \ket{B} \quad \textup{ with } \theta_k = (2k + 1) \theta_0 \]
+        for any $k \ge 0$.
+        \item Choose $k$ such that applying $k$ Grover iterates maximizes the probability to measure some $i$ with $x_i = 1$. Explicitly, this probability is $P_k = \sin((2k + 1) \theta_0)^2$, so choose $k$ to be the integer closest to $\tilde{k} = \tfrac{\pi}{4} \theta_0 - \tfrac{1}{2}$.
+        \item Apply $k$ Grover iterates and measure the qubits to obtain some $i$. The failure probability is
+        \[ \begin{aligned}
+            1 - P_k
+                &= \cos((2k + 1) \theta_0)^2 = \cos((2 \tilde{k} + 1) \theta_0 + 2 (k - \tilde{k}) \theta_0)^2 \\
+                &= \cos(\pi/2 + 2 (k - \tilde{k}) \theta_0)^2 = \sin(2(k - \tilde{k}) \theta_0)^2 \le \sin(\theta_0)^2 = \frac{t}{N} .
+        \end{aligned} \]
+    \end{enumerate}
+    Since $\arcsin(\theta_0) \ge \theta_0$, the number of Grover iterates is $k \le \tfrac{\pi}{4} \theta_0 \le \tfrac{\pi}{4} \sqrt{N/t}$. When $t$ is unknown, the above algorithm is run for different guesses of $k$. The expected number of queries to use is $O(\sqrt{N / t})$.
+\end{topic}
