@@ -80,8 +80,8 @@
         \[ \frac{1}{\sqrt{N}} \sum_{j = 0}^{N - 1} \exp(2 \pi i \phi j) \ket{j} \otimes \ket{\psi} . \]
         \item Apply the inverse quantum Fourier transform $F_N^{-1}$ to the first $n$ qubits to obtain the state
         \[ \ket{\phi_1 \phi_2 \cdots \phi_n} \otimes \ket{\psi} . \]
-        \item Measure first $n$ qubits to obtain $\phi$.
     \end{enumerate}
+    The value of $\phi$ can now be obtained by measuring the first $n$ qubits.
 \end{topic}
 
 % \begin{topic}{shor-algorithm}{Shor's algorithm}
@@ -114,3 +114,30 @@
     \end{enumerate}
     Since $\arcsin(\theta_0) \ge \theta_0$, the number of Grover iterates is $k \le \tfrac{\pi}{4} \theta_0 \le \tfrac{\pi}{4} \sqrt{N/t}$. When $t$ is unknown, the above algorithm is run for different guesses of $k$. The expected number of queries to use is $O(\sqrt{N / t})$.
 \end{topic}
+
+\begin{topic}{hhl-algorithm}{Harrow--Hassidim--Lloyd (HHL) algorithm}
+    The \emph{Harrow--Hassidim--Lloyd (HHL) algorithm} is a quantum algorithm to solve the following problem:
+
+    \textbf{Problem}: Given an $N \times N$ Hermitian matrix $A$ and an $N$-dimensional unit vector $b$, for some $N = 2^n$, find an $n$-qubit state $\ket{x} = \frac{1}{\norm{x}} \sum_{i = 0}^{N - 1} x_i \ket{i}$ such that $Ax = b$.
+
+    \textbf{Algorithm}: As $A$ is Hermitian, it can be decomposed as $A = \sum_{j = 0}^{N - 1} \lambda_j v_j v_j^T$ for orthonormal eigenvectors $v_j$ with corresponding eigenvalues $\lambda_j$. Assume $A$ is \textit{well-conditioned}: the ratio $|\lambda_\textup{max} / \lambda_\textup{min}|$ between the largest and smallest eigenvalue of $A$ (in absolute value) is at most some $\kappa$ (the smaller $\kappa$ is, the better the algorithm performs). Moreover, assume $|\lambda_\textup{min}| \ge 1 / \kappa$ and $|\lambda_\textup{max}| \le 1$. Decompose $b$ with respect to the eigenvectors $v_j$ as $b = \sum_{j = 0}^{N - 1} \beta_j v_j$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Choose $\ell \ge 1$ large enough for sufficient precision.
+        \item Prepare the $(n + \ell + 1)$-qubit state $\ket{b} \otimes \ket{0^\ell} \otimes \ket{0}$.
+        \item Apply \tref{kitaev-phase-estimation-algorithm}{Kitaev's phase estimation algorithm}, using Hamiltonian simulation to implement the unitary $U = \exp(i A)$ and powers of $U$, on the first $n + \ell$ qubits to estimate the eigenvalues $\lambda_j$, obtaining the state
+        \[ \sum_{j = 0}^{N - 1} \beta_j \ket{v_j} \otimes \ket{\tilde{\lambda}_j} \otimes \ket{0} , \]
+        where $\tilde{\lambda}_j$ is an $\ell$-bit approximation of $\lambda_j$.
+        \item Rotate the last qubit conditioned on the middle $\ell$ qubits (that is, conditioned on $\lambda_j$) to obtain
+        \[ \sum_{j = 0}^{N - 1} \beta_j \ket{v_j} \otimes \ket{\tilde{\lambda}_j} \otimes \left( \tfrac{1}{\kappa \lambda_i} \ket{0} + \sqrt{1 - \tfrac{1}{(\kappa \lambda_i)^2}} \ket{1} \right) . \]
+        \item Apply the phase estimation algorithm in reverse to revert the middle $\ell$ qubits to the state $\ket{0^\ell}$. Now, disregard the middle $\ell$ qubits, obtaining the state
+        \[ \sum_{j = 0}^{N - 1} \beta_j \ket{v_j} \otimes \left( \tfrac{1}{\kappa \lambda_i} \ket{0} + \sqrt{1 - \tfrac{1}{(\kappa \lambda_i)^2}} \ket{1} \right) = \frac{1}{\kappa} \underbrace{\sum_{j = 0}^{N - 1} \beta_j \lambda_j^{-1} \ket{v_j}}_{\propto \ket{x}} \otimes \ket{0} + \ket{\phi} \otimes \ket{1} \]
+        for some (unnormalized) state $\ket{\phi}$.
+        \item Since $\sum_{j = 0}^{N - 1} |\beta_j / \lambda_j|^2 \ge \sum_{j = 0}^{N - 1} |\beta_j|^2 = 1$, the norm of the part of the state ending in qubit $\ket{0}$ is at least $1 / \kappa$. Hence, applying $O(\kappa)$ rounds of amplitude amplification to have amplitude essentially one.
+        \item Measure (with high probability) the last qubit to be $0$. The first $n$ qubits will be in a state close to $\ket{x}$.
+    \end{enumerate}
+\end{topic}
+
+% \begin{example}{hhl-algorithm}
+%     Actually $A$ need not be Hermitian:
+%     Without loss of generality, assume $A$ is Hermitian: otherwise, replace $A$ by $2N \times 2N$ Hermitian matrix $\left( \begin{smallmatrix} 0 & A \\ A^\dag & 0 \end{smallmatrix} \right)$, and $b$ by $\left( \begin{smallmatrix} b \\ 0 \end{smallmatrix} \right)$. (TODO: correct?)
+% \end{example}
