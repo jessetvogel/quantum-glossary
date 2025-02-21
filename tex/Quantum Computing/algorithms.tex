@@ -115,6 +115,11 @@
     Since $\arcsin(\theta_0) \ge \theta_0$, the number of Grover iterates is $k \le \tfrac{\pi}{4} \theta_0 \le \tfrac{\pi}{4} \sqrt{N/t}$. When $t$ is unknown, the above algorithm is run for different guesses of $k$. The expected number of queries to use is $O(\sqrt{N / t})$.
 \end{topic}
 
+\begin{example}{grover-search-algorithm}
+    Grover's search algorithm can be used to speed up the \textit{satisfiability problem}: Given a boolean formula $\phi(b_1, \ldots, b_n)$, find some $i \in \{ 0, 1\}^n$ such that $\phi(i) = 1$. The query $\mathcal{O}$ corresponding to $x_i = \phi(i)$ can be implemented as a unitary operation (for instance using \tref{toffoli-gate}{Toffoli gates})
+    \[ \mathcal{O} \colon \ket{i} \mapsto (-1)^{\phi(i)} \ket{i} . \]
+\end{example}
+
 \begin{topic}{hhl-algorithm}{Harrow--Hassidim--Lloyd (HHL) algorithm}
     The \emph{Harrow--Hassidim--Lloyd (HHL) algorithm} is a quantum algorithm to solve the following problem:
 
