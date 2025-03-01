@@ -185,6 +185,7 @@ function capitalize(str) {
 const categories = {
     "COM": "Quantum Computing",
     "GEN": "General",
+    "PAR": "Particle Physics",
 };
 const KaTeXOptions = {
     macros: {
@@ -216,7 +217,11 @@ const KaTeXOptions = {
         "\\iHom": "\\underline{\\Hom}",
         "\\bra": "\\langle #1 |",
         "\\ket": "| #1 \\rangle",
-        "\\braket": "\\langle #1 \\! \\mid \\! #2 \\rangle"
+        "\\braket": "\\langle #1 \\! \\mid \\! #2 \\rangle",
+        "\\U": "\\textup{U}",
+        "\\SU": "\\textup{SU}",
+        "\\O": "\\textup{O}",
+        "\\SO": "\\textup{SO}",
     }
 };
 document.addEventListener('DOMContentLoaded', function () {

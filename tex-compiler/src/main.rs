@@ -15,7 +15,11 @@ const SOURCE_DIRECTORY: &str = "../tex";
 const TARGET_DIRECTORY: &str = "../public/data";
 const TOPICS_JS: &str = "../public/data/topics.js";
 const EXAMPLES_JS: &str = "../public/data/examples.js";
-const CATEGORIES: &[(&str, &str)] = &[("COM", "Quantum Computing"), ("GEN", "General")];
+const CATEGORIES: &[(&str, &str)] = &[
+    ("COM", "Quantum Computing"),
+    ("GEN", "General"),
+    ("PAR", "Particle Physics"),
+];
 
 fn main() {
     // Step 0: Make sure TARGET_DIRECTORY exists, and `topics`, `examples`, `svg` subdirectories

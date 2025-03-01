@@ -1,0 +1,251 @@
+\begin{topic}{fermion}{fermion}
+    A \emph{fermion} is a particle with half-integer spin.
+\end{topic}
+
+\begin{topic}{boson}{boson}
+    A \emph{boson} is a particle with integer spin.
+\end{topic}
+
+\begin{topic}{weak-interaction}{weak interaction}
+    The \emph{weak interaction} is a fundamental force with gauge group $\SU(2)$.
+\end{topic}
+
+\begin{topic}{w-boson}{W boson}
+    The \emph{$W$ bosons} are the \tref{force-carrier}{force carriers} of the \tref{weak-interaction}{weak interaction}. They live in the complexified adjoint representation $\mathfrak{su}(2) \otimes \CC \cong \mathfrak{sl}(2, \CC)$ as
+    \[ W^+ = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \quad W^0 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \quad W^- = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} . \]
+\end{topic}
+
+\begin{topic}{weak-isospin}{weak isospin}
+    The \emph{weak isospin} of a particle, a charge corresponding to the \tref{weak-interaction}{weak interaction}, is its eigenvalue for the operator
+    \[ \hat{I}_3 = \begin{pmatrix} \tfrac{1}{2} & 0 \\ 0 & - \tfrac{1}{2} \end{pmatrix} \]
+    in the complexified Lie algebra $\mathfrak{su}(2) \otimes \CC \cong \mathfrak{sl}(2, \CC)$ of the gauge group $\SU(2)$.
+\end{topic}
+
+\begin{example}{weak-isospin}
+    The electron $e^-$ and the neutrino $\nu_e$ transform as a doublet under $\SU(2)$: they span the natural representation $\CC^2$ of $\SU(2)$ with $e^- = \left( \begin{smallmatrix} 0 \\ 1 \end{smallmatrix} \right)$ and $\nu_e = \left( \begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$. In particular, $\hat{I}_3 e^- = -\tfrac{1}{2} e^-$ and $\hat{I}_3 \nu_e = \tfrac{1}{2} \nu_e$, so $e^-$ has weak isospin $-\tfrac{1}{2}$ and $\nu_e$ has weak isospin $\tfrac{1}{2}$.
+\end{example}
+
+\begin{example}{weak-isospin}
+    The following table shows the weak isospin of the (first-generation) fermions. Note that the weak isospin of quarks is independent of their color.
+    \[ \def\arraystretch{1.25} \begin{array}{lcc}
+         \hline \textbf{Fermion} & \textbf{Symbol} & \textbf{Weak isospin} \\
+         \hline \textup{Left-handed neutrino} & \nu_L & \tfrac{1}{2} \\
+         \hline \textup{Left-handed electron} & e^-_L & - \tfrac{1}{2} \\
+         \hline \textup{Left-handed up quark} & u_L & \tfrac{1}{2} \\
+         \hline \textup{Left-handed down quark} & d_L & - \tfrac{1}{2} \\
+         \hline \textup{Right-handed neutrino} & \nu_R & 0 \\
+         \hline \textup{Right-handed electron} & e^-_R & 0 \\
+         \hline \textup{Right-handed up quark} & u_R & 0 \\
+         \hline \textup{Right-handed down quark} & d_R & 0
+    \end{array} \]
+\end{example}
+
+\begin{topic}{electroweak-interaction}{electroweak interaction}
+    The \emph{electroweak interaction} is the unified description of the \tref{electromagnetic-interaction}{electromagnetic} and \tref{weak-interaction}{weak interaction}, and has gauge group $\U(1) \times \SU(2)$.
+\end{topic}
+
+\begin{topic}{strong-interaction}{strong interaction}
+    The \emph{strong interaction} is a fundamental force with gauge group $\SU(3)$.
+\end{topic}
+
+\begin{topic}{gluon}{gluon}
+    The \emph{gluons} are the force carriers of the \tref{strong-interaction}{strong interaction}, and hence live in the complexified adjoint representation $\CC \otimes \mathfrak{su}(3) \cong \mathfrak{sl}(2, \CC)$ of $\SU(3)$,
+    \[ \begin{aligned}
+        g_1 &= \begin{pmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}, \quad g_2 = \begin{pmatrix} 0 & -i & 0 \\ i & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}, \quad g_3 = \begin{pmatrix} 1 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 0 \end{pmatrix}, \\
+        g_4 &= \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 1 & 0 & 0 \end{pmatrix}, \quad g_5 = \begin{pmatrix} 0 & 0 & -i \\ 0 & 0 & 0 \\ i & 0 & 0 \end{pmatrix}, \\
+        g_6 &= \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}, \quad g_7 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -i \\ 0 & i & 0 \end{pmatrix}, \quad g_8 = \frac{1}{\sqrt{3}} \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -2 \end{pmatrix} .
+    \end{aligned} \]
+\end{topic}
+
+% \begin{topic}{color charge}{color charge}
+    
+% \end{topic}
+
+\begin{topic}{lepton}{lepton}
+    A \emph{lepton} is a fundamental \tref{fermion}{fermion} that does not interact with the \tref{strong-interaction}{strong interaction}.
+\end{topic}
+
+\begin{example}{lepton}
+    There are 12 leptons known: the electron $e^-$, muon $\mu^-$, tau $\tau^-$, the neutrinos $\nu_e, \nu_\mu, \nu_\tau$ and their anti-particles.
+\end{example}
+
+\begin{topic}{electromagnetic-interaction}{electromagnetic interaction}
+    The \emph{electromagnetic interaction} is part of the \tref{electroweak-interaction}{electroweak interaction}. Its gauge group $\U(1)$ embeds into the electroweak gauge group $\U(1) \times \SU(2)$ via
+    \[ \begin{array}{cccc}
+        \U(1) & \to & \big( & \U(1) & \times & \SU(2) & \big) & / (\ZZ / 2 \ZZ) \\[10pt]
+        e^{i \theta} & \mapsto & \bigg( & e^{i \theta / 2}, && \begin{pmatrix} e^{i \theta / 2} & 0 \\ 0 & e^{- i \theta / 2} \end{pmatrix} & \bigg) &
+    \end{array} \]
+    reflecting the \tref{gell-mann-nishijima-formula}{Gell--Mann--Nishijima formula}. Note that $\U(1) \times \SU(2)$ has to be quotiented by $\ZZ / 2\ZZ = \langle (-1, -1) \rangle$ for the morphism to be well-defined.
+\end{topic}
+
+\begin{topic}{photon}{photon}
+    The \emph{photon}, denoted $\gamma$, is the \tref{force-carrier}{force carrier} of the \tref{electromagnetic-interaction}{electromagnetic interaction}. It can be expressed in terms of the \tref{w-boson}{$W^0$ boson} and \tref{b-boson}{$B$ boson} as
+    \[ \gamma = W^0 + B / 2 . \]
+\end{topic}
+
+\begin{topic}{z-boson}{Z boson}
+    The \emph{$Z$ boson} is a force carrier of the \tref{electroweak-interaction}{electroweak interaction}, which can be expressed in terms of the \tref{w-boson}{$W^0$ boson} and \tref{b-boson}{$B$ boson} as
+    \[ Z^0 = W^0 - B / 2 . \]
+\end{topic}
+
+\begin{topic}{electric-charge}{electric charge}
+    The \emph{electric charge} of a particle is the charge corresponding to the \tref{electromagnetic-interaction}{electromagnetic interaction}, given by the eigenvalue for the operator
+    \[ \hat{Q} = \frac{1}{3} \]
+    in the complexified Lie algebra $\mathfrak{u}(1) \otimes \CC \cong \CC$ of the gauge group $\U(1)$.
+\end{topic}
+
+\begin{example}{electric-charge}
+    The following table shows the electric charge of the (first-generation) fermions.
+    \[ \def\arraystretch{1.25} \begin{array}{lcc}
+         \hline \textbf{Fermion} & \textbf{Symbol} & \textbf{Electric charge} \\
+         \hline \textup{Neutrino} & \nu & 0 \\
+         \hline \textup{Electron} & e^- & -1 \\
+         \hline \textup{Up quark} & u & \tfrac{2}{3} \\
+         \hline \textup{Down quark} & d & - \tfrac{1}{3}
+    \end{array} \]
+    Also the \tref{w-boson}{$W$ bosons}, the force carriers of the electroweak interaction, have electric charge.
+    \[ \def\arraystretch{1.25} \begin{array}{lcc}
+         \hline \textbf{Boson} & \textbf{Symbol} & \textbf{Electric charge} \\
+         \hline \textup{$W^+$ boson} & W^+ & 1 \\
+         \hline \textup{$W^0$ boson} & W^0 & 0 \\
+         \hline \textup{$W^-$ boson} & W^- & -1 \\
+    \end{array} \]
+    % TODO: What about the Z and B bosons?
+\end{example}
+
+\begin{topic}{b-boson}{B boson}
+    The \emph{$B$ boson} is the \tref{force-carrier}{force carrier} of the \tref{weak-hypercharge}{weak hypercharge} force.
+\end{topic}
+
+\begin{topic}{weak-hypercharge}{weak hypercharge}
+    The \emph{weak hypercharge} of a particle is its eigenvalue for the operator
+    \[ \hat{Y} = \frac{1}{3} \]
+    in the complexified Lie algebra $\mathfrak{u}(1) \otimes \CC \cong \CC$ of the gauge group $\U(1)$, the first factor of the gauge group $\U(1) \times \SU(2)$ of the \tref{electroweak-interaction}{electroweak interaction}.
+\end{topic}
+
+\begin{example}{weak-hypercharge}
+    The following table shows the weak isospin of the (first-generation) fermions.
+    \[ \def\arraystretch{1.25} \begin{array}{lcc}
+         \hline \textbf{Fermion} & \textbf{Symbol} & \textbf{Weak hypercharge} \\
+         \hline \textup{Left-handed neutrino} & \nu_L & -1 \\
+         \hline \textup{Left-handed electron} & e^-_L & -1 \\
+         \hline \textup{Left-handed up quark} & u_L & \tfrac{1}{3} \\
+         \hline \textup{Left-handed down quark} & d_L & \tfrac{1}{3} \\
+         \hline \textup{Right-handed neutrino} & \nu_R & 0 \\
+         \hline \textup{Right-handed electron} & e^-_R & -2 \\
+         \hline \textup{Right-handed up quark} & u_R & \tfrac{4}{3} \\
+         \hline \textup{Right-handed down quark} & d_R & - \tfrac{2}{3}
+    \end{array} \]
+\end{example}
+
+\begin{topic}{gell-mann-nishijima-formula}{Gell--Mann--Nishijima formula}
+    The \emph{Gell--Mann--Nishijima formula} states that
+    \[ Q = I_3 + Y / 2 \]
+    where $Q$ denotes the \tref{electric-charge}{electric charge}, $I_3$ the \tref{weak-isospin}{weak isospin} and $Y$ the \tref{weak-hypercharge}{weak hypercharge} of a particle.
+\end{topic}
+
+\begin{example}{gell-mann-nishijima-formula}
+    The following table shows the electric charge $Q$, the weak isospin $I_3$, and the hypercharge $Y$ of the (first-generation) fundamental fermions.
+    \[ \def\arraystretch{1.25} \begin{array}{lcc}
+         \hline \textbf{Fermion} & \textbf{Symbol} & Q & I_3 & Y / 2 \\
+         \hline \textup{Left-handed neutrino} & \nu_L & 0 & \tfrac{1}{2} & -1 \\
+         \hline \textup{Left-handed electron} & e^-_L & -1 & - \tfrac{1}{2} & -1 \\
+         \hline \textup{Left-handed up quark} & u_L & \tfrac{2}{3} & \tfrac{1}{2} & \tfrac{1}{3} \\
+         \hline \textup{Left-handed down quark} & d_L & - \tfrac{1}{3} & - \tfrac{1}{2} & \tfrac{1}{3} \\
+         \hline \textup{Right-handed neutrino} & \nu_R & 0 & 0 & 0 \\
+         \hline \textup{Right-handed electron} & e^-_R & -1 & 0 & -2 \\
+         \hline \textup{Right-handed up quark} & u_R & \tfrac{2}{3} & 0 & \tfrac{4}{3} \\
+         \hline \textup{Right-handed down quark} & d_R & - \tfrac{1}{3} & 0 & - \tfrac{2}{3}
+    \end{array} \]
+\end{example}
+
+\begin{topic}{hadron}{hadron}
+    A \emph{hadron} is a particle composed of two or more quarks.
+\end{topic}
+
+\begin{topic}{baryon}{baryon}
+    A baryon is a particle consisting of an odd number of quarks.
+\end{topic}
+
+% \begin{topic}{baryon-number}{baryon number}
+%     
+% \end{topic}
+
+\begin{topic}{meson}{meson}
+    A \emph{meson} is a particle composed of an equal number of quark and anti-quarks.
+\end{topic}
+
+\begin{topic}{force-carrier}{force carrier}
+    The \emph{force carriers} of an interaction are particles that give rise to forces between other particles. The force carriers of an interaction with gauge group $G$ live in the complexified adjoint representation $\CC \otimes \mathfrak{g}$ of $G$.
+\end{topic}
+
+\begin{example}{force-carrier}
+    \begin{itemize}
+        \item The force carriers of the \tref{electromagnetic-interaction}{electromagnetic interaction} are the \tref{photon}{photons}.
+        \item The force carriers of the \tref{weak-interaction}{weak interaction} are the \tref{w-boson}{$W$ bosons}.
+        \item The force carriers of the \tref{strong-interaction}{strong interaction} are the \tref{gluon}{gluons}.
+    \end{itemize}
+\end{example}
+
+\begin{example}{force-carrier}
+    Suppose a particle with Hilbert space $V$ is acted on by $G$ via $\sigma \colon G \times V \to V$. Taking the derivative of $\sigma$ at $(1, 0) \in G \times V$, we obtain a linear map
+    \[ d \sigma \colon \mathfrak{g} \otimes V \to V , \]
+    where $\mathfrak{g}$ denotes the Lie algebra of $G$. In fact, this map is $G$-equivariant, and it describes how the force carriers interact with the particle in $V$.
+\end{example}
+
+\begin{topic}{standard-model}{Standard Model}
+    The \emph{Standard Model} is a gauge theory with gauge group
+    \[ G_\textup{SM} = \U(1) \times \SU(2) \times \SU(3) \]
+    where $\U(1) \times \SU(2)$ corresponds to the electroweak interaction ($\U(1)$ is the hypercharge symmetry group and $\SU(2)$ is the weak isospin symmetry group) and $\SU(3)$ (the color symmetry group) corresponds to the \tref{strong-interaction}{strong interaction}.
+
+    The elementary particles correspond to basis vectors of irreducible representations of $G_\textup{SM}$. In particular, the fundamental fermions form a $16$-dimensional representation $F$ of $G_\textup{SM}$ which decomposes into the following irreducible representations:
+    \begin{itemize}
+        \item the left-handed leptons, the neutrino $\nu_L$ and $e^-_L$, span the irreducible representation of hypercharge $-1$, acted on naturally by $\SU(2)$ and trivially by $\SU(3)$,
+        \[ \begin{pmatrix} \nu_L \\ e^-_L \end{pmatrix} \in \CC_{-1} \otimes \CC^2 \otimes \CC \]
+        \item the left-handed quarks span the irreducible representation of hypercharge $\tfrac{1}{3}$, acted on naturally by $\SU(2)$ and $\SU(3)$,
+        \[ \begin{pmatrix} u^r_L & u^g_L & u^b_L \\ d^r_L & d^g_L & d^b_L \end{pmatrix} \in \CC_{\tfrac{1}{3}} \otimes \CC^2 \otimes \CC^3 \]
+        \item the right-handed neutrino $\nu_R$ spans the trivial representation
+        \[ \nu_R \in \CC_0 \otimes \CC \otimes \CC \]
+        \item the right-handed electron $e^-_R$ spans the irreducible representation of hypercharge $-2$, acted on trivially by $\SU(2)$ and $\SU(3)$,
+        \[ e^-_R \in \CC_{-2} \otimes \CC \otimes \CC \]
+        \item the right-handed up quarks $u^r_R, u^g_R, u^b_R$ span the irreducible representation of hypercharge $\tfrac{4}{3}$, acted on trivially by $\SU(2)$ and naturally by $\SU(3)$,
+        \[ \begin{pmatrix} u^r_R & u^g_R & u^b_R \end{pmatrix} \in \CC_{\tfrac{4}{3}} \otimes \CC \otimes \CC^3 \]
+        \item the right-handed down quarks $d^r_R, d^g_R, d^b_R$ span the irreducible representation of hypercharge $\tfrac{4}{3}$, acted on trivially by $\SU(2)$ and naturally by $\SU(3)$,
+        \[ \begin{pmatrix} d^r_R & d^g_R & d^b_R \end{pmatrix} \in \CC_{-\tfrac{2}{3}} \otimes \CC \otimes \CC^3 . \]
+    \end{itemize}
+    The anti-fermions form the dual representation $F^*$ of $G_\textup{SM}$, and together they form the $32$-dimensional \emph{Standard Model representation} of $G_\textup{SM}$
+    \[ F \oplus F^* . \]
+\end{topic}
+
+\begin{topic}{georgi-glashow-model}{Georgi--Glashow model (SU(5) GUT)}
+    The \emph{Georgi--Glashow model}, also known as the \emph{$\SU(5)$ Grand Unified Theory}, is a unification of the \tref{standard-model}{Standard Model}. The Standard Model gauge group $G_\textup{SM} = \U(1) \times \SU(2) \times \SU(3)$ maps into $\SU(5)$ via
+    \[ \begin{array}{ccccccc}
+        \U(1) & \times & \SU(2) & \times & \SU(3) & \to & \SU(5) \\[5pt]
+        \big( \quad \alpha , & & g , & & h \quad \big) & \mapsto & \begin{pmatrix} \alpha^3 g & 0 \\ 0 & \alpha^{-2} h \end{pmatrix}
+    \end{array} \]
+    which descends to an isomorphism $G_\textup{SM} / (\ZZ/6\ZZ) \cong \textup{S}(\U(2) \times \U(3)) \subset \SU(5)$.
+
+    The natural action of $\SU(5)$ on $\CC^5$ extends naturally to an action on the exterior algebra $\bigwedge \CC^5$. Now, there is an isomorphism between $\bigwedge \CC^5$ and the Standard Model representation $F \oplus F^*$, given by
+    \[ \begin{aligned}
+        \textstyle \bigwedge^0 \CC^5 &\cong \langle \overline{\nu}_L \rangle \\
+        \textstyle \bigwedge^1 \CC^5 &\cong \left\langle \begin{matrix} e^+_R \\ \overline{\nu}_R \end{matrix} \right\rangle \oplus \langle d_R \rangle \\
+        \textstyle \bigwedge^2 \CC^5 &\cong \langle e^+_L \rangle \oplus \left\langle \begin{matrix} u_L \\ d_L \end{matrix} \right\rangle \oplus \langle \overline{u}_L \rangle \\
+        \textstyle \bigwedge^3 \CC^5 &\cong \langle e^-_R \rangle \oplus \left\langle \begin{matrix} \overline{d}_R \\ \overline{u}_R \end{matrix} \right\rangle \oplus \langle u_R \rangle \\
+        \textstyle \bigwedge^4 \CC^5 &\cong \left\langle \begin{matrix} \nu_L \\ e^-_L \end{matrix} \right\rangle \oplus \langle \overline{d}_R \rangle \\
+        \textstyle \bigwedge^5 \CC^5 &\cong \langle \nu_R \rangle
+    \end{aligned} \]
+    such that following diagram commutes:
+    \[ \svg \begin{tikzcd}
+        G_\textup{SM} \arrow{r} \arrow{d} & \SU(5) \arrow{d} \\
+        \U(F \oplus F^*) \arrow{r}{\sim{}} & \U(\bigwedge^5 \CC^5)
+    \end{tikzcd} \]
+    Note that the left-handed particles live in even degrees and the right-handed particles in odd degrees. Furthermore, the duality between particles and their anti-particles corresponds to Hodge duality $\bigwedge^p \CC^5 \cong (\bigwedge^{5 - p} \CC^5)^*$.
+\end{topic}
+
+% \begin{topic}{pati-salam-model}{Pati--Salam model}
+    
+% \end{topic}
+
+% \begin{topic}{spin-10-gut}{Spin(10) GUT}
+    
+% \end{topic}

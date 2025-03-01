@@ -4,9 +4,8 @@ const START_TEX_FILE: &str = r"
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{tikz-cd}
-\usetikzlibrary{quantikz}
-\usetikzlibrary{decorations.pathmorphing}
+% \usepackage{tikz-cd}
+% \usepackage{quantikz}
 
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\ZZ}{\mathbb{Z}}
@@ -18,6 +17,8 @@ const START_TEX_FILE: &str = r"
 \newcommand{\id}{\textup{id}}
 \newcommand{\bdot}{\bullet}
 \newcommand{\isom}{\cong}
+\newcommand{\U}{\textup{U}}
+\newcommand{\SU}{\textup{SU}}
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\Hom}{Hom}
@@ -25,6 +26,12 @@ const START_TEX_FILE: &str = r"
 
 \begin{document}
 ";
+
+// These are the positions of the '%' characters of the `tikz-cd` and `quantikz` packages.
+// Since these are not compatible, we have to 'uncomment' those lines if necessary.
+// However, we only know this after reading all the TeX code to compile.
+const POSITION_USEPACKAGE_TIKZCD: u64 = 93;
+const POSITION_USEPACKAGE_QUANTIKZ: u64 = 116;
 
 const END_TEX_FILE: &str = r"
 \end{document}
@@ -35,7 +42,7 @@ const TMP_DIRECTORY: &str = "tmp";
 use std::{
     fs::{self, File},
     hash::{DefaultHasher, Hasher},
-    io::Write,
+    io::{Seek, SeekFrom, Write},
     path::Path,
     process::Command,
 };
@@ -45,6 +52,8 @@ use colored::Colorize;
 pub struct TexSvg {
     file: File,
     hasher: DefaultHasher,
+    use_tikzcd: bool,
+    use_quantikz: bool,
 }
 
 impl TexSvg {
@@ -59,6 +68,8 @@ impl TexSvg {
         Self {
             file,
             hasher: DefaultHasher::new(),
+            use_tikzcd: false,
+            use_quantikz: false,
         }
     }
 
@@ -69,6 +80,10 @@ impl TexSvg {
         // Feed data to hasher
         self.hasher.write(data.as_bytes());
 
+        // Check for packages
+        self.use_tikzcd |= data == "tikzcd";
+        self.use_quantikz |= data == "quantikz";
+
         Ok(())
     }
 
@@ -77,6 +92,20 @@ impl TexSvg {
         self.file
             .write(END_TEX_FILE.as_bytes())
             .or(Err("Failed to write to file"))?;
+
+        // Use packages if flags are set
+        if self.use_tikzcd {
+            self.file
+                .seek(SeekFrom::Start(POSITION_USEPACKAGE_TIKZCD))
+                .or(Err("Failed to seek"))?;
+            self.file.write(&[b' ']).or(Err("Failed to write"))?; // Overwrite '%' with ' '
+        }
+        if self.use_quantikz {
+            self.file
+                .seek(SeekFrom::Start(POSITION_USEPACKAGE_QUANTIKZ))
+                .or(Err("Failed to seek"))?;
+            self.file.write(&[b' ']).or(Err("Failed to write"))?; // Overwrite '%' with ' '
+        }
 
         // Compute svg path from hash
         let hash = self.hasher.finish();
