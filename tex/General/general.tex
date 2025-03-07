@@ -74,3 +74,15 @@
     \[ \sigma_x^2 \sigma_p^2 \ge \left(\frac{1}{2 i} [x, p] \right)^2 = \frac{\hbar^2}{4} \]
     since $[x, p] = i \hbar$.
 \end{example}
+
+\begin{topic}{lenz-ising-model}{Lenz--Ising model}
+    The \emph{Lenz--Ising model} is an \tref{COM:qubit}{$n$-qubit} quantum system with Hamiltonian
+    \[ H = - \sum_{\substack{i, j = 1 \\ i \ne j}}^{n} J_{ij} \sigma_z^{(i)} \sigma_z^{(j)} - \mu \sum_{j = 1}^{n} h_j \sigma_z^{(j)} \]
+    where
+    \begin{itemize}
+        \item $\sigma_z^{(i)}$ is $\left(\begin{smallmatrix} 1 & 0 \\ 0 & -1 \end{smallmatrix}\right)$ acting on the $i$-th qubit,
+        \item $J_{ij}$ are the \textit{coupling strengths},
+        \item $h_j$ are the \textit{external magnetic field strengths},
+        \item $\mu$ is the \textit{magnetic moment}.
+    \end{itemize}
+\end{topic}

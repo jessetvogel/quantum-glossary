@@ -5,7 +5,7 @@ use std::{
 
 const SEPARATORS: &[&str] = &[
     "{", "}", "\\[", "\\]", "$", "\\&", "\\#", "\\\\", "\\{", "\\}", "\\;", "\\,", "\\ ", "\\!",
-    "[", "]", "\\|", "=",
+    "[", "]", "\\|", "=", "&",
 ];
 
 #[derive(Debug, PartialEq)]
@@ -130,7 +130,7 @@ impl Lexer {
     }
 
     fn is_text(expr: &str) -> bool {
-        let excluded = &['{', '}', '\\', '[', ']', '$', '=', '\t', '\n'];
+        let excluded = &['{', '}', '\\', '[', ']', '$', '=', '\t', '\n', '&'];
         expr.chars().nth(0) != Some(' ') && expr.chars().all(|c| !excluded.contains(&c))
     }
 

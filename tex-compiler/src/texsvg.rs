@@ -77,8 +77,8 @@ impl TexSvg {
         // Write data to file
         self.file.write(data.as_bytes())?;
 
-        // Feed data to hasher
-        self.hasher.write(data.as_bytes());
+        // Feed trimmed data to hasher (so that changing whitespace does not change hash)
+        self.hasher.write(data.trim().as_bytes());
 
         // Check for packages
         self.use_tikzcd |= data == "tikzcd";

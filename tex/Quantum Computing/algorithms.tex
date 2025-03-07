@@ -146,3 +146,25 @@
 %     Actually $A$ need not be Hermitian:
 %     Without loss of generality, assume $A$ is Hermitian: otherwise, replace $A$ by $2N \times 2N$ Hermitian matrix $\left( \begin{smallmatrix} 0 & A \\ A^\dag & 0 \end{smallmatrix} \right)$, and $b$ by $\left( \begin{smallmatrix} b \\ 0 \end{smallmatrix} \right)$. (TODO: correct?)
 % \end{example}
+
+\begin{topic}{qaoa}{Quantum Approximate Optimization Algorithm (QAOA)}
+    The \emph{Quantum Approximate Optimization Algorithm (QAOA)} is a method for finding approximate solutions to optimization problems.
+
+    \textbf{Algorithm}: Define a \textit{cost Hamiltonian} $H_C$, whose ground state corresponds to an optimal solution to the optimization problem.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Pick some $n \ge 1$ and construct the following parametrized quantum circuit, consisting of alternating \textit{cost layers} and \textit{mixer layers}:
+        \[ \svg \begin{quantikz}
+            \lstick{$\ket{0}$} & \gate[3]{e^{- i \gamma_1 H_C}} & \gate[3]{e^{- i \alpha_1 H_M}} & \ \ldots \ & \gate[3]{e^{- i \gamma_n H_C}} & \gate[3]{e^{- i \alpha_n H_M}} & \\
+            \lstick{$\ket{0}$} &                                &                                & \ \ldots \ &                                &                                & \\
+            \lstick{$\ket{0}$} &                                &                                & \ \ldots \ &                                &                                &
+        \end{quantikz} \]
+        where
+        \begin{itemize}
+            \item $\gamma_1, \alpha_1, \ldots, \gamma_n, \alpha_n$ are the parameters of the circuit.
+            % \item $H_C$ is the \emph{cost Hamiltonian}, whose ground state corresponds to an optimal solution to the optimization problem,
+            \item $H_M$ is the \emph{mixer Hamiltonian} (for instance, a sum $H_M = \sum_i X^{(i)}$ of \tref{pauli-gates}{Pauli $X$-gates} acting on each qubit separately).
+        \end{itemize}
+        \item Optimize the parameters $\gamma_1, \alpha_1, \ldots, \gamma_n, \alpha_n$ using classical methods, using the expectation value $\langle H_C \rangle$ of the output of the circuit as loss function.
+        \item Run the circuit with optimized parameters to obtain a solution to the problem.
+    \end{enumerate}
+\end{topic}
