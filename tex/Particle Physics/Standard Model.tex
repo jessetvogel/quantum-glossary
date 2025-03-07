@@ -1,9 +1,9 @@
 \begin{topic}{fermion}{fermion}
-    A \emph{fermion} is a particle with half-integer spin.
+    A \emph{fermion} is a particle with half-integer \tref{spin}{spin}.
 \end{topic}
 
 \begin{topic}{boson}{boson}
-    A \emph{boson} is a particle with integer spin.
+    A \emph{boson} is a particle with integer \tref{spin}{spin}.
 \end{topic}
 
 \begin{topic}{weak-interaction}{weak interaction}
@@ -249,3 +249,19 @@
 % \begin{topic}{spin-10-gut}{Spin(10) GUT}
     
 % \end{topic}
+
+\begin{topic}{spin}{spin}
+    The \emph{spin} of a particle is an integer or half-integer $s \in \tfrac{1}{2} \ZZ$ that describes how the particle transforms under the rotation group $\SO(3)$. Specifically, a particle that transforms under the $m$-dimensional representation of the double cover $\SU(2)$ of $\SO(3)$ has spin $s = \tfrac{1}{2} (m - 1)$.
+\end{topic}
+
+\begin{example}{spin}
+    The following table shows the weak isospin of the (first-generation) fermions.
+    \[ \def\arraystretch{1.25} \begin{array}{lcc}
+         \hline \textbf{Fermion} & \textbf{Symbol} & \textbf{Spin} \\
+         \hline \textup{Neutrino} & \nu_L & \tfrac{1}{2} \\
+         \hline \textup{Electron} & e^-_L & \tfrac{1}{2} \\
+         \hline \textup{Up quark} & u & \tfrac{1}{2} \\
+         \hline \textup{Down quark} & d & \tfrac{1}{2} \\
+    \end{array} \]
+    All gauge bosons have spin $1$.
+\end{example}
