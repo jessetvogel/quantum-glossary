@@ -186,6 +186,7 @@ const categories = {
     "COM": "Quantum Computing",
     "GEN": "General",
     "PAR": "Particle Physics",
+    "MET": "Quantum Metrology",
 };
 const KaTeXOptions = {
     macros: {

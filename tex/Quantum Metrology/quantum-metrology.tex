@@ -1,0 +1,40 @@
+\begin{topic}{quantum-fisher-information}{quantum Fisher information}
+    Consider a quantum system in a \tref{GEN:mixed-state}{mixed state} $\rho$, and suppose that some parameter $\theta \in \RR$ interacts with $\rho$ via $\rho(\theta) = e^{i \theta A} \rho e^{- i \theta A}$ for some \tref{GEN:observable}{observable} $A$. Then the \emph{quantum Fisher information} of $\rho$ with respect to $A$ is the supremum
+    \[ F_\textup{Q}(\rho, A) = \sup_{B} F_\textup{C}(\rho(\theta), B) \]
+    where $B$ ranges over all measurement bases, and where $F_\textup{C}(\rho(\theta), B)$ denotes the \href{/math-definitions#PT:fisher-information}{classical Fisher information} of the distribution obtained by measuring $\rho(\theta)$ with respect to $B$.
+    
+    Explicitly, one has
+    \[ F_\textup{Q}(\rho, A) = 2 \sum_{\substack{j, k \textup{ such that} \\ \lambda_j + \lambda_k > 0}} \frac{(\lambda_j - \lambda_k)^2}{\lambda_j + \lambda_k} |\bra{j} A \ket{k}|^2 \]
+    where $\lambda_j$ and $\ket{j}$ are the eigenvalues and eigenvectors of $\rho$.
+\end{topic}
+
+\begin{example}{quantum-fisher-information}
+    Suppose that $\rho$ is a \tref{GEN:pure-state}{pure state}, that is, $\rho = \ket{\psi} \bra{\psi}$ for some $\ket{\psi} \in \mathcal{H}$. Extending $\ket{\psi}$ to an orthonormal basis $\ket{1} = \ket{\psi}, \ket{2}, \ket{3}, \ldots$ of $\mathcal{H}$, we find that $\rho$ has eigenvectors $\ket{\psi}$ (with eigenvalue $1$) and $\ket{j}$ for $j > 1$ (with eigenvalue $0$). Hence, the only terms in the expression of the quantum Fisher information are for $j = 1$, $k > 1$ and $j > 1$, $k = 1$. In particular, the quantum Fisher information of $\rho$ with respect to $A$ reduces to
+    \[ \begin{aligned}
+        F_\textup{Q}(\rho, A)
+            &= 4 \textstyle \sum_{k > 1} \bra{\psi} A \ket{k} \bra{k} A \ket{\psi} \\
+            &= 4 \bra{\psi} A \left( \textstyle \sum_{k > 1} \ket{k} \bra{k} \right) A \ket{\psi} \\
+            &= 4 \bra{\psi} A \left( 1 - \ket{\psi} \bra{\psi} \right) A \ket{\psi} \\
+            &= 4 \left( \bra{\psi} A^2 \ket{\psi} - \bra{\psi} A \ket{\psi}^2 \right) .
+    \end{aligned} \]
+\end{example}
+
+\begin{example}{quantum-fisher-information}
+    Consider $n$ copies of the quantum system, and suppose that the system is in a \tref{GEN:separable-state}{separable state}, that is, $\tilde{\rho} = \ket{\Psi} \bra{\Psi}$ with $\ket{\Psi} = \ket{\psi}^{\otimes n}$. The parameter $\theta$ interacts with $\tilde{\rho}$ via $\tilde{A} = \sum_{i = 1}^{n} A^{(i)}$, where the subscript $^{(i)}$ denotes that $A$ acts on the $i$-th copy of the system. Now, the quantum Fisher information of $\tilde{\rho}$ with respect to $\tilde{A}$ can be expressed as
+    \[ \begin{aligned}
+        F_\textup{Q}(\tilde{\rho}, \tilde{A})
+            &= 4 \big( \bra{\Psi} \tilde{A}^2 \ket{\Psi} - \bra{\Psi} \tilde{A} \ket{\Psi}^2 \big) \\
+            &= 4 n \big( \bra{\psi} A \ket{\psi} - \bra{\psi} A \ket{\psi}^2 \big) \\
+            &= n F_\textup{Q}(\rho, A) ,
+    \end{aligned} \]
+    that is, the quantum Fisher information scales linearly with $n$. This is known as the \textit{standard quantum limit}.
+    
+    Now suppose the system is in the \tref{GEN:entangled-state}{entangled state} $\tilde{\rho} = \ket{\Psi} \bra{\Psi}$ with $\ket{\Psi} = \frac{1}{\sqrt{2}} \left( \ket{\psi_\textup{max}}^{\otimes n} + \ket{\psi_\textup{min}}^{\otimes n} \right)$, where $\ket{\psi_\textup{max}}$ (resp. $\ket{\psi_\textup{max}}$) denotes the eigenvector of $A$ with maximal (resp. minimal) eigenvalue $\lambda_\textup{max}$ (resp. $\lambda_\textup{min}$). Then,
+    \[ \begin{aligned}
+        F_\textup{Q}(\tilde{\rho}, \tilde{A})
+            &= 4 \big( \bra{\Psi} \tilde{A}^2 \ket{\Psi} - \bra{\Psi} \tilde{A} \ket{\Psi}^2 \big) \\
+            &= 4 \big( \tfrac{1}{2} n^2 (\lambda_\textup{max}^2 + \lambda_\textup{min}^2) - \tfrac{1}{4} n^2 (\lambda_\textup{max} + \lambda_\textup{min})^2 \big) \\
+            &= n^2 \big( \lambda_\textup{max} - \lambda_\textup{min} \big)^2 ,
+    \end{aligned} \]
+    that is, the quantum Fisher information scales quadratically with $n$. This is known as the \textit{Heisenberg limit}.
+\end{example}

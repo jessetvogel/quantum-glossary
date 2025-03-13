@@ -271,6 +271,11 @@ impl Parser {
                 continue;
             }
 
+            if self.encounters_data("\\href")? {
+                self.parse_href()?;
+                continue;
+            }
+
             if self.encounters_data("\\img")? {
                 self.parse_img()?;
                 continue;
@@ -371,6 +376,19 @@ impl Parser {
         self.expect("}")?;
         self.write("</a>")?;
         self.references.insert((self.current_topic.clone(), uid));
+        Ok(())
+    }
+
+    fn parse_href(&mut self) -> Result<(), ParserError> {
+        self.expect("\\href")?;
+        self.expect("{")?;
+        let url = self.take()?;
+        self.expect("}")?;
+        self.expect("{")?;
+        self.write(&format!("<a class=\"external\" href=\"{url}\">"))?;
+        self.parse_content()?;
+        self.expect("}")?;
+        self.write("</a>")?;
         Ok(())
     }
 

@@ -43,7 +43,7 @@
 \renewcommand{\braket}[2]{\langle#1\!\mid\!#2\rangle}
 \newcommand{\U}{\textup{U}}
 \newcommand{\SU}{\textup{SU}}
-\newcommand{\O}{\textup{O}}
+\renewcommand{\O}{\textup{O}}
 \newcommand{\SO}{\textup{SO}}
 
 \DeclareMathOperator{\im}{im}
@@ -92,6 +92,9 @@
 % Topic reference
 % \newcommand{\tref}[2]{\textbf{#2} (\textbf{\IfSubStr{#1}{:}{\nameref{topic:#1}}{\nameref{topic:\cat:#1}}})}%
 \newcommand{\tref}[2]{\IfSubStr{#1}{:}{\hyperref[topic:#1]{#2}}{\hyperref[topic:\cat:#1]{#2}}}%
+
+% External links
+\renewcommand{\href}[2]{{\color[rgb]{0.729,0.349,0.071} #2}}
 
 % Proof environment
 \renewenvironment{proof}{\hfill \break \textbf{Proof}.}{\qed}

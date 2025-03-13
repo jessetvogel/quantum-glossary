@@ -19,6 +19,7 @@ const CATEGORIES: &[(&str, &str)] = &[
     ("COM", "Quantum Computing"),
     ("GEN", "General"),
     ("PAR", "Particle Physics"),
+    ("MET", "Quantum Metrology"),
 ];
 
 fn main() {
