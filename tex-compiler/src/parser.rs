@@ -385,7 +385,7 @@ impl Parser {
         let url = self.take()?;
         self.expect("}")?;
         self.expect("{")?;
-        self.write(&format!("<a class=\"external\" href=\"{url}\">"))?;
+        self.write(&format!("<a class=\"external\" target=\"_blank\" href=\"{url}\">"))?;
         self.parse_content()?;
         self.expect("}")?;
         self.write("</a>")?;
