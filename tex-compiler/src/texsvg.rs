@@ -1,11 +1,13 @@
 const START_TEX_FILE: &str = r"
 \documentclass{standalone}
 
+% \usepackage{tikz-cd}
+% \usepackage{quantikz}
+
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-% \usepackage{tikz-cd}
-% \usepackage{quantikz}
+\usepackage{pgfplots}
 
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\ZZ}{\mathbb{Z}}
@@ -30,8 +32,8 @@ const START_TEX_FILE: &str = r"
 // These are the positions of the '%' characters of the `tikz-cd` and `quantikz` packages.
 // Since these are not compatible, we have to 'uncomment' those lines if necessary.
 // However, we only know this after reading all the TeX code to compile.
-const POSITION_USEPACKAGE_TIKZCD: u64 = 93;
-const POSITION_USEPACKAGE_QUANTIKZ: u64 = 116;
+const POSITION_USEPACKAGE_TIKZCD: u64 = 29;
+const POSITION_USEPACKAGE_QUANTIKZ: u64 = 52;
 
 const END_TEX_FILE: &str = r"
 \end{document}

@@ -315,7 +315,7 @@ impl Parser {
             self.expect("\\]")?;
             let filename = texsvg.compile(&format!("{}/svg", self.target_directory))?;
             self.write(&format!(
-                "<img class=\"math display svg\" src=\"data/svg/{filename}\" alt />"
+                "<div class=\"math display svg\"><img src=\"data/svg/{filename}\" alt /></div>"
             ))?;
         } else {
             self.write("<span class=\"math display\">\\[")?;
@@ -385,7 +385,9 @@ impl Parser {
         let url = self.take()?;
         self.expect("}")?;
         self.expect("{")?;
-        self.write(&format!("<a class=\"external\" target=\"_blank\" href=\"{url}\">"))?;
+        self.write(&format!(
+            "<a class=\"external\" target=\"_blank\" href=\"{url}\">"
+        ))?;
         self.parse_content()?;
         self.expect("}")?;
         self.write("</a>")?;

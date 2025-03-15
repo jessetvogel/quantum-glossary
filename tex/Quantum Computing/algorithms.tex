@@ -168,3 +168,48 @@
         \item Run the circuit with optimized parameters to obtain a solution to the problem.
     \end{enumerate}
 \end{topic}
+
+\begin{topic}{quantum-annealing}{quantum annealing}
+    \emph{Quantum annealing} is a method for finding approximate solutions to optimization problems for which the optimal solution is given by the ground state of an \tref{qubit}{$n$-qubit} \tref{GEN:lenz-ising-model}{Lenz--Ising model}.
+
+    \textbf{Algorithm}: Denote by $H_\textup{model}$ the Hamiltonian or the Lenz--Ising model, and define $H_\textup{mix} = \sum_{i = 1}^{n} \sigma_x^{(i)}$, where $\sigma_x^{(i)}$ denotes the Pauli matrix $\left( \begin{smallmatrix} 0 & 1 \\ 1 & 0 \end{smallmatrix} \right)$ acting on the $i$-th qubit.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Prepare the system in the superposition
+        \[ \frac{1}{\sqrt{2^n}} \left( \ket{0} + \ket{1} \right)^{\otimes n} \]
+        for instance by applying \tref{hadamard-gate}{Hadamard gates} to every qubit in the $\ket{0}^{\otimes n}$ state.
+        \item From some initial time $t = t_0$ to some final time $t = t_1$, let the system evolve under the Hamiltonian
+        \[ H(t) = \frac{-A(t)}{2} H_\textup{mix} + \frac{B(t)}{2} H_\textup{model} . \]
+        The time-dependent functions $A(t)$ and $B(t)$ are called the \textit{annealing functions}, and they should satisfy $A(t_0) \gg B(t_0)$ and $A(t_1) \ll B(t_1)$. This process is called the \textit{annealing process}.
+        \item Note that the prepared state is the ground state of $- H_\textup{mix}$, and hence is (approximately) the ground state of the system at the start of the annealing process, at $t = t_0$. Throughout the annealing process, the state will evolve with high probability into the ground state of $H(t)$ (or at least a low-energy state), and therefore, at $t = t_1$, into a low-energy state of $H_\textup{model}$.
+        \item At $t = t_1$, measure the qubits to get an approximate solution of the optimization problem.
+    \end{enumerate}
+\end{topic}
+
+\begin{example}{quantum-annealing}
+    Consider the $2$-bit optimization problem of finding $x_1, x_2 \in \{ 0, 1 \}$ such that
+    \[ \begin{pmatrix} x_1 & x_2 \end{pmatrix} \begin{pmatrix} 4 & -6 \\ -6 & 4 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = 4 x_1 + 4 x_2 - 12 x_1 x_2 \]
+    is minimized. This problem can be translated into a $2$-qubit Lenz--Ising model with $h_1 = h_2 = -1$ and $J_{12} = 3$, whose Hamiltonian is given by
+    \[ H_\textup{model} = \begin{pmatrix}
+        -3 & 0 & 0 & 0 \\
+        0 & -1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 3
+    \end{pmatrix} \]
+    with respect to the standard basis. Furthermore, we have
+    \[ H_\textup{mix} = \begin{pmatrix}
+        0 & 1 & 1 & 0 \\
+        1 & 0 & 0 & 1 \\
+        1 & 0 & 0 & 1 \\
+        0 & 1 & 1 & 0 
+    \end{pmatrix} . \]
+    Taking $t_0 = 0$ and $t_1 = 1$, and annealing functions $A(t) = 1 - t$ and $B(t) = t$, we can plot the spectral graph, that is, the energy levels (eigenvalues) of $H(t)$.
+    \[ \svg \begin{tikzpicture}
+        \begin{axis}[width=300pt, height=200pt, xmin=0.0, xmax=1.0, ymin=-3.0, ymax=2.0, xlabel={Time $t$}, ylabel={Energy}]
+        \addplot[color=black, style=thick] coordinates { (0.0, -0.9999999999999999) (0.05263157894736842, -0.9523709687365246) (0.10526315789473684, -0.9171551656149908) (0.15789473684210525, -0.8988902776352161) (0.21052631578947367, -0.902774337330783) (0.2631578947368421, -0.9325565467723903) (0.3157894736842105, -0.9879096804231118) (0.3684210526315789, -1.0644830596746586) (0.42105263157894735, -1.1566536920481425) (0.47368421052631576, -1.2596972717477464) (0.5263157894736842, -1.370291311607859) (0.5789473684210527, -1.4862367375212715) (0.631578947368421, -1.6060848989659724) (0.6842105263157894, -1.728862983979883) (0.7368421052631579, -1.8538994638777901) (0.7894736842105263, -1.9807172102402149) (0.8421052631578947, -2.1089678635823055) (0.894736842105263, -2.2383907612655682) (0.9473684210526315, -2.36878658494642) (1.0, -2.5) };
+        \addplot[color=black, style=thick] coordinates { (0.0, -3.133653082431032e-16) (0.05263157894736842, -0.07846157972332896) (0.10526315789473684, -0.15359072699892687) (0.15789473684210525, -0.22091294387268887) (0.21052631578947367, -0.27530977951769803) (0.2631578947368421, -0.3131303200581205) (0.3157894736842105, -0.3347845586376573) (0.3684210526315789, -0.34463104721610927) (0.42105263157894735, -0.34816187488442163) (0.47368421052631576, -0.34978678017612674) (0.5263157894736842, -0.3523210442002797) (0.5789473684210527, -0.35729346785029376) (0.631578947368421, -0.3653756854207789) (0.6842105263157894, -0.37672120820949506) (0.7368421052631579, -0.39119647600518315) (0.7894736842105263, -0.4085278091571906) (0.8421052631578947, -0.42838960151895766) (0.894736842105263, -0.45045372964814256) (0.9473684210526315, -0.4744146411830131) (1.0, -0.5) };
+        \addplot[color=black, style=thick] coordinates { (0.0, 2.1064402541011205e-17) (0.05263157894736842, 0.07894736842105263) (0.10526315789473684, 0.15789473684210525) (0.15789473684210525, 0.23684210526315785) (0.21052631578947367, 0.31578947368421045) (0.2631578947368421, 0.39473684210526316) (0.3157894736842105, 0.47368421052631593) (0.3684210526315789, 0.5526315789473684) (0.42105263157894735, 0.6315789473684211) (0.47368421052631576, 0.7105263157894737) (0.5263157894736842, 0.789473684210526) (0.5789473684210527, 0.868421052631579) (0.631578947368421, 0.9473684210526314) (0.6842105263157894, 1.0263157894736838) (0.7368421052631579, 1.1052631578947363) (0.7894736842105263, 1.1842105263157896) (0.8421052631578947, 1.2631578947368425) (0.894736842105263, 1.342105263157895) (0.9473684210526315, 1.4210526315789476) (1.0, 1.5) };
+        \addplot[color=black, style=thick] coordinates { (0.0, 1.0000000000000002) (0.05263157894736842, 0.9518851800388011) (0.10526315789473684, 0.9128511557718124) (0.15789473684210525, 0.882961116244747) (0.21052631578947367, 0.8622946431642704) (0.2631578947368421, 0.8509500247252475) (0.3157894736842105, 0.8490100285344528) (0.3684210526315789, 0.8564825279433994) (0.42105263157894735, 0.8732366195641426) (0.47368421052631576, 0.8989577361343996) (0.5263157894736842, 0.933138671597613) (0.5789473684210527, 0.975109152739986) (0.631578947368421, 1.024092163334119) (0.6842105263157894, 1.0792684027156936) (0.7368421052631579, 1.139832781988236) (0.7894736842105263, 1.2050344930816148) (0.8421052631578947, 1.2741995703644204) (0.894736842105263, 1.3467392277558163) (0.9473684210526315, 1.4221485945504868) (1.0, 1.5) };
+        \end{axis}
+    \end{tikzpicture} \]
+    During the annealing process, the state of the quantum system follows the lower line with high probability, resulting in the optimal solution $x_1 = x_2 = 1$ to the optimization problem.
+\end{example}

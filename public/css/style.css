@@ -64,7 +64,7 @@ body.dark {
     --clr-list-marker: rgba(255, 255, 255, 0.5);
 }
 
-body.dark img.display.math.svg {
+body.dark .math.display.svg {
     filter: invert(87%);
 }
 
@@ -321,16 +321,18 @@ br {
     margin-bottom: 8px;
 }
 
-img.display.math.svg {
+div.math.display.svg {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 32px;
-    margin-bottom: 32px;
-    scale: 1.8;
-    max-width: 75%;
-    /* to prevent overflow-x */
+    width: fit-content;
+    margin: 8px auto;
     transition: filter var(--transition-time);
+}
+
+div.math.display.svg img {
+    display: block;
+    width: 175%;
+    /* horizontal centering */
+    transform: translateX(-25%);
 }
 
 img.math-img {
