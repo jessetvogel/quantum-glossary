@@ -104,3 +104,22 @@
 \begin{example}{observable}
     The Hamiltonian $H$ of a quantum system is an observable corresponding to the total energy of the system.
 \end{example}
+
+\begin{topic}{ehrenfest-theorem}{Ehrenfest's theorem}
+    Consider a quantum system with Hamiltonian $H$ and let $A$ be some \tref{observable}{observable}. The \emph{(generalized) Ehrenfest's theorem} states that 
+    % \[ \frac{d}{dt} \bra{\psi} A \ket{\psi} = \frac{1}{i \hbar} \bra{\psi} [A, H] \ket{\psi} + \bra{\psi} \frac{\partial A}{\partial t} \ket{\psi} . \]
+    \[ \frac{d}{dt} \langle A \rangle = \frac{1}{i \hbar} \langle [A, H] \rangle + \left\langle \frac{\partial A}{\partial t} \right\rangle , \]
+    where $\langle A \rangle$ denotes the expected value $\bra{\psi} A \ket{\psi}$ of $A$.
+\end{topic}
+
+\begin{example}{ehrenfest-theorem}
+    Consider the quantum system consisting of a $1$-dimensional particle with mass $m$, with Hamiltonian
+    \[ H = \frac{\hbar^2}{2 m} \frac{\partial^2}{\partial x^2} + V(x) . \]
+    From Ehrenfest's theorem follows that
+    \[ \frac{d}{dt} \langle x \rangle = \frac{1}{i \hbar} \langle [x, H] \rangle + \left\langle \frac{\partial x}{\partial t} \right\rangle = \left\langle - \frac{i \hbar}{m} \frac{\partial}{\partial x} \right\rangle = \frac{\langle p \rangle}{m} , \]
+    where $p = -i \hbar \frac{\partial}{\partial x}$ is the momentum operator. Similarly, we have
+    \[ \frac{d}{dt} \langle p \rangle = \frac{1}{i \hbar} \langle [p, H] \rangle + \left\langle \frac{\partial p}{\partial t} \right\rangle = \left\langle - \frac{\partial}{\partial x} V(x) \right\rangle . \]
+    Combined, we find that
+    \[ m \frac{d^2}{d t^2} \langle x \rangle = \left\langle - \frac{\partial}{\partial x} V(x) \right\rangle \]
+    which corresponds to the classical equation of motion for the particle.
+\end{example}
