@@ -1,0 +1,18 @@
+\begin{topic}{goldstone-theorem}{Goldstone theorem}
+    \emph{Goldstone's theorem} states that for every generator of a continuous global symmetry that is spontaneously broken, there appears a massless field in the Lagrangian, corresponding to a so-called \textit{Goldstone boson}.
+\end{topic}
+
+\begin{example}{goldstone-theorem}
+    Consider complex scalar field $\phi(x)$ with Lagrangian
+    \[ L = \partial_\mu \phi^\dagger \partial^\mu \phi - V(\phi) \quad \textup{ with } \quad V(\phi) = m^2 |\phi|^2 + \frac{\lambda}{2} |\phi|^4 , \]
+    for some $m^2$ and $\lambda$. The Lagrangian is invariant under the global $\U(1)$-symmetry $\alpha \cdot \phi(x) = e^{i \alpha} \phi(x)$. Note that the ground state depends on the sign of $m^2$ in the potential: if $m^2 > 0$ then the ground state is given by $\phi = 0$, while if $m^2 < 0$ there are an infinite number of ground states, given by $|\phi|^2 = - m^2 / \lambda$.
+
+    Let us consider the case $m^2 < 0$. The circle of ground states defined by $|\phi|^2 = -m^2 / \lambda$ is called the \textit{vaccuum manifold}. Now, even though the system as a whole is symmetric under $\U(1)$, any choice of ground state is not invariant under $\U(1)$.
+    This is known as \textit{sponteneous symmetry breaking}.
+
+    Express $\phi$ in terms of radial coordinates as $\phi(x) = r(x) e^{i \theta(x)}$ for some $\RR_{\ge 0}$-valued field $r(x)$ and $S^1$-valued field $\theta(x)$. The Lagrangian can now be expressed as
+    \[ L = \partial_\mu r \partial^\mu r + r^2 \partial_\mu \theta \partial^\mu \theta - \frac{\lambda}{2} (r^2 - v^2)^2 \]
+    where $v^2 = - m^2 / \lambda$. In terms of these new coordinates, the ground states are given by $r(x) = v$. Rewriting $r$ as $r(x) = v + \sigma(x)$ yields the Lagrangian
+    \[ L = \partial_\mu \sigma \partial^\mu \sigma + (v + \sigma)^2 \partial_\mu \theta \partial^\mu \theta - \frac{\lambda}{2} \sigma^2 (\sigma + 2 v)^2 . \]
+    From this Lagrangian, we can read off that the $\sigma(x)$ excitations have mass $M^2 = 2 \lambda v^2$. Furthermore, (ignoring the coupling to $\sigma$) the $\theta(x)$ field is governed by the Lagrangian term $v^2 \partial_\mu \theta \partial^\mu \theta$, that is, $\theta(x)$ is a massless scalar field: this is the \textit{Goldstone boson}.
+\end{example}

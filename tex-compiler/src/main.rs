@@ -20,6 +20,7 @@ const CATEGORIES: &[(&str, &str)] = &[
     ("GEN", "General"),
     ("PAR", "Particle Physics"),
     ("MET", "Quantum Metrology"),
+    ("QFT", "Quantum Field Theory"),
 ];
 
 fn main() {
