@@ -320,43 +320,25 @@ function getURLParameter(name) {
     }
     return null;
 }
-function getCookie(name) {
-    name += "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 function initTheme() {
-    const cookieTheme = getCookie('theme');
-    if (cookieTheme !== undefined)
-        setTheme(cookieTheme === 'dark');
-    else
-        setTheme(false);
-    document.getElementById('button-theme').addEventListener('click', function () {
-        document.cookie = `theme=${setTheme(null) ? 'dark' : 'light'}`;
-    });
+    setTheme(localStorage.getItem('quantum-glossary-theme') || 'light');
+
+    document.getElementById('button-theme').addEventListener('click', toggleTheme);
     setTimeout(function () {
         const sheet = window.document.styleSheets[0];
         sheet.insertRule('body, input { transition: background-color 0.5s, color 0.5s; }', sheet.cssRules.length);
     }, 100);
 }
-function setTheme(dark) {
-    if (dark === true) {
+function toggleTheme() {
+    setTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+}
+function setTheme(theme) {
+    if (theme === 'dark') {
         document.body.classList.add('dark');
-        return true;
+        localStorage.setItem('quantum-glossary-theme', 'dark');
     }
-    if (dark === false) {
+    else {
         document.body.classList.remove('dark');
-        return false;
+        localStorage.setItem('quantum-glossary-theme', 'light');
     }
-    return setTheme(!document.body.classList.contains('dark'));
 }
