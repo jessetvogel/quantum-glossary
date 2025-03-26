@@ -27,41 +27,70 @@
 }
 
 body {
-    --font-family: "Palatino-Linotype", serif;
-    --clr-background-body: hsl(329 20.5% 96%);
-    /* #f2eff1; */
-    --clr-text-main: rgba(0, 0, 0, 0.8);
-    --clr-shadow: rgba(0, 0, 0, 0.12);
-    --clr-autocomplete-topic-default: #555555;
-    --clr-autocomplete-topic-highlight: #222222;
-    --clr-category: #e2a32d;
-    --clr-link: #1a7d8e;
-    --clr-link-external: #ba5912;
-    --clr-loading-icon: #151515;
-    --clr-background-input: #ffffff;
-    --clr-background-example: rgba(58, 53, 53, 0.033);
-    --clr-background-highlight: rgba(0, 0, 0, 0.08);
-    --clr-background-tooltip: #fefdfc;
-    --clr-list-marker: rgba(0, 0, 0, 0.5);
-    --transition-time: 0.5s
+    --bg-1: #f7f3f5;
+    --bg-2: #ffffff;
+    --bg-3: #f1efef;
+
+    --bg-example: rgba(58, 53, 53, 0.033);
+
+    --fg-1: #222222;
+    --fg-2: #666666;
+    --fg-3: #7f7f7f;
+
+    /* --red: #ba5912; */
+    /* --green: #98971a; */
+    --yellow: #e2a32d;
+    --blue: #1a7d8e;
+    /* --purple: #b16286; */
+    /* --aqua: #689d6a; */
+    --orange: #ba5912;
+    /* --gray: #7c6f64; */
 }
 
 body.dark {
+    --bg-1: #1d2021;
+    --bg-2: #32302f;
+    --bg-3: #3c3836;
+
+    --bg-example: var(--bg-2);
+
+    --fg-1: #fbf1c7;
+    --fg-2: #d5c4a1;
+    --fg-3: #a89984;
+
+    --red: #cc2412;
+    --green: #98971a;
+    --yellow: #d79921;
+    --blue: #458588;
+    --purple: #b16286;
+    --aqua: #689d6a;
+    --gray: #a89984;
+    --orange: #d65d0e;
+}
+
+body {
     --font-family: "Palatino-Linotype", serif;
-    --clr-background-body: hsl(334.3, 14.3%, 9.6%);
-    --clr-text-main: rgba(255, 255, 255, 0.75);
+
+    --clr-background-body: var(--bg-1);
+    --clr-background-example: var(--bg-example);
+    --clr-background-highlight: var(--bg-3);
+    --clr-background-tooltip: var(--bg-2);
+    --clr-background-input: var(--bg-2);
+
+    --clr-text-main: var(--fg-1);
+    --clr-autocomplete-topic-default: var(--fg-2);
+    --clr-autocomplete-topic-highlight: var(--fg-1);
+
+    --clr-category: var(--yellow);
+    --clr-link: var(--blue);
+    --clr-link-external: var(--orange);
+
+    --clr-loading-icon: var(--fg-1);
+    --clr-list-marker: var(--fg-3);
+
     --clr-shadow: rgba(0, 0, 0, 0.12);
-    --clr-autocomplete-topic-default: rgba(255, 255, 255, 0.6);
-    --clr-autocomplete-topic-highlight: rgba(255, 255, 255, 0.87);
-    --clr-category: #e2a32d;
-    --clr-link: #2591d9;
-    --clr-loading-icon: rgba(255, 255, 255, 0.75);
-    --clr-background-input: hsl(327.7, 16%, 15.9%);
-    ;
-    --clr-background-example: rgba(255, 255, 255, 0.05);
-    --clr-background-highlight: rgba(255, 255, 255, 0.08);
-    --clr-background-tooltip: #323232;
-    --clr-list-marker: rgba(255, 255, 255, 0.5);
+
+    --transition-time: 0.5s
 }
 
 body.dark .math.display.svg {

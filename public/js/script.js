@@ -217,8 +217,6 @@ const KaTeXOptions = {
         "\\mapsfrom": "\\leftarrow\\mathrel{\\mkern-3.2mu\\raisebox{.7mu}{$\\shortmid$}}",
         "\\isom": "\\cong",
         "\\iHom": "\\underline{\\Hom}",
-        "\\bra": "\\langle #1 |",
-        "\\ket": "| #1 \\rangle",
         "\\braket": "\\langle #1 \\! \\mid \\! #2 \\rangle",
         "\\U": "\\textup{U}",
         "\\SU": "\\textup{SU}",
