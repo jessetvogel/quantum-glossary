@@ -59,19 +59,18 @@
 \end{example}
 
 \begin{topic}{uncertainty-principle}{uncertainty principle}
-    Let $A$ and $B$ be two observables on a Hilbert space $\mathcal{H}$. For any state $\ket{\psi} \in \mathcal{H}$, denote by
-    \[ \begin{aligned}
-        \sigma_A^2 &= \bra{\psi} (A - \bra{\psi} A \ket{\psi})^2 \ket{\psi} = \bra{\psi} A^2 \ket{\psi} - \bra{\psi} A \ket{\psi}^2 \\
-        \sigma_B^2 &= \bra{\psi} (B - \bra{\psi} B \ket{\psi})^2 \ket{\psi} = \bra{\psi} B^2 \ket{\psi} - \bra{\psi} B \ket{\psi}^2
-    \end{aligned} \]
-    the \textit{variance} of $A$ and $B$. The \emph{uncertainty principle} states that
-    \[ \sigma_A^2 \sigma_B^2 \ge \left(\frac{1}{2 i} [A, B] \right)^2 \]
+    Let $A$ and $B$ be two \tref{observable}{observables} on a Hilbert space $\mathcal{H}$. For any state $\ket{\psi} \in \mathcal{H}$, write
+    \[ \Delta A = A - \langle A \rangle \quad \textup{ where} \quad \langle A \rangle = \bra{\psi} A \ket{\psi} \]
+    and denote by
+    \[ \langle (\Delta A)^2 \rangle = \bra{\psi} (A - \bra{\psi} A \ket{\psi})^2 \ket{\psi} = \bra{\psi} A^2 \ket{\psi} - \bra{\psi} A \ket{\psi}^2 \]
+    the \textit{variance} of $A$. The \emph{uncertainty principle} states that
+    \[ \langle (\Delta A)^2 \rangle \langle (\Delta B)^2 \rangle \ge \left(\frac{1}{2 i} \langle [A, B] \rangle \right)^2 \]
     for all states $\ket{\psi} \in \mathcal{H}$, where $[A, B] = AB - BA$ denotes the commutator of $A$ of $B$.
 \end{topic}
 
 \begin{example}{uncertainty-principle}
-    For $A = x$ and $B = p = - i \hbar \tfrac{\partial}{\partial x}$ the position and momentum operators of a particle, the uncertainty principle reduces to the \textit{Heisenberg uncertainty principle}
-    \[ \sigma_x^2 \sigma_p^2 \ge \left(\frac{1}{2 i} [x, p] \right)^2 = \frac{\hbar^2}{4} \]
+    Let $A = x$ and $B = p = - i \hbar \tfrac{\partial}{\partial x}$ be the position and momentum operators of a particle. The uncertainty principle reduces to the \textit{Heisenberg uncertainty principle}
+    \[ \sigma_x^2 \sigma_p^2 \ge \left(\frac{1}{2 i} \langle [x, p] \rangle \right)^2 = \frac{\hbar^2}{4} \]
     since $[x, p] = i \hbar$.
 \end{example}
 
@@ -122,4 +121,44 @@
     Combined, we find that
     \[ m \frac{d^2}{d t^2} \langle x \rangle = \left\langle - \frac{\partial}{\partial x} V(x) \right\rangle \]
     which corresponds to the classical equation of motion for the particle.
+\end{example}
+
+\begin{topic}{coherent-spin-state}{coherent spin state}
+    Let a quantum system be given with angular momentum operators $S = (S_x, S_y, S_z)$, satisfying the usual cyclic commutation relations
+    \[ [S_x, S_y] = i S_z, \quad [S_y, S_z] = i S_x, \quad [S_z, S_x] = i S_y . \]
+    For any unit vector $v = (v_x, v_y, v_z) \in \RR^3$, a \emph{coherent spin state} of the system in the direction of $v$ is an eigenstate of the operator $v \cdot S = v_x S_x + v_y S_y + v_z S_z$.
+\end{topic}
+
+\begin{example}{coherent-spin-state}
+    Consider a spin-$\tfrac{1}{2}$ system, that is, a two-dimensional quantum system $\mathcal{H}$ with operators
+    \[ S_x = \begin{pmatrix} 0 & \tfrac{1}{2} \\ \tfrac{1}{2} & 0 \end{pmatrix}, \quad S_y = \begin{pmatrix} 0 & - \tfrac{i}{2} \\ \tfrac{i}{2} & 0 \end{pmatrix}, \quad S_z = \begin{pmatrix} \tfrac{1}{2} & 0 \\ 0 & - \tfrac{1}{2} \end{pmatrix} . \]
+    The coherent spin states in the direction of $v = (0, 0, 1)$ are $\ket{\uparrow} = \left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right)$ and $\ket{\downarrow} = \left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix}\right)$.
+
+    Combining $n$ spin-$\tfrac{1}{2}$ systems, we obtain a spin-$\tfrac{n}{2}$ system $\mathcal{H}^{\otimes n}$, with operators
+    \[ S_x = \sum_{i = 1}^{n} S_x^{(i)}, \quad S_y = \sum_{i = 1}^{n} S_y^{(i)}, \quad S_z = \sum_{i = 1}^{n} S_z^{(i)} , \]
+    where the superscript $^{(i)}$ denotes the operator acting on the $i$-th spin-$\tfrac{1}{2}$ system. The coherent spin states of this system in the direction of $v = (0, 0, 1)$ are $\ket{\uparrow}^{\otimes n}$ and $\ket{\downarrow}^{\otimes n}$.
+\end{example}
+
+\begin{topic}{squeezed-spin-state}{squeezed spin state}
+    Let a quantum system be given with angular momentum operators $S = (S_x, S_y, S_z)$, satisfying the usual cyclic commutation relations
+    \[ [S_x, S_y] = i S_z, \quad [S_y, S_z] = i S_x, \quad [S_z, S_x] = i S_y . \]
+    Given a state $\ket{\psi}$ of the system, choose the $z$-axis such that it aligns with the spin of $\ket{\psi}$, that is, such that $\langle S_x \rangle = \langle S_y \rangle = 0$.
+    Note that by the \tref{uncertainty-principle}{uncertainty principle} one has
+    \[ \langle (\Delta S_x)^2 \rangle \langle (\Delta S_y)^2 \rangle \ge \tfrac{1}{4} |\langle S_z \rangle|^2 . \]
+    The state $\ket{\psi}$ is a \emph{squeezed spin state} if $\langle (\Delta S_x)^2 \rangle < \tfrac{1}{2} | \langle S_z \rangle |$.
+\end{topic}
+
+\begin{example}{squeezed-spin-state}
+    Consider the spin-$\tfrac{1}{2}$ system with Hilbert space $\mathcal{H} = \CC^2$, basis states $\ket{\uparrow} = \left(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\right)$ and $\ket{\downarrow} = \left(\begin{smallmatrix} 0 \\ 1 \end{smallmatrix}\right)$, and operators
+    \[ S_x = \begin{pmatrix} 0 & \tfrac{1}{2} \\ \tfrac{1}{2} & 0 \end{pmatrix}, \quad S_y = \begin{pmatrix} 0 & - \tfrac{i}{2} \\ \tfrac{i}{2} & 0 \end{pmatrix}, \quad S_z = \begin{pmatrix} \tfrac{1}{2} & 0 \\ 0 & - \tfrac{1}{2} \end{pmatrix} . \]
+    Combining two spin-$\tfrac{1}{2}$ systems gives a spin-$1$ system $\mathcal{H} \otimes \mathcal{H}$ with operators
+    \[ S_x = \sum_{i = 1}^{2} S_x^{(i)}, \quad S_y = \sum_{i = 1}^{2} S_y^{(i)}, \quad S_z = \sum_{i = 1}^{2} S_z^{(i)} , \]
+    where the superscript $^{(i)}$ denotes the operator acting on the $i$-th spin-$\tfrac{1}{2}$ system. Now, consider the state
+    \[ \ket{\psi} = \cos(\theta) \ket{\uparrow \uparrow} + \sin(\theta) \ket{\downarrow \downarrow} \]
+    for some $\theta \in [0, 2 \pi]$. For this state, we compute
+    \[ \begin{gathered}
+        \langle S_x \rangle = \langle S_y \rangle = 0, \quad \langle S_z \rangle = \cos(\theta)^2 - \sin(\theta)^2 = \cos(2 \theta) , \\
+        \langle (\Delta S_x)^2 \rangle = \sin \left( \theta + \tfrac{\pi}{4} \right)^2, \quad \langle (\Delta S_y)^2 \rangle = \cos \left( \theta + \tfrac{\pi}{4} \right)^2 \quad \textup{ and } \quad \langle (\Delta S_z)^2 \rangle = \tfrac{1}{2} - \cos(4 \theta)^2 .
+    \end{gathered} \]
+    In particular, $\ket{\psi}$ is a squeezed spin state for $\theta \in \left(\tfrac{\pi}{2}, \pi\right)$ (except for $\theta = \tfrac{3 \pi}{4}$, where $\langle S_z \rangle = 0$).
 \end{example}
