@@ -94,7 +94,7 @@ body {
 }
 
 body.dark .math.display.svg {
-    filter: invert(87%);
+    filter: invert(85%) sepia(100%);
 }
 
 body.dark #content em {
