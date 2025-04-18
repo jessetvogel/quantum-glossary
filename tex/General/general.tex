@@ -180,7 +180,7 @@
     \begin{enumerate}[label=(\arabic*)]
         \item Initialize the system in state $\ket{0}$.
         \item Apply an oscillating field to the system, changing the Hamiltonian to
-        \[ H(t) = H_0 + V(t) \quad \textup{ with } \quad V(t) = \gamma e^{i \omega t} \ket{0} \bra{1} + \gamma e^{-\omega t} \ket{1} \bra{0} \]
+        \[ H(t) = H_0 + V(t) \quad \textup{ with } \quad V(t) = \gamma e^{i \omega t} \ket{0} \bra{1} + \gamma e^{- i \omega t} \ket{1} \bra{0} \]
         for some frequency $\omega > 0$ and coupling strength $\gamma > 0$.
         \item Denote the state of the system after time $t$ by $\ket{\psi(t)} = \alpha(t) \ket{0} + \beta(t) \ket{1}$. The probability to observe the system in state $\ket{1}$ after time $t$ is given by the \textit{Rabi formula}
         \[ |\beta(t)|^2 = \frac{(\gamma / \hbar)^2}{(\gamma / \hbar)^2 + \tfrac{1}{4} (\omega - \omega_0)^2} \sin \left( \sqrt{(\gamma / \hbar)^2 + \tfrac{1}{4} (\omega - \omega_0)^2} t \right)^2 . \]
@@ -188,6 +188,18 @@
         \item When the oscillation frequency $\omega$ is close to $\omega_0$, there is resonance.
     \end{enumerate}
 \end{topic}
+
+\begin{example}{rabi-method}
+    Let us derive the Rabi formula by solving the Schrödinger equation $i \hbar \frac{\partial}{\partial t} \ket{\Psi(t)} = H(t) \ket{\Psi(t)}$. First, make a change of basis
+    \[ \ket{\Phi(t)} = A(t) \ket{\Psi(t)} \quad \textup{ for } \quad A(t) = \begin{pmatrix} e^{-i \omega t / 2} & 0 \\ 0 & e^{i \omega t / 2} \end{pmatrix} . \]
+    The Schrödinger equation for $\ket{\Phi(t)}$ is given by
+    \[ i \hbar \frac{\partial}{\partial t} \ket{\Phi(t)} = \tilde{H}(t) \ket{\Phi(t)} \quad \textup{ where } \quad \tilde{H}(t) = i \hbar \left( \frac{\partial}{\partial t} A(t) \right) A(t)^{-1} + A(t) H(t) A(t)^{-1} . \]
+    Filling in the expressions for $A(t)$ and $H(t)$, we find that
+    \[ \tilde{H}(t) = \begin{pmatrix} \frac{\omega - \omega_0}{2} & \gamma \\ \gamma & - \frac{\omega - \omega_0}{2} \end{pmatrix} \]
+    is actually time-independent. Hence, we can easily solve for $\ket{\Phi(t)} = \exp \left( - \tfrac{i}{\hbar} \tilde{H} t \right) \ket{\Phi(0)}$, where $\ket{\Phi(0)} = A(0) \ket{\Psi(0)} = \left( \begin{smallmatrix} 1 \\ 0 \end{smallmatrix} \right)$, from which follows $\ket{\Psi(t)} = A(t)^{-1} \ket{\Phi(t)}$.
+    
+    While the expression for $\ket{\Psi(t)}$ is quite involved, one can check that the transition probability $\left|\braket{1}{\Psi(t)}\right|^2$ coincides precisely with the Rabi formula.
+\end{example}
 
 \begin{example}{rabi-method}
     The following graph shows the transition probability $p$ as a function of the oscillation frequency $\omega$. As parameters were chosen $\gamma/\hbar = 0.1$, $\omega_0 = 10$ and $t = 10$.
