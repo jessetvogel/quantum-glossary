@@ -213,3 +213,37 @@
     \end{tikzpicture} \]
     During the annealing process, the state of the quantum system follows the lower line with high probability, resulting in the optimal solution $x_1 = x_2 = 1$ to the optimization problem.
 \end{example}
+
+\begin{topic}{abelian-hidden-subgroup-algorithm}{abelian hidden subgroup algorithm}
+    The \textit{hidden subgroup problem} is the following problem.
+
+    \textbf{Problem}: Given a group $G$ and a function $f \colon G \to S$ for some finite set $S$ such that there exists some subgroup $H \subseteq G$ for which $f(x) = f(y)$ if and only if $x H = y H$. Determine $H$.
+
+    The \emph{abelian hidden subgroup algorithm} is a quantum algorithm to solve the hidden subgroup problem when $G$ is finite and abelian.
+
+    \textbf{Algorithm}:
+    Any finite group $G$ is of the form $(\ZZ / N_1 \ZZ) \times \cdots \times (\ZZ / N_k \ZZ)$ for some integers $N_j > 1$.
+    Note that any character of $G$ is of the form
+    \[ \chi_g (x) = \exp \left( \textstyle\sum_{j = 1}^{k} \frac{2 \pi i}{N_j} x_j g_j \right) \]
+    for some $g = (g_1, \ldots, g_k) \in G$.
+    Hence, the tensor product of \tref{quantum-fourier-transform}{quantum Fourier transforms}
+    \[ F_{N_1} \otimes \cdots \otimes F_{N_k} \quad \textup{ precisely maps } \quad \ket{g} \mapsto \frac{1}{\sqrt{|G|}} \sum_{x \in G} \chi_g(x) \ket{x} . \]
+    \begin{enumerate}[label=(\arabic*)]
+        \item Start with the state $\ket{0} \ket{0}$, where the two registers have dimension $N_G = |G|$ and $N_S = |S|$, respectively.
+        \item Create a uniform superposition over $G$ in the first register, to obtain the state $\frac{1}{\sqrt{|G|}} \sum_{g \in G} \ket{g} \ket{0}$.
+        \item Compute $f$ in superposition to obtain the state $\frac{1}{\sqrt{|G|}} \sum_{g \in G} \ket{g} \ket{f(g)}$.
+        \item Measure the second register to obtain some value $f(g)$ for some $g \in G$. The first register will collapse to a superposition over all $g' \in G$ such that $f(g') = f(g)$, that is, such that $g' \in g + H$. Hence, we are left with the state $\frac{1}{\sqrt{|H|}} \sum_{h \in H} \ket{g + h}$.
+        \item Apply $F_{N_1} \otimes \cdots \otimes F_{N_k}$ to obtain the state
+        \[ \begin{aligned}
+            \frac{1}{\sqrt{|H| |G|}} \sum_{h \in H} \sum_{x \in G} \chi_{g + h}(x) \ket{x}
+                = \frac{1}{\sqrt{|H| |G|}} \sum_{x \in G} \chi_g(x) \sum_{h \in H} \chi_h(x) \ket{x}
+                = \sqrt{\frac{|H|}{|G|}} \sum_{\substack{x \in H^\perp}} \chi_g(x) \ket{x} ,
+        \end{aligned} \]
+        where $H^\perp = \{ x \in G \mid \chi_x(h) = 1 \textup{ for all } h \in H \}$, and the last equality follows from the \href{/math-definitions/#RT:first-orthogonality-theorem}{first orthogonality theorem}.
+        \item Measure the state. This yields some uniformly distributed element $x \in H^\perp$. Each such element corresponds to a constraint on $H$, because $\chi_x(h) = 1$ for all $h \in H$. Generating a small number of such elements will give sufficient information to find the generators of $H$.
+    \end{enumerate}
+\end{topic}
+
+\begin{example}{abelian-hidden-subgroup-algorithm}
+    The abelian hidden subgroup problem reduces to \tref{simon-algorithm}{Simon's problem} for $G = (\ZZ / 2\ZZ)^{n}$ and $H = \{ 0, s \}$ for some $s \in G$. In fact, the abelian hidden subgroup algorithm reduces precisely to Simon's algorithm.
+\end{example}
