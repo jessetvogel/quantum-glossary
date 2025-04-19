@@ -229,7 +229,7 @@
     Hence, the tensor product of \tref{quantum-fourier-transform}{quantum Fourier transforms}
     \[ F_{N_1} \otimes \cdots \otimes F_{N_k} \quad \textup{ precisely maps } \quad \ket{g} \mapsto \frac{1}{\sqrt{|G|}} \sum_{x \in G} \chi_g(x) \ket{x} . \]
     \begin{enumerate}[label=(\arabic*)]
-        \item Start with the state $\ket{0} \ket{0}$, where the two registers have dimension $N_G = |G|$ and $N_S = |S|$, respectively.
+        \item Start with the state $\ket{0} \ket{0}$, where the two registers have dimension $|G|$ and $|S|$, respectively. In particular, the basis states of the first register are $\ket{g}$ for $g \in G$, and those of the second register are $\ket{s}$ for $s \in S$.
         \item Create a uniform superposition over $G$ in the first register, to obtain the state $\frac{1}{\sqrt{|G|}} \sum_{g \in G} \ket{g} \ket{0}$.
         \item Compute $f$ in superposition to obtain the state $\frac{1}{\sqrt{|G|}} \sum_{g \in G} \ket{g} \ket{f(g)}$.
         \item Measure the second register to obtain some value $f(g)$ for some $g \in G$. The first register will collapse to a superposition over all $g' \in G$ such that $f(g') = f(g)$, that is, such that $g' \in g + H$. Hence, we are left with the state $\frac{1}{\sqrt{|H|}} \sum_{h \in H} \ket{g + h}$.
@@ -239,11 +239,11 @@
                 = \frac{1}{\sqrt{|H| |G|}} \sum_{x \in G} \chi_g(x) \sum_{h \in H} \chi_h(x) \ket{x}
                 = \sqrt{\frac{|H|}{|G|}} \sum_{\substack{x \in H^\perp}} \chi_g(x) \ket{x} ,
         \end{aligned} \]
-        where $H^\perp = \{ x \in G \mid \chi_x(h) = 1 \textup{ for all } h \in H \}$, and the last equality follows from the \href{/math-definitions/#RT:first-orthogonality-theorem}{first orthogonality theorem}.
+        where $H^\perp = \{ x \in G \mid \chi_x(h) = 1 \textup{ for all } h \in H \}$, and where the last equality can be shown using the \href{/math-definitions/#RT:first-orthogonality-theorem}{first orthogonality theorem}.
         \item Measure the state. This yields some uniformly distributed element $x \in H^\perp$. Each such element corresponds to a constraint on $H$, because $\chi_x(h) = 1$ for all $h \in H$. Generating a small number of such elements will give sufficient information to find the generators of $H$.
     \end{enumerate}
 \end{topic}
 
 \begin{example}{abelian-hidden-subgroup-algorithm}
-    The abelian hidden subgroup problem reduces to \tref{simon-algorithm}{Simon's problem} for $G = (\ZZ / 2\ZZ)^{n}$ and $H = \{ 0, s \}$ for some $s \in G$. In fact, the abelian hidden subgroup algorithm reduces precisely to Simon's algorithm.
+    The hidden subgroup problem reduces to \tref{simon-algorithm}{Simon's problem} for $G = (\ZZ / 2\ZZ)^{n}$ and $H = \{ 0, s \}$ for some $s \in G$. In fact, the abelian hidden subgroup algorithm reduces precisely to Simon's algorithm.
 \end{example}
