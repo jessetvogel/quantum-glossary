@@ -104,7 +104,7 @@
         \item Observe that the Grover iterate $\mathcal{G}$ is the composite of $\mathcal{O}$ and $H^{\otimes n} R H^{\otimes n} = 2 \ket{U} \bra{U} - I$. In the $2$-dimensional plane spanned by $\ket{G}$ and $\ket{B}$, this corresponds to a reflection through $\ket{B}$ followed by a reflection through $\ket{U}$. Therefore,
         \[ \mathcal{G}^k \ket{U} = \sin(\theta_k) \ket{G} + \cos(\theta_k) \ket{B} \quad \textup{ with } \theta_k = (2k + 1) \theta_0 \]
         for any $k \ge 0$.
-        \item Choose $k$ such that applying $k$ Grover iterates maximizes the probability to measure some $i$ with $x_i = 1$. Explicitly, this probability is $P_k = \sin((2k + 1) \theta_0)^2$, so choose $k$ to be the integer closest to $\tilde{k} = \tfrac{\pi}{4} \theta_0 - \tfrac{1}{2}$.
+        \item Choose $k$ such that applying $k$ Grover iterates maximizes the probability to measure some $i$ with $x_i = 1$. Explicitly, this probability is $P_k = \sin((2k + 1) \theta_0)^2$, so choose $k$ to be the integer closest to $\tilde{k} = \tfrac{\pi}{4 \theta_0} - \tfrac{1}{2}$.
         \item Apply $k$ Grover iterates and measure the qubits to obtain some $i$. The failure probability is
         \[ \begin{aligned}
             1 - P_k
@@ -112,7 +112,7 @@
                 &= \cos(\pi/2 + 2 (k - \tilde{k}) \theta_0)^2 = \sin(2(k - \tilde{k}) \theta_0)^2 \le \sin(\theta_0)^2 = \frac{t}{N} .
         \end{aligned} \]
     \end{enumerate}
-    Since $\arcsin(\theta_0) \ge \theta_0$, the number of Grover iterates is $k \le \tfrac{\pi}{4} \theta_0 \le \tfrac{\pi}{4} \sqrt{N/t}$. When $t$ is unknown, the above algorithm is run for different guesses of $k$. The expected number of queries to use is $O(\sqrt{N / t})$.
+    Since $\arcsin(\theta_0) \ge \theta_0$, the number of Grover iterates is $k \le \tfrac{\pi}{4 \theta_0} \le \tfrac{\pi}{4} \sqrt{N/t}$. When $t$ is unknown, the above algorithm is run for different guesses of $k$. The expected number of queries to use is $O(\sqrt{N / t})$.
 \end{topic}
 
 \begin{example}{grover-search-algorithm}
