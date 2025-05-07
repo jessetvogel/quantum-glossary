@@ -209,3 +209,32 @@
         \end{axis}
     \end{tikzpicture} \]
 \end{example}
+
+\begin{topic}{lindbladian}{Lindbladian}
+    Let a quantum system with Hamiltonian $H$ be given. The \emph{Lindbladian equation} describes the time-evolution of the \tref{mixed-state}{state} $\rho$ of the system as
+    \[ \frac{d \rho}{dt} = - \frac{i}{\hbar} [H, \rho] + \sum_{i = 1}^{n} \gamma_i \left( L_i \rho L_i^\dagger - \frac{1}{2} L_i^\dagger L_i \rho - \frac{1}{2} \rho L_i^\dagger L_i \right) \]
+    where $L_i$ are the \textit{jump operators} and $\gamma_i \ge 0$ are the \textit{damping rates} describing the dissipative part of the dynamics of the system.
+\end{topic}
+
+\begin{topic}{quantum-harmonic-oscillator}{quantum harmonic oscillator}
+    The \emph{quantum harmonic oscillator} is the quantum system with Hamiltonian
+    \[ H = \tfrac{1}{2} p^2 + \tfrac{1}{2} \omega^2 q^2 \]
+    for some $\omega > 0$, where $p$ and $q$ are operators with $[q, p] = i$.
+
+    The operators
+    \[ a^\dagger = \sqrt{\frac{\omega}{2}} q - \frac{i}{\sqrt{2 \omega}} p \quad \textup{ and } \quad a = \sqrt{\frac{\omega}{2}} q + \frac{i}{\sqrt{2 \omega}} p \]
+    are called the \emph{creation} and \emph{annihilation operators}, respectively, and they satisfy
+    \[ \begin{gathered}
+        [a, a^\dagger] = 1, \quad H = \tfrac{1}{2} \omega (a a^\dagger + a^\dagger a) = \omega \big( a^\dagger a + \tfrac{1}{2} \big) , \\[5pt]
+        [H, a^\dagger] = \omega a^\dagger \quad \textup{ and } \quad [H, a] = - \omega a .
+    \end{gathered} \]
+    In particular, for any eigenstate $\ket{E}$ of $H$ with energy $E$, that is, $H \ket{E} = E \ket{E}$, it follows that
+    \[ H a^\dagger \ket{E} = (E + \omega) a^\dagger \ket{E} \quad \textup{ and } \quad H a \ket{E} = (E - \omega) a \ket{E} . \]
+    This yields a ladder of eigenstates of the system with energies
+    \[ \ldots, \; E - 2 \omega, \; E - \omega, \; E, \; E + \omega, \; E + 2 \omega, \; \ldots \]
+    If the energy is bounded below, there must be a lowest energy state $\ket{0}$ satisfying $a \ket{0} = 0$. From the expression for $H$ in terms of $a^\dagger$ and $a$ follows that
+    \[ H \ket{0} = \tfrac{1}{2} \omega \ket{0} \]
+    and the states $\ket{n} = (a^\dagger)^n \ket{0}$ (ignoring normalization) satisfy
+    \[ H \ket{n} = (n + \tfrac{1}{2}) \omega \ket{n} . \]
+\end{topic}
+
