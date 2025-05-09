@@ -59,3 +59,44 @@
 % \begin{example}{ancilla-qubit}
 %     Ancilla qubits are sometimes necessary to keep the circuit reversible.
 % \end{example}
+
+\begin{topic}{quantum-signal-processing}{Quantum Signal Processing (QSP)}
+    For any $x = \cos \theta \in [-1, 1]$, let $W(x) = \exp(i \theta X) = \begin{pmatrix} x & i \sqrt{1 - x^2} \\ i \sqrt{1 - x^2} & x \end{pmatrix}$ be a unitary gate acting on one \tref{qubit}{qubit}.
+    A \emph{Quantum Signal Processing (QSP) sequence} is a quantum circuit of the form
+    \[ U(x, \phi_0, \ldots, \phi_n) = \exp(i \phi_0 Z) W(x) \exp(i \phi_1 Z) W(x) \cdots W(x) \exp(i \phi_n Z) \]
+    for some $\phi_0, \ldots, \phi_n \in \RR$.
+\end{topic}
+
+\begin{example}{quantum-signal-processing}
+    \textbf{Theorem} (\href{https://arxiv.org/pdf/2105.02859}{Martyn et al.})
+    For any $\phi_0, \ldots, \phi_n \in \RR$, one has
+    \[ U(x, \phi_0, \ldots, \phi_n) = \begin{pmatrix}
+        P(x) & i Q(x) \sqrt{1 - x^2} \\
+        i Q(x)^* \sqrt{1 - x^2} & P(x)^*
+    \end{pmatrix} \quad \textup{ for all } x \in [-1, 1] \]
+    for some polynomials $P$ and $Q$. Conversely, such $\phi_0, \ldots, \phi_n \in \RR$ exist for any polynomials $P$ and $Q$ satisfying
+    \begin{itemize}
+        \item $\deg P \le n$ and $\deg Q \le n - 1$,
+        \item $P(-x) = (-1)^n P(x)$ and $Q(-x) = (-1)^{n - 1} Q(x)$,
+        \item $|P|^2 + (1 - x)^2 |Q|^2 = 1$.
+    \end{itemize}
+\end{example}
+
+\begin{example}{quantum-signal-processing}
+    \begin{itemize}
+        \item For $\phi_0 = \phi_1 = \phi_2 = 0$, we have $U(x, 0, 0, 0) = \begin{pmatrix}
+            2 x^2 - 1 & 2 i x \sqrt{1 - x^2} \\
+            2 i x \sqrt{1 - x^2} & 2 x^2 - 1
+        \end{pmatrix}$.
+        \item For $\phi_0 = \phi_1 = \phi_2 = \phi_3 = 0$, we have $U(x, 0, 0, 0, 0) = \begin{pmatrix}
+            4 x^3 - 3 x & i (4 x^2 - 1) \sqrt{1 - x^2} \\
+            i (4 x^2 - 1) \sqrt{1 - x^2} & 4 x^2 - 3 x
+        \end{pmatrix}$.
+        \item Let $(\phi_0, \phi_1, \phi_2, \phi_3, \phi_4, \phi_5) = (\pi/2, -\eta, 2 \eta, 0, -2 \eta, \eta)$ where $\eta = \tfrac{1}{2} \cos^{-1}(-1/4)$. Then
+        \[ U(x, \phi_0, \ldots, \phi_5) = \begin{pmatrix}
+            16 x^5 - 20 x^3 + 5 x & i (16 x^4 - 12 x^2 + 1) \sqrt{1 - x^2} \\
+            i (16 x^4 - 12 x^2 + 1) \sqrt{1 - x^2} & 16 x^5 - 20 x^3 + 5 x
+        \end{pmatrix} \]
+        up to a global phase factor. This sequence is known as the \textit{BB1 pulse sequence}.
+    \end{itemize}
+\end{example}
