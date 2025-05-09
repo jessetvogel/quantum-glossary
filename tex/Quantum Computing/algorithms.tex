@@ -84,10 +84,6 @@
     The value of $\phi$ can now be obtained by measuring the first $n$ qubits.
 \end{topic}
 
-% \begin{topic}{shor-algorithm}{Shor's algorithm}
-    
-% \end{topic}
-
 \begin{topic}{grover-search-algorithm}{Grover's search algorithm}
     \emph{Grover's search algorithm} is a quantum algorithm to solve the following problem:
 
@@ -247,3 +243,45 @@
 \begin{example}{abelian-hidden-subgroup-algorithm}
     The hidden subgroup problem reduces to \tref{simon-algorithm}{Simon's problem} for $G = (\ZZ / 2\ZZ)^{n}$ and $H = \{ 0, s \}$ for some $s \in G$. In fact, the abelian hidden subgroup algorithm reduces precisely to Simon's algorithm.
 \end{example}
+
+\begin{topic}{shor-factoring-algorithm}{Shor's factoring algorithm}
+    \emph{Shor's factoring algorithm} is a quantum algorithm to solve the following problem:
+
+    \textbf{Problem}: Given an integer $N > 1$ which is not a prime number, find the factors of $N$.
+
+    \textbf{Algorithm}: Assume $N$ is odd and not a prime power. This can easily be verified by a classical algorithm.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Pick a random integer $x \in \{ 2, \ldots, N - 1 \}$ coprime to $N$. If $x$ is not coprime to $N$, then $\gcd(x, N)$ is a non-trivial factor of $N$.
+        \item Use \tref{shor-period-finding-algorithm}{Shor's period-finding algorithm} to find the period $r$ of $f(a) = x^a \mod N$, that is, the smallest $1 \le r \le N$ such that $x^r \equiv 1 \mod N$.
+        \item It can be shown that with probability $\ge 1 / 2$, the period $r$ is even and $x^{r/2} + 1$ and $x^{r/2} - 1$ are not multiples of $N$. In that case, since $(x^{r/2} + 1) (x^{r/2} - 1) \equiv 0 \mod N$, both $x^{r/2} + 1$ and $x^{r/2} - 1$ will share a non-trivial factor with $N$. These non-trivial factors can be obtained as the greatest common divisors $\gcd(x^{r/2} + 1, N)$ and $\gcd(x^{r/2} - 1, N)$.
+    \end{enumerate}
+\end{topic}
+
+\begin{topic}{shor-period-finding-algorithm}{Shor's period-finding algorithm}
+    \emph{Shor's period-finding algorithm} is a quantum algorithm to solve the following problem:
+
+    \textbf{Problem}: Given some function $f \colon \NN \to \{ 0, \ldots, N - 1 \}$ with the property that there is some unknown $r \in \{ 0, \ldots, N - 1 \}$ such that $f(a) = f(b)$ if and only if $a \equiv b \mod r$, find $r$.
+
+    \textbf{Algorithm}: Denote by $\mathcal{O}$ the query which acts as $\mathcal{O} \left( \ket{a} \otimes \ket{0^n} \right) \mapsto \ket{a} \otimes \ket{f(a)}$. Let $n = \lceil \log_2 N \rceil$ and let $q = 2^\ell$ be such that $N^2 < q \le 2 N^2$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Start with the $(\ell + n)$-qubit state $\ket{0^\ell} \otimes \ket{0^n}$.
+        \item Apply the \tref{quantum-fourier-transform}{quantum Fourier transform} $F_q$ to obtain the state $\frac{1}{\sqrt{q}} \sum_{a = 0}^{q - 1} \ket{a} \otimes \ket{0^n}$. Alternatively, the same result can be achieved by applying a \tref{hadamard-gate}{Hadamard gate} to the first $\ell$ qubits.
+        \item Apply $\mathcal{O}$ to obtain the state $\frac{1}{\sqrt{q}} \sum_{a = 0}^{q - 1} \ket{a} \otimes \ket{f(a)}$.
+        \item Measure the second register to obtain some $f(s)$. Since $f$ has period $r$, we may assume $s < r$. Ignoring from now on the second register, the state collapses to $\frac{1}{\sqrt{m}} \sum_{k = 0}^{m} \ket{s + kr}$ for some $m$.
+        \item Apply the quantum Fourier transform $F_q$ to obtain the state
+        \[ \frac{1}{\sqrt{m}} \sum_{k = 0}^{m - 1} \frac{1}{\sqrt{q}} \sum_{b = 0}^{q - 1} \exp \left( 2 \pi i \frac{(s + kr) b}{q} \right) \ket{b} = \frac{1}{\sqrt{mq}} \sum_{b = 0}^{q - 1} \exp \left( 2 \pi i \frac{sb}{q} \right) \sum_{k = 0}^{m} \exp \left( 2 \pi i \frac{krb}{q} \right) \ket{b} \]
+        and note that
+        \[ \sum_{k = 0}^{m - 1} \exp \left( 2 \pi i \frac{krb}{q} \right) = \begin{cases}
+            m & \textup{ if } \exp \left( 2 \pi i \right) = 1 , \\
+            \frac{1 - \exp(2 \pi i \tfrac{mrb}{q})}{1 - \exp(2 \pi i \tfrac{rb}{q})} & \textup{ if } \exp \left( 2 \pi i \right) \ne 1 . \\
+        \end{cases} \]
+        \item Measure the state to obtain some $b$. It can be shown that, with high probability, the value $b$ will be such that
+        \[ \left| \frac{b}{q} - \frac{c}{r} \right| \le \frac{1}{2 q} \]
+        for some $0 \le c < r$. In that case, since $r \le N$ and $N^2 < q$, there can be at most \textit{one} such fraction $c/r$ satisfying the above inequality. Hence, $c/r$ can be obtained classically as the fraction with denominator $\le N$ that is closest to $b/q$ (e.g. using a contined-fraction expansion). Moreover, with high probability $c$ will be coprime to $r$, so that $r$ is precisely the denominator of the obtained fraction written in reduced form.
+    \end{enumerate}
+    % To see why this works, consider the following two cases:
+    %     \begin{itemize}
+    %         \item \textit{Case $r$ divides $q$}. Note that the states $\ket{b}$ with $b$ a multiple of $q/r$ have squared amplitude $(m / \sqrt{mq})^2 = m/q = 1/r$. Since there are exactly $r$ such $b$, these must make up the total state. That is, the state is equal to $\frac{1}{\sqrt{r}} \sum_{c = 0}^{r - 1} \ket{\frac{cq}{r}}$.
+    %         \item \textit{Case $r$ does not divide $q$}. (TODO)
+    %     \end{itemize}
+\end{topic}
