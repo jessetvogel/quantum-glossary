@@ -1,0 +1,21 @@
+\begin{topic}{bb84}{BB84}
+    The \emph{BB84 protocol} is a protocol for quantum key distribution.
+
+    \textbf{Protocol}: Alice wants to send Bob a private key.
+
+    \begin{enumerate}[label=(\arabic*)]
+        \item Alice generates two strings of random bits $(a_1, \ldots, a_n)$ and $(b_1, \ldots, b_n)$ of length $n$.
+        \item Alice prepares $n$ \tref{COM:qubit}{qubits} in the state $\ket{\Psi} = \bigotimes_{i = 1}^{n} \ket{\psi_{a_i b_i}}$, where
+        \[ \ket{\psi_{a_i b_i}} = \left\{ \begin{array}{cl}
+            \ket{0} & \textup{ if } a_i b_i = 00 , \\
+            \ket{1} & \textup{ if } a_i b_i = 10 , \\
+            \tfrac{1}{\sqrt{2}} ( \ket{0} + \ket{1} ) & \textup{ if } a_i b_i = 01 , \\
+            \tfrac{1}{\sqrt{2}} ( \ket{0} - \ket{1} ) & \textup{ if } a_i b_i = 11 ,
+        \end{array} \right. \]
+        and sends these qubits to Bob.
+        \item Bob generates a string of random bits $(b'_1, \ldots, b'_n)$ of length $n$.
+        \item For every $i = 1, \ldots, n$, if $b'_i = 0$, then Bob measures the $i$-th qubit to obtain a bit $a'_i$. If $b'_i = 1$, then Bob applies a \tref{COM:hadamard-gate}{Hadamard gate} to the $i$-th qubit before measuring it. Note that, if $b'_i = b_i$, then $a'_i$ certainly equals $a_i$, and if $b'_i \ne b_i$, then $a'_i$ equals $a_i$ only with probability $\tfrac{1}{2}$.
+        \item Alice and Bob determine over a classical channel the values of $i$ for which $b'_i = b_i$, and they discard the bits $a_i$ and $a'_i$ for those $i$ where $b'_i \ne b_i$.
+        \item From the remaining $m \approx n / 2$ bits, Alice randomly chooses $m / 2$ bits to share publicly with Bob. If at least a certain number of these bits $a_i$ indeed match Bob's bits $a'_i$, then the protocol succeeded, and the remaining $m / 2$ bits are used to determine a shared secret key. If the threshold is not reached, they cancel the protocol and try again.
+    \end{enumerate}
+\end{topic}
