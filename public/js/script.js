@@ -276,7 +276,7 @@ function gotoTopic(id) {
     autocomplete.input.value = topic;
     autocomplete.options.innerHTML = '';
     setSearchCategory(categories[id.substring(0, id.indexOf(':'))]);
-    window.history.pushState(id, 'Math: ' + id, '#' + id);
+    window.history.pushState(id, 'Quantum: ' + id, '#' + id);
 }
 function checkUrlFragment() {
     const id = window.location.hash.substring(1);
