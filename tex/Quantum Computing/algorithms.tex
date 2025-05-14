@@ -285,3 +285,29 @@
     %         \item \textit{Case $r$ does not divide $q$}. (TODO)
     %     \end{itemize}
 \end{topic}
+
+\begin{topic}{superdense-coding}{superdense coding}
+    \emph{Superdense coding} is a protocol to communicate two classical bits of information by sending only one \tref{qubit}{qubit}, relying on a shared pair of maximally entangled qubits.
+
+    \textbf{Protocol}: Alice and Bob start with a shared \tref{epr-pair}{EPR pair} $\tfrac{1}{\sqrt{2}} (\ket{00} + \ket{11})$. Alice has classical bits $a$ and $b$ that she wants to communicate to Bob.
+    \begin{enumerate}[label=(\arabic*)]
+        \item If $a = 1$, Alice applies an \tref{pauli-gates}{$X$-gate} to her qubit.
+        \item If $b = 1$, Alice applies a \tref{pauli-gates}{$Z$-gate} to her qubit.
+        \item Alice sends her qubit to Bob, whose qubits are now in the state
+        \[ \left\{ \begin{array}{cl}
+            \frac{1}{\sqrt{2}} (\ket{00} + \ket{11}) & \textup{ if } ab = 00 , \\
+            \frac{1}{\sqrt{2}} (\ket{00} - \ket{11}) & \textup{ if } ab = 01 , \\
+            \frac{1}{\sqrt{2}} (\ket{01} + \ket{10}) & \textup{ if } ab = 10 , \\
+            \frac{1}{\sqrt{2}} (\ket{01} - \ket{10}) & \textup{ if } ab = 11 .
+        \end{array} \right. \]
+        \item Bob applies a \tref{cnot-gate}{CNOT gate} on his two qubits, with the second qubit being the control qubit.
+        \item Bob applies a \tref{hadamard-gate}{Hadamard gate} on his second qubit. The total state is now
+        \[ \left\{ \begin{array}{cl}
+            \ket{00} & \textup{ if } ab = 00 , \\
+            \ket{01} & \textup{ if } ab = 01 , \\
+            \ket{10} & \textup{ if } ab = 10 , \\
+            - \ket{11} & \textup{ if } ab = 11 .
+        \end{array} \right. \]
+        \item Bob measures both qubits, yielding $a$ and $b$.
+    \end{enumerate}
+\end{topic}
