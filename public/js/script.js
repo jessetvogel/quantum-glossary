@@ -1,4 +1,4 @@
-const autocomplete = {
+const autoComplete = {
     input: null,
     options: null,
     numOptions: 0,
@@ -65,33 +65,32 @@ function boldenTokens(str, tokens) {
     return out.join('');
 }
 function initAutoComplete() {
-    autocomplete.input = document.getElementById('input-search');
-    autocomplete.options = document.getElementById('auto-complete-options');
-    autocomplete.input.addEventListener('input', updateAutoComplete);
-    autocomplete.input.addEventListener('keydown', function (event) {
-        var _a;
+    autoComplete.input = document.getElementById('input-search');
+    autoComplete.options = document.getElementById('auto-complete-options');
+    autoComplete.input.addEventListener('input', updateAutoComplete);
+    autoComplete.input.addEventListener('keydown', function (event) {
         if (event.key == 'ArrowDown') {
-            if (autocomplete.selected < autocomplete.numOptions - 1)
-                autoCompleteSelect(autocomplete.selected + 1);
+            if (autoComplete.selected < autoComplete.numOptions - 1)
+                autoCompleteSelect(autoComplete.selected + 1);
         }
         if (event.key == 'ArrowUp') {
-            if (autocomplete.selected > -1)
-                autoCompleteSelect(autocomplete.selected - 1);
+            if (autoComplete.selected > -1)
+                autoCompleteSelect(autoComplete.selected - 1);
         }
         if (event.key == 'Enter') {
-            let option = autocomplete.options.querySelector('div.select');
+            let option = autoComplete.options.querySelector('div.select');
             let id = null;
             if (option == null)
-                option = autocomplete.options.querySelector('div');
+                option = autoComplete.options.querySelector('div');
             if (option != null)
-                id = (_a = option.querySelector('.identifier')) === null || _a === void 0 ? void 0 : _a.innerText;
+                id = option.querySelector('.identifier')?.innerText;
             if (id != null)
                 gotoTopic(id);
         }
         if (event.key == 'Escape')
-            autocomplete.input.blur();
+            autoComplete.input.blur();
     });
-    autocomplete.input.addEventListener('focusout', () => autocomplete.options.innerHTML = '');
+    autoComplete.input.addEventListener('focusout', () => autoComplete.options.innerHTML = '');
     window.addEventListener('keydown', function (event) {
         if (event.altKey && event.code == 'KeyF') {
             const input = document.getElementById('input-search');
@@ -102,19 +101,18 @@ function initAutoComplete() {
         }
     });
     for (const id in topics)
-        autocomplete.topicTokens[id] = computeTokens(topics[id]);
+        autoComplete.topicTokens[id] = computeTokens(topics[id]);
 }
 function updateAutoComplete() {
-    var _a;
-    let value = autocomplete.input.value;
+    let value = autoComplete.input.value;
     setSearchCategory(null);
-    autocomplete.options.innerHTML = '';
-    autocomplete.selected = -1;
-    autocomplete.numOptions = 0;
+    autoComplete.options.innerHTML = '';
+    autoComplete.selected = -1;
+    autoComplete.numOptions = 0;
     if (value == '')
         return;
-    autocomplete.options.innerHTML = '<label class="loading" style="display: block;"></label>';
-    const prefix = ((_a = value.match(/^\w+:/)) === null || _a === void 0 ? void 0 : _a[0]) || null;
+    autoComplete.options.innerHTML = '<label class="loading" style="display: block;"></label>';
+    const prefix = value.match(/^\w+:/)?.[0] || null;
     if (prefix != null)
         value = value.substring(prefix.length).trim();
     const tokens = computeTokens(value);
@@ -122,7 +120,7 @@ function updateAutoComplete() {
     for (const id in topics) {
         if (prefix != null && !id.startsWith(prefix))
             continue;
-        const matchedTokens = findMatch(tokens, autocomplete.topicTokens[id]);
+        const matchedTokens = findMatch(tokens, autoComplete.topicTokens[id]);
         if ((matchedTokens == null || matchedTokens.length == 0) && (value || prefix == null))
             continue;
         const category = categories[id.substring(0, id.indexOf(':'))];
@@ -133,11 +131,11 @@ function updateAutoComplete() {
         elem.addEventListener('mousedown', () => gotoTopic(id));
         results.push({ index, topic, elem });
     }
-    autocomplete.options.innerHTML = '';
+    autoComplete.options.innerHTML = '';
     if (results.length == 0) {
         const option = document.createElement('div');
         option.innerHTML = '<span style="color: var(--clr-autoComplete-topic-default); opacity: 0.5;">no results</span>';
-        autocomplete.options.appendChild(option);
+        autoComplete.options.appendChild(option);
         return;
     }
     results.sort(function (a, b) {
@@ -145,16 +143,15 @@ function updateAutoComplete() {
             return a.index - b.index;
         return a.topic.localeCompare(b.topic, 'en', { sensitivity: 'base' });
     });
-    autocomplete.numOptions = results.length;
+    autoComplete.numOptions = results.length;
     for (const result of results)
-        autocomplete.options.appendChild(result.elem);
+        autoComplete.options.appendChild(result.elem);
 }
 ;
 function autoCompleteSelect(i) {
-    var _a;
-    const options = Array.from(autocomplete.options.querySelectorAll('div'));
-    (_a = options[autocomplete.selected]) === null || _a === void 0 ? void 0 : _a.classList.remove('select');
-    autocomplete.selected = i;
+    const options = Array.from(autoComplete.options.querySelectorAll('div'));
+    options[autoComplete.selected]?.classList.remove('select');
+    autoComplete.selected = i;
     if (i >= 0 && i < options.length) {
         options[i].classList.add('select');
         options[i].scrollIntoView({
@@ -225,11 +222,11 @@ const KaTeXOptions = {
         "\\SO": "\\textup{SO}",
     }
 };
-document.addEventListener('DOMContentLoaded', function () {
+window.onload = function () {
     initAutoComplete();
     checkUrlFragment();
     initTheme();
-});
+};
 window.addEventListener('popstate', checkUrlFragment);
 function loadTopic(id) {
     const content = document.getElementById('content');
@@ -273,17 +270,17 @@ function loadTopic(id) {
 function gotoTopic(id) {
     loadTopic(id);
     const topic = capitalize(topics[id]);
-    autocomplete.input.value = topic;
-    autocomplete.options.innerHTML = '';
+    autoComplete.input.value = topic;
+    autoComplete.options.innerHTML = '';
     setSearchCategory(categories[id.substring(0, id.indexOf(':'))]);
-    window.history.pushState(id, 'Quantum: ' + id, '#' + id);
+    window.history.pushState(id, null, '#' + id);
 }
 function checkUrlFragment() {
     const id = window.location.hash.substring(1);
     if (id !== '') {
         document.getElementById('content').innerHTML = '';
         loadTopic(id);
-        autocomplete.input.value = capitalize(topics[id]);
+        autoComplete.input.value = capitalize(topics[id]);
         setSearchCategory(categories[id.substring(0, id.indexOf(':'))]);
         return;
     }
@@ -311,7 +308,7 @@ function typeset(elem) {
     }
 }
 function setDocumentTitle(str) {
-    document.title = (str == null) ? 'Quantum Glossary' : str + ' - Quantum Glossary';
+    document.title = (str == null) ? 'Math Definitions' : str + ' - Math Definitions';
 }
 function getURLParameter(name) {
     for (const item of location.search.substring(1).split('&')) {
@@ -321,25 +318,25 @@ function getURLParameter(name) {
     }
     return null;
 }
+const QUANTUM_GLOSSARY_THEME = 'quantum-glossary-theme';
 function initTheme() {
-    setTheme(localStorage.getItem('quantum-glossary-theme') || 'light');
-
+    setTheme(localStorage.getItem(QUANTUM_GLOSSARY_THEME) === 'dark' ? 'dark' : 'light');
     document.getElementById('button-theme').addEventListener('click', toggleTheme);
     setTimeout(function () {
         const sheet = window.document.styleSheets[0];
         sheet.insertRule('body, input { transition: background-color 0.5s, color 0.5s; }', sheet.cssRules.length);
     }, 100);
 }
-function toggleTheme() {
-    setTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
-}
 function setTheme(theme) {
     if (theme === 'dark') {
         document.body.classList.add('dark');
-        localStorage.setItem('quantum-glossary-theme', 'dark');
+        localStorage.setItem(QUANTUM_GLOSSARY_THEME, 'dark');
     }
     else {
         document.body.classList.remove('dark');
-        localStorage.setItem('quantum-glossary-theme', 'light');
+        localStorage.setItem(QUANTUM_GLOSSARY_THEME, 'light');
     }
+}
+function toggleTheme() {
+    setTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
 }
