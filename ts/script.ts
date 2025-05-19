@@ -104,7 +104,7 @@ function typeset(elem: HTMLElement): void {
 }
 
 function setDocumentTitle(str: string): void {
-    document.title = (str == null) ? 'Math Definitions' : str + ' - Math Definitions';
+    document.title = (str == null) ? 'Quantum Glossary' : str + ' - Quantum Glossary';
 }
 
 function getURLParameter(name: string): string {

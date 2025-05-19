@@ -118,6 +118,16 @@
     When $A$ is a scalar, QSVT reduces to \tref{quantum-signal-processing}{QSP}.
 \end{example}
 
-% \begin{example}{quantum-singular-value-transformation}
-%     Note that the gate $\Pi_\phi$ can be implemented as a rotation gate $\exp(-i \phi Z)$ surrounded by two $\Pi$-controlled-NOT gates.
-% \end{example}
+\begin{topic}{quantum-tomography}{quantum tomography}
+    \emph{Quantum tomography} is the process of reconstructing a quantum state using measurements on an ensemble of identical quantum states.
+\end{topic}
+
+\begin{example}{quantum-tomography}
+    Let $\rho$ be a \tref{qubit}{$1$-qubit} \tref{GEN:mixed-state}{mixed state}. Since the \tref{pauli-gates}{Pauli matrices} $X, Y$ and $Z$, together with the identity matrix $I$, form an orthonormal basis for the space of $2 \times 2$ matrices with respect to the inner product $(A, B) \mapsto \tfrac{1}{2} \tr(A B)$, we can write
+    \[ \rho = \frac{1}{2} \Big( \tr(\rho) I + \tr(\rho X) X + \tr(\rho Y) Y + \tr (\rho Z) Z \Big) . \]
+    By measuring the observable $A \in \{ I, X, Y, Z \}$ for this state repeatedly, obtaining outcomes $a_1, \ldots, a_m$, one can estimate $\tr(\rho A)$ as the average $\overline{a} = \frac{1}{m} \sum_{i = 1}^{m} a_i$. This estimate has a standard deviation of at most $1 / \sqrt{m}$.
+
+    This \textit{Pauli basis measurement tomography algorithm} generalizes to arbitrary $n$-qubit mixed states $\rho$, which can be expressed as
+    \[ \rho = \frac{1}{2^n} \sum_{\sigma \in \{ I, X, Y, Z \}^n} \tr \big( (\sigma_1 \otimes \cdots \otimes \sigma_n) \rho \big) \cdot (\sigma_1 \otimes \cdots \otimes \sigma_n) \rho . \]
+    By measuring the observables $\sigma_1 \otimes \cdots \otimes \sigma_n$, for $\sigma \in \{ I, X, Y, Z \}^n$, repeatedly, the state $\rho$ can be reconstructed.
+\end{example}

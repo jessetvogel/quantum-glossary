@@ -308,7 +308,7 @@ function typeset(elem) {
     }
 }
 function setDocumentTitle(str) {
-    document.title = (str == null) ? 'Math Definitions' : str + ' - Math Definitions';
+    document.title = (str == null) ? 'Quantum Glossary' : str + ' - Quantum Glossary';
 }
 function getURLParameter(name) {
     for (const item of location.search.substring(1).split('&')) {
