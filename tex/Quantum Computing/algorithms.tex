@@ -176,7 +176,7 @@
         \item From some initial time $t = t_0$ to some final time $t = t_1$, let the system evolve under the Hamiltonian
         \[ H(t) = \frac{-A(t)}{2} H_\textup{mix} + \frac{B(t)}{2} H_\textup{model} . \]
         The time-dependent functions $A(t)$ and $B(t)$ are called the \textit{annealing functions}, and they should satisfy $A(t_0) \gg B(t_0)$ and $A(t_1) \ll B(t_1)$. This process is called the \textit{annealing process}.
-        \item Note that the prepared state is the ground state of $- H_\textup{mix}$, and hence is (approximately) the ground state of the system at the start of the annealing process, at $t = t_0$. Throughout the annealing process, the state will evolve with high probability into the ground state of $H(t)$ (or at least a low-energy state), and therefore, at $t = t_1$, into a low-energy state of $H_\textup{model}$.
+        \item Note that the prepared state is the ground state of $- H_\textup{mix}$, and hence is (approximately) the ground state of the system at the start of the annealing process, at $t = t_0$. By the \tref{GEN:adiabatic-theorem}{adiabatic theorem}, the state will evolve throughout the annealing process with high probability into the ground state of $H(t)$ (or at least a low-energy state), and therefore, at $t = t_1$, into a low-energy state of $H_\textup{model}$.
         \item At $t = t_1$, measure the qubits to get an approximate solution of the optimization problem.
     \end{enumerate}
 \end{topic}

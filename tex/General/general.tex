@@ -251,3 +251,36 @@
 % \begin{example}{quantum-teleportation}
 
 % \end{example}
+
+\begin{topic}{adiabatic-theorem}{adiabatic theorem}
+    Let $H(t)$ be the time-dependent Hamiltonian of a quantum system. Denote by $\{ \ket{\psi_n(t)} \}$ an orthogonal set of eigenstates of $H(t)$ at any time $t$, with corresponding energies $E_n(t)$. That is, $H(t) \ket{\psi_n(t)} = E_n(t) \ket{\psi_n(t)}$ for all $n$, and $\braket{\psi_m(t)}{\psi_n(t)} = 0$ for all $m \ne n$.
+
+    Write $\psi(t) = \sum_{n} c_n(t) \psi_n(t)$ for the state of the system at any time $t$. The \emph{adiabatic theorem} states that the coefficients $c_n(t)$ can be approximated as
+    \[ c_n(t) \approx c_n(0) \exp(i \theta_n(t)) \exp(i \gamma_n(t)) \]
+    for $t \ge 0$, where
+    \[ \theta_n(t) = - \frac{1}{\hbar} \int_{0}^{t} E_n(s) ds \quad \textup{ and } \quad \gamma_n(t) = i \int_{0}^{t} \braket{\psi_n(s)}{\dot{\psi}_n(s)} ds \]
+    are known as the \textit{dynamical phase} and \textit{geometric phase}, respectively.
+\end{topic}
+
+\begin{example}{adiabatic-theorem}
+    \begin{proof}
+        Expanding the time-dependent Schrödinger equation $i \hbar \ket{\dot{\psi}(t)} = H(t) \ket{\psi(t)}$ in terms of the coefficients $c_n(t)$ gives
+        \[ i \hbar \left( \dot{c}_n(t) + \sum_{m} c_m(t) \braket{\psi_n(t)}{\dot{\psi}_m(t)} \right) = c_n(t) E_n(t) \]
+        for every $n$. On the other hand, the derivative of $H(t) \ket{\psi_m(t)} = E_m(t) \ket{\psi_n(t)}$ with respect to $t$ is
+        \[ \dot{H}(t) \ket{\psi_m(t)} + H(t) \ket{\dot{\psi}_m(t)} = \dot{E}_m(t) \ket{\psi_m(t)} + E_m(t) \ket{\dot{\psi}_m(t)} , \]
+        whose inner product with $\bra{\psi_n(t)}$ results in
+        \[ \braket{\psi_n(t)}{\dot{\psi}_m(t)} = - \frac{\bra{\psi_n(t)} \dot{H}(t) \ket{\psi_m(t)}}{E_n(t) - E_m(t)} \quad \textup{ for all } m \ne n . \]
+        Substituting this into the differential equation above gives
+        \[ \dot{c}_n(t) + \left( \frac{i}{\hbar} E_n(t) + \braket{\psi_n(t)}{\dot{\psi}_n(t)} \right) c_n(t) = \sum_{m \ne n} \frac{\bra{\psi_n(t)} \dot{H}(t) \ket{\psi_m(t)}}{E_n(t) - E_m(t)} c_m(t) . \]
+        Now, if the rate of change $\dot{H}(t)$ is sufficiently small and the energy gaps $|E_n(t) - E_m(t)| > 0$ are sufficiently large, we can neglect the right-hand side of this equation. This is known as the \textit{adiabatic approximation}. Then the equations for the functions $c(t)$ are decoupled and can be solved for to arrive at the statement of the theorem.
+    \end{proof}
+\end{example}
+
+\begin{example}{adiabatic-theorem}
+    Let $H(s)$ be a family of Hamiltonians for $0 \le s \le 1$. Consider a quantum system that evolves under the Hamiltonian $H(t/T)$ from time $t = 0$ to time $t = T$. The time-evolution of this system is then given by the unitary
+    \[ \begin{aligned}
+        U &= \lim_{N \to \infty} \prod_{k = 0}^{N - 1} \exp \left( - \frac{i}{\hbar} H \left(\tfrac{k \Delta t}{T} \right) \Delta t \right) \quad \textup{ where } \Delta t = T / N \\
+        &= \lim_{N \to \infty} \prod_{k = 0}^{N - 1} \exp \left( - \frac{i}{\hbar N} T H \left(\tfrac{k}{N} \right) \right) . 
+    \end{aligned} \]
+    From this we can see that multiplying the duration $T$ by some factor is equivalent to scaling the Hamiltonian by that same factor. In particular, as $T \to \infty$ the adiabatic approximation becomes valid (as it is equivalent to scaling the energy gaps). 
+\end{example}
