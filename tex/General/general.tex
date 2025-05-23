@@ -244,13 +244,28 @@
     where $\rho = \sum_i p_i \ket{\psi_i} \bra{\psi_i}$ for a basis of eigenvectors $\ket{\psi_i}$.
 \end{topic}
 
-% \begin{topic}{quantum-teleportation}{quantum teleportation}
-%     \emph{Quantum teleportation} is the transfer of quantum information without physically transferring objects.
-% \end{topic}
+\begin{topic}{quantum-teleportation}{quantum teleportation}
+    \emph{Quantum teleportation} is a process that allows the transfer of quantum information from one location to another using \tref{entangled-state}{entangled} particles and classical communication.
+\end{topic}
 
-% \begin{example}{quantum-teleportation}
+\begin{example}{quantum-teleportation}
+    Suppose Alice wants to send the \tref{COM:qubit}{qubit} state $\alpha \ket{0} + \beta \ket{1}$ to Bob. To do so, Alice shares an \tref{COM:epr-pair}{EPR pair} with Bob (say Alice holds the first qubit and Bob the second). Initially, their joint state is
+    \[ (\alpha \ket{0} + \beta \ket{1}) \otimes \frac{1}{\sqrt{2}} (\ket{00} + \ket{11}) \]
+    of which Alice holds the first two qubits, and Bob the third. Now, Alice applies a \tref{COM:cnot-gate}{CNOT gate} on her two qubits, after which the joint state is
+    \[ \alpha \ket{0} \otimes \frac{1}{\sqrt{2}} (\ket{00} + \ket{11}) + \beta \ket{1} \otimes \frac{1}{\sqrt{2}} (\ket{10} + \ket{01}) . \]
+    Next, Alice applies a \tref{COM:hadamard-gate}{Hadamard gate} on her first qubit, after which the joint state is
+    \[ \begin{aligned}
+        & \tfrac{1}{2} \ket{00} \otimes (\alpha \ket{0} + \beta \ket{1}) \\
+        + & \tfrac{1}{2} \ket{01} \otimes (\alpha \ket{1} + \beta \ket{0}) \\
+        + & \tfrac{1}{2} \ket{10} \otimes (\alpha \ket{0} - \beta \ket{1}) \\
+        + & \tfrac{1}{2} \ket{11} \otimes (\alpha \ket{1} - \beta \ket{0}) .
+    \end{aligned} \]
+    Alice then measures her two qubits in the standard basis and sends the result to Bob over a classical channel. From these two bits, Bob can infer which gates he must apply to his qubit in order to regain the state $\alpha \ket{0} + \beta \ket{1}$. Specifically, if the second bit is $1$, he applies an \tref{COM:pauli-gates}{$X$-gate}, and if the first bit is $1$, he applies a \tref{COM:pauli-gates}{$Z$-gate}.
 
-% \end{example}
+    Note that, if the qubit that Alice started with had been entangled,
+    \[ \ket{\Psi_0} \otimes \alpha \ket{0} + \ket{\Psi_1} \otimes \beta \ket{1} \]
+    then the entanglement will be preserved after `teleportation'. Indeed, in the above derivation one can replace $\alpha$ with $\ket{\Psi_0} \otimes \alpha$ and $\beta$ with $\ket{\Psi_1} \otimes \beta$.
+\end{example}
 
 \begin{topic}{adiabatic-theorem}{adiabatic theorem}
     Let $H(t)$ be the time-dependent Hamiltonian of a quantum system. Denote by $\{ \ket{\psi_n(t)} \}$ an orthogonal set of eigenstates of $H(t)$ at any time $t$, with corresponding energies $E_n(t)$. That is, $H(t) \ket{\psi_n(t)} = E_n(t) \ket{\psi_n(t)}$ for all $n$, and $\braket{\psi_m(t)}{\psi_n(t)} = 0$ for all $m \ne n$.
