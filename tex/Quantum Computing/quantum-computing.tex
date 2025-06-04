@@ -12,10 +12,10 @@
 \begin{example}{epr-pair}
     An EPR pair can be constructed using the following quantum circuit:
     \[ \svg \begin{quantikz}
-        & \lstick{$|{0}\rangle$} & \gate{H} & \ctrl{1} & \qw
+        \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \qw
         \rstick[wires=2]{$\frac{1}{\sqrt{2}} \left( \ket{00} + \ket{11} \right)$} 
         \\
-        & \lstick{$|{0}\rangle$} & \qw & \targ{} & \qw
+        \lstick{$\ket{0}$} & \qw & \targ{} & \qw
     \end{quantikz} \]
     where $H$ denotes the \tref{hadamard-gate}{Hadamard gate} and $\oplus$ denotes the \tref{cnot-gate}{CNOT gate}.
 \end{example}
@@ -130,4 +130,42 @@
     This \textit{Pauli basis measurement tomography algorithm} generalizes to arbitrary $n$-qubit mixed states $\rho$, which can be expressed as
     \[ \rho = \frac{1}{2^n} \sum_{\sigma \in \{ I, X, Y, Z \}^n} \tr \big( (\sigma_1 \otimes \cdots \otimes \sigma_n) \rho \big) \cdot (\sigma_1 \otimes \cdots \otimes \sigma_n) \rho . \]
     By measuring the observables $\sigma_1 \otimes \cdots \otimes \sigma_n$, for $\sigma \in \{ I, X, Y, Z \}^n$, repeatedly, the state $\rho$ can be reconstructed.
+\end{example}
+
+\begin{topic}{phase-kickback}{phase kickback}
+    \emph{Phase kickback} refers to the notion that the effect of \tref{controlled-gate}{controlled gates} can be seen as an effect on their controls, rather than an effect on their targets, and that these effects correspond to phasing operations.
+\end{topic}
+
+\begin{example}{phase-kickback}
+    Consider the following circuit:
+    \[ \svg \begin{quantikz}
+        \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \qw \\
+        \lstick{$\ket{0}$} & \gate{X} & \gate{P(\phi)} & \qw
+    \end{quantikz} \]
+    After applying the \tref{hadamard-gate}{Hadamard gate} and \tref{pauli-gates}{$X$-gate}, we obtain the state $\tfrac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} \right) \otimes \ket{1}$. After applying the controlled \tref{phase-shift-gates}{$P(\phi)$ gate}, we obtain the state
+    \[ \frac{1}{\sqrt{2}} \left( \ket{01} + e^{i \phi} \ket{11} \right) = \frac{1}{\sqrt{2}} \left( \ket{0} + e^{i \phi} \ket{1} \right) \otimes \ket{1} \]
+    Note that, even though the phase shift gate was applied to the second qubit, the effect is equivalent to as if it was applied to the first qubit. That is, the phase `kicked back' to the first qubit.
+\end{example}
+
+% \begin{example}{phase-kickback}
+%     Consider the effect of a \tref{cnot-gate}{CNOT gate} where the target qubit is in the state $\tfrac{1}{\sqrt{2}} \left( \ket{0} - \ket{1} \right)$:
+%     \[ \textup{CNOT} \left( \ket{0} \otimes \tfrac{1}{\sqrt{2}} \left( \ket{0} - \ket{1} \right) \right) = + \ket{0} \otimes \tfrac{1}{\sqrt{2}} \left( \ket{0} - \ket{1} \right) \]
+%     \[ \textup{CNOT} \left( \ket{1} \otimes \tfrac{1}{\sqrt{2}} \left( \ket{0} - \ket{1} \right) \right) = - \ket{1} \otimes \tfrac{1}{\sqrt{2}} \left( \ket{0} - \ket{1} \right) \]
+%     In particular, the effect of the CNOT gate is equivalent to the effect of a \tref{pauli-gates}{$Z$-gate} on the control qubit.
+% \end{example}
+
+\begin{example}{phase-kickback}
+    Let $U$ be a unitary gate whose eigenvalues are $\pm 1$. Measurement of $U$ may be achieved as follows, using a controlled $U$-gate and phase kickback.
+    \[ \svg \begin{quantikz}
+        \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \gate{H} & \meter{} \\
+        \lstick[3]{$\ket{\Psi}$} & \qw & \gate[3]{U} & \qw & \qw \\
+        & \qw & & \qw & \qw \\
+        & \qw & & \qw & \qw
+    \end{quantikz} \]
+    To see why this works, write the initial state $\ket{\Psi}$ as $\alpha \ket{\psi_+} + \beta \ket{\psi_-}$ where $\ket{\psi_\pm}$ are eigenstates of $U$ with eigenvalue $\pm 1$, respectively. Now, as in the above circuit, apply a Hadamard gate to $\ket{0} \otimes \ket{\Psi}$ to obtain the state
+    \[ \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} \right) \otimes \left( \alpha \ket{\psi_+} + \beta \ket{\psi_-} \right)\]
+    followed by a controlled $U$-gate to obtain \[ \frac{1}{\sqrt{2}} \left( \ket{0} \otimes \left( \alpha \ket{\psi_+} + \beta \ket{\psi_-} \right) + \ket{1} \otimes \left( \alpha \ket{\psi_+} - \beta \ket{\psi_-} \right) \right) \]
+    and finally another Hadamard gate to obtain
+    \[ \alpha \ket{0} \otimes \ket{\psi_+} + \beta \ket{1} \otimes \ket{\psi_-} . \]
+    Measuring the first qubit will result in $+1$ with probability $|\alpha|^2$ and in $-1$ with probability $|\beta|^2$. 
 \end{example}
