@@ -299,3 +299,13 @@
     \end{aligned} \]
     From this we can see that multiplying the duration $T$ by some factor is equivalent to scaling the Hamiltonian by that same factor. In particular, as $T \to \infty$ the adiabatic approximation becomes valid (as it is equivalent to scaling the energy gaps). 
 \end{example}
+
+\begin{topic}{fidelity}{fidelity}
+    The \emph{fidelity} between two \tref{density-matrix}{states} $\rho$ and $\sigma$ is
+    \[ F(\rho, \sigma) = \left[ \tr \sqrt{\sqrt{\rho} \sigma \sqrt{\rho}} \right]^2 . \]
+\end{topic}
+
+\begin{example}{fidelity}
+    When $\rho$ and $\sigma$ are \tref{pure-state}{pure states}, that is, $\rho = \ket{\psi} \bra{\psi}$ and $\sigma = \ket{\phi} \bra{\phi}$ for some $\ket{\psi}$ and $\ket{\phi}$, one has $\sqrt{\rho} = \rho$ and $\sqrt{\sigma} = \sigma$, so that the fidelity between $\rho$ and $\sigma$ simplifies to
+    \[ F(\rho, \sigma) = \left( \tr \sqrt{\ket{\psi} \braket{\psi}{\phi} \braket{\phi}{\psi} \bra{\psi}} \right)^2 = \left( \sqrt{|\braket{\psi}{\phi}|^2} \tr \sqrt{\ket{\psi} \bra{\psi}} \right)^2 = |\braket{\psi}{\phi}|^2 . \]
+\end{example}
