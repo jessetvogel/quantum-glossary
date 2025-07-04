@@ -311,3 +311,18 @@
         \item Bob measures both qubits, yielding $a$ and $b$.
     \end{enumerate}
 \end{topic}
+
+\begin{topic}{variational-quantum-eigensolver}{variational quantum eigensolver (VQE)}
+    A \emph{variational quantum eigensolver (VQE)} is a quantum-classical hybrid algorithm to find the ground state of a Hamiltonian $H$.
+
+    \textbf{Algorithm}: Construct a parameterized quantum circuit of the form
+    \[ \svg \begin{quantikz}
+        \lstick{$\ket{\Psi_0}$} & \gate{U(\theta)} & \meter{H}
+    \end{quantikz} \]
+    for some initial state $\ket{\Psi_0}$ and parameters $\theta = (\theta_1, \ldots, \theta_n)$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Repeatedly run this circuit to estimate the expected value $\langle H \rangle = \bra{\Psi_0} U(\theta)^\dag H U(\theta) \ket{\Psi_0}$.
+        \item Use a classical optimization algorithm to update the parameters $\theta$ with the objective to minimize $\langle H \rangle$.
+        \item Run the circuit without measurement with the optimized parameters $\theta$ to obtain the state $U(\theta) \ket{\Psi_0}$, which is an approximation of the ground state of $H$.
+    \end{enumerate}
+\end{topic}
