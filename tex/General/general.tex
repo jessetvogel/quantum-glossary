@@ -309,3 +309,25 @@
     When $\rho$ and $\sigma$ are \tref{pure-state}{pure states}, that is, $\rho = \ket{\psi} \bra{\psi}$ and $\sigma = \ket{\phi} \bra{\phi}$ for some $\ket{\psi}$ and $\ket{\phi}$, one has $\sqrt{\rho} = \rho$ and $\sqrt{\sigma} = \sigma$, so that the fidelity between $\rho$ and $\sigma$ simplifies to
     \[ F(\rho, \sigma) = \left( \tr \sqrt{\ket{\psi} \braket{\psi}{\phi} \braket{\phi}{\psi} \bra{\psi}} \right)^2 = \left( \sqrt{|\braket{\psi}{\phi}|^2} \tr \sqrt{\ket{\psi} \bra{\psi}} \right)^2 = |\braket{\psi}{\phi}|^2 . \]
 \end{example}
+
+\begin{topic}{bell-theorem}{Bell's theorem}
+    \emph{Bell's theorem} states that quantum mechanics is incompatible with local realism.
+\end{topic}
+
+\begin{example}{bell-theorem}
+    Consider the following experiment. Alice and Bob, separated by a great distance, are both given one of two particles that are prepared by Charlie. Upon receiving her particle, Alice will randomly choose whether to measure her particle with measurement $A_1$, yielding outcome $a_1 \pm 1$, or with measurement $A_2$, yielding outcome $a_2 = \pm 1$. Similarly, Bob will randomly choose whether to measure his particle with measurement $B_1$ or $B_2$, yielding outcome $b_1 = \pm 1$ or $b_2 = \pm 2$, respectively.
+
+    Now, consider the expression
+    \[ a_1 b_1 + a_1 b_2 + a_2 b_1 - a_2 b_2 . \]
+    Under the assumption of local realism, a measurement can only reveal a property that the particle already possessed. In particular, the particles will already have the properties $a_1, a_2, b_1$ and $b_2$ even before measurement. Since for all $a_1, a_2, b_1, b_2 \in \{ \pm 1 \}$ the expression has value $\pm 2$, the expected value of the expression after many repetitions of the experiment should be bounded as follows:
+    \[ |\langle A_1 B_1 \rangle + \langle A_1 B_2 \rangle + \langle A_2 B_1 \rangle - \langle A_2 B_2 \rangle| \le 2 \]
+    This is known as (an instance of) \textit{Bell's inequality}.
+
+    Finally, let us show that quantum mechanics violates this inequality. Suppose Charlie always prepares a pair of \tref{COM:qubit}{qubits} in the state
+    \[ \ket{\Psi^-} = \frac{1}{\sqrt{2}} \left( \ket{0} \otimes \ket{1} - \ket{1} \otimes \ket{0} \right) \]
+    of which the first one is sent to Alice, and the second one to Bob, and suppose that Alice's and Bob's measurements are given by
+    \[ A_1 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \quad A_2 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad B_1 = \frac{1}{\sqrt{2}} \begin{pmatrix} -1 & -1 \\ -1 & 1 \end{pmatrix}, \quad B_2 = \frac{1}{\sqrt{2}} \begin{pmatrix} -1 & 1 \\ 1 & 1 \end{pmatrix} . \]
+    Then a straight-forward computation shows that
+    \[ \bra{\Psi^-} \left( A_1 \otimes B_1  + A_1 \otimes B_2 + A_2 \otimes B_1 - A_2 \otimes B_2 \right) \ket{\Psi^-} = 2 \sqrt{2} \]
+    violating Bell's inequality.
+\end{example}
