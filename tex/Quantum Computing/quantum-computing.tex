@@ -169,3 +169,44 @@
     \[ \alpha \ket{0} \otimes \ket{\psi_+} + \beta \ket{1} \otimes \ket{\psi_-} . \]
     Measuring the first qubit will result in $+1$ with probability $|\alpha|^2$ and in $-1$ with probability $|\beta|^2$. 
 \end{example}
+
+\begin{topic}{shor-code}{Shor code}
+    The \emph{Shor code} is a quantum error correcting code that encodes the logical \tref{qubit}{qubit} states $\ket{0}_L$ and $\ket{1}_L$ as the $9$-qubit codeword states
+    \[ \begin{aligned}
+        \ket{0}_L &= \frac{1}{\sqrt{8}} \left( \ket{000} + \ket{111} \right) \otimes \left( \ket{000} + \ket{111} \right) \otimes \left( \ket{000} + \ket{111} \right) , \\
+        \ket{1}_L &= \frac{1}{\sqrt{8}} \left( \ket{000} - \ket{111} \right) \otimes \left( \ket{000} - \ket{111} \right) \otimes \left( \ket{000} - \ket{111} \right) .
+    \end{aligned} \]
+    The Shor code can detect and correct any $1$-qubit error given by a unitary of the form
+    \[ E = \sum_{P \in \mathcal{P}} \alpha_P \cdot P \]
+    where $\alpha_P \in \CC$ and $\mathcal{P} = \{ I, X^{(1)}, Y^{(1)}, Z^{(1)}, \ldots, X^{(9)}, Y^{(9)}, Z^{(9)} \}$ consists of the $1$-qubit \tref{pauli-gates}{Pauli gates} and identity.
+    
+    To detect and correct an error $E$ applied to an arbitrary logical state $\ket{\psi}_L = \alpha \ket{0}_L + \beta \ket{1}_L$, measure bits $s_1, \ldots, s_8$ using the circuit
+    \[ \svg \begin{quantikz}
+        \lstick{$E \ket{\psi}_L$} & \qw & \gate{S_i} & \qw \\
+        \lstick{$\ket{0}$} & \gate{H} & \ctrl{-1} & \gate{H} & \metercw{s_i}
+    \end{quantikz} \]
+    where
+    \[ \begin{gathered}
+        S_1 = Z^{(1)} Z^{(2)}, \qquad S_2 = Z^{(2)} Z^{(3)}, \qquad S_3 = Z^{(4)} Z^{(5)}, \\[5pt]
+        S_4 = Z^{(5)} Z^{(6)}, \qquad S_5 = Z^{(7)} Z^{(8)}, \qquad S_6 = Z^{(8)} Z^{(9)}, \\[5pt]
+        S_7 = X^{(1)} X^{(2)} X^{(3)} X^{(4)} X^{(5)} X^{(6)}, \\[5pt]
+        S_8 = X^{(4)} X^{(5)} X^{(6)} X^{(7)} X^{(8)} X^{(9)} .
+    \end{gathered} \]
+    One can show that the resulting state (before measurement of the $s_i$) is given by
+    \[ \sum_{P \in \mathcal{P}} \alpha_P \cdot P \ket{\psi}_L \otimes \ket{s_{P, 1} \cdots s_{P, 8}} \]
+    where the bitstring $s_P = s_{P, 1} \cdots s_{P, 8}$, called the \textit{syndrome} of $P$, is given by the following table.
+    \[ \def\arraystretch{1.25} \begin{array}{cc|cc|cc}
+         \hline P & s_P & P & s_P & P & s_P \\ \hline
+         X^{(1)} & 10000000 & Y^{(1)} & 10000010 & Z^{(1)} & 00000010 \\
+         X^{(2)} & 11000000 & Y^{(2)} & 11000010 & Z^{(2)} & 00000010 \\
+         X^{(3)} & 01000000 & Y^{(3)} & 01000010 & Z^{(3)} & 00000010 \\
+         X^{(4)} & 00100000 & Y^{(4)} & 00100011 & Z^{(4)} & 00000011 \\
+         X^{(5)} & 00110000 & Y^{(5)} & 00110011 & Z^{(5)} & 00000011 \\
+         X^{(6)} & 00010000 & Y^{(6)} & 00010011 & Z^{(6)} & 00000011 \\
+         X^{(7)} & 00001000 & Y^{(7)} & 00001001 & Z^{(7)} & 00000001 \\
+         X^{(8)} & 00001100 & Y^{(8)} & 00001101 & Z^{(8)} & 00000001 \\
+         X^{(9)} & 00000100 & Y^{(9)} & 00000101 & Z^{(9)} & 00000001 \\
+    \end{array} \]
+    Measurement of the syndrome $s_P$ will collapse the state to $P \ket{\psi}_L$. For every possible syndrome, there exists a gate $R$ which, when applied, will recover the original state
+    \[ RP \ket{\psi}_L = \ket{\psi}_L . \]
+\end{topic}
