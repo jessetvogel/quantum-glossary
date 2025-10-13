@@ -166,7 +166,7 @@ impl Parser {
                     "(i)"
                 };
                 self.skip_whitespace()?;
-                self.parse_list_environment(Some(&item_type))?;
+                self.parse_list_environment(Some(item_type))?;
             }
             "itemize" => {
                 self.skip_whitespace()?;
@@ -458,8 +458,11 @@ impl Parser {
         self.current_file = None;
     }
 
-    fn write(&self, s: &str) -> Result<(), ParserError> {
-        self.current_file.as_ref().unwrap().write(s.as_bytes())?;
+    fn write(&self, contents: &str) -> Result<(), ParserError> {
+        self.current_file
+            .as_ref()
+            .unwrap()
+            .write_all(contents.as_bytes())?;
         Ok(())
     }
 
@@ -596,7 +599,7 @@ impl From<std::io::Error> for ParserError {
 impl From<String> for ParserError {
     fn from(value: String) -> Self {
         Self {
-            message: format!("{value}"),
+            message: value.clone(),
         }
     }
 }
@@ -608,5 +611,5 @@ fn escape_special_chars(mut s: String) -> String {
     s = s.replace('"', "”");
     s = s.replace("\'\'", "”");
     s = s.replace("--", "–");
-    return s;
+    s
 }
