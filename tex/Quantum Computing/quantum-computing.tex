@@ -211,38 +211,6 @@
     \[ RP \ket{\psi}_L = \ket{\psi}_L . \]
 \end{topic}
 
-% \begin{topic}{t2-time}{T2 time}
-%     The \emph{$T_2^*$ time} (resp. \emph{$T_2^\textup{Hahn}$ time}) of a qubit is the time $T_2$ such that the experiments below result in measuring the qubit in the state $\ket{0}$ with probability
-%     \[ \PP(\textup{qubit in state }\ket{0}) = A \cdot e^{-t / T_2} + B \]
-%     for some constants $A$ and $B$.
-
-%     \textbf{Experiment for $T_2^*$}:
-%     \begin{enumerate}[label=(\arabic*)]
-%         \item Prepare the qubit in state $\ket{0}$.
-%         \item Apply a \tref{hadamard-gate}{Hadamard gate} to obtain the state $\tfrac{1}{2} (\ket{0} + \ket{1})$.
-%         \item Wait for some time $t$.
-%         \item Apply another Hadamard gate.
-%         \item Measure the qubit.
-%     \end{enumerate}
-%     \textbf{Experiment for $T_2^\textup{Hahn}$}:
-%     \begin{enumerate}[label=(\arabic*)]
-%         \item Prepare the qubit in state $\ket{0}$.
-%         \item Apply a \tref{hadamard-gate}{Hadamard gate} to obtain the state $\tfrac{1}{2} (\ket{0} + \ket{1})$.
-%         \item Wait for some time $t / 2$.
-%         \item Apply an \tref{pauli-gates}{$X$ gate}.
-%         \item Wait for some time $t / 2$.
-%         \item Apply another Hadamard gate.
-%         \item Measure the qubit.
-%     \end{enumerate}
-% \end{topic}
-
-% \begin{example}{t2-time}
-%     Consider qubit noise corresponding to a Hamiltonian $H = \delta \ket{1} \bra{1}$ for some $\delta > 0$. The experiment for $T_2^*$ results in the state 
-%     \[ \left( \tfrac{1}{2} + \tfrac{1}{2} e^{i \delta t} \right) \ket{0} + \left( \tfrac{1}{2} - \tfrac{1}{2} e^{i \delta t} \right) \ket{1} \]
-%     which yields 
-%     before measurement, so that $\PP(\ket{0}) = \tfrac{1}{2} + \tfrac{1}{2} \cos(\delta t)$. Hence, $T_2^* = 1 / \delta$ ???
-% \end{example}
-
 \begin{topic}{quantum-error-mitigation}{quantum error mitigation}
     \emph{Quantum error mitigation} is a method to compensate for readout errors that may occur when measuring \tref{qubit}{qubits}. For every qubit $k = 1, \ldots, n$, define the \textit{assignment matrix} of qubit $k$ as
     \[ A_k = \begin{pmatrix} a_{00} & a_{01} \\ a_{10} & a_{11} \end{pmatrix} \]
@@ -251,3 +219,36 @@
     
     More advanced quantum error mitigation can be achieved by also taking into account readout errors that occur due to interactions between different qubits, using multi-qubit assignment matrices.
 \end{topic}
+
+\begin{topic}{t2-time}{T2 time}
+    The \emph{$T_2^*$ time} (resp. \emph{$T_2^\textup{Hahn}$ time}) of a qubit is the time $T_2$ such that the experiments below result in measuring the qubit in the state $\ket{0}$ with probability
+    \[ \PP(\textup{qubit in state }\ket{0}) = A \cdot e^{-t / T_2} + B \]
+    for some constants $A$ and $B$.
+
+    \textbf{Experiment for $T_2^*$}:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Prepare the qubit in state $\ket{0}$.
+        \item Apply a \tref{hadamard-gate}{Hadamard gate} to obtain the state $\tfrac{1}{2} (\ket{0} + \ket{1})$.
+        \item Wait for some time $t$.
+        \item Apply another Hadamard gate.
+        \item Measure the qubit.
+    \end{enumerate}
+    \textbf{Experiment for $T_2^\textup{Hahn}$}:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Prepare the qubit in state $\ket{0}$.
+        \item Apply a \tref{hadamard-gate}{Hadamard gate} to obtain the state $\tfrac{1}{2} (\ket{0} + \ket{1})$.
+        \item Wait for some time $t / 2$.
+        \item Apply an \tref{pauli-gates}{$X$ gate}.
+        \item Wait for some time $t / 2$.
+        \item Apply another Hadamard gate.
+        \item Measure the qubit.
+    \end{enumerate}
+\end{topic}
+
+% \begin{example}{t2-time}
+%     Consider qubit noise corresponding to a Hamiltonian $H = \delta \ket{1} \bra{1}$ for some $\delta > 0$. The experiment for $T_2^*$ results in the state 
+%     \[ \left( \tfrac{1}{2} + \tfrac{1}{2} e^{i \delta t} \right) \ket{0} + \left( \tfrac{1}{2} - \tfrac{1}{2} e^{i \delta t} \right) \ket{1} \]
+%     which yields 
+%     before measurement, so that $\PP(\ket{0}) = \tfrac{1}{2} + \tfrac{1}{2} \cos(\delta t)$. Hence, $T_2^* = 1 / \delta$ ???
+% \end{example}
+
