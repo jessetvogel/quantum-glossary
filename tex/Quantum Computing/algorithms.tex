@@ -326,3 +326,17 @@
         \item Run the circuit without measurement with the optimized parameters $\theta$ to obtain the state $U(\theta) \ket{\Psi_0}$, which is an approximation of the ground state of $H$.
     \end{enumerate}
 \end{topic}
+
+\begin{topic}{quantum-amplitude-estimation}{quantum amplitude estimation}
+    Let $U$ be a unitary acting on an \tref{qubit}{$n$-qubit system} $\mathcal{H}$, and let $\mathcal{H} = \mathcal{H}_0 \oplus \mathcal{H}_1$ be an orthogonal decomposition. Write $U \ket{0^n} = \ket{\Psi_0} + \ket{\Psi_1}$ with $\ket{\Psi_i} \in \mathcal{H}_i$. \emph{Quantum amplitude estimation} is a quantum algorithm to estimate the value $\alpha = \braket{\Psi_1}{\Psi_1}$.
+
+    \textbf{Algorithm}: Let $Q = U R U^{-1} S$, where
+    \[ R \ket{i} = \begin{cases} + \ket{i} & \textup{ if } i = 0^n \\ - \ket{i} & \textup{ if } i \ne 0^n \end{cases} \quad \textup{ and } \quad S \ket{\psi} = \begin{cases} + \ket{\psi} & \textup{ if } \ket{\psi} \in \mathcal{H}_0 \\ - \ket{\psi} & \textup{ if } \ket{\psi} \in \mathcal{H}_1 \end{cases} \]
+    and verify that
+    \[ \ket{\Psi_\pm} = \frac{1}{\sqrt{2}} \left(\frac{i}{\sqrt{1 - \alpha}} \ket{\Psi_0} \pm \frac{1}{\sqrt{\alpha}} \ket{\Psi_1}\right) \]
+    are eigenvectors of $Q$ with corresponding eigenvalues $\lambda_\pm = \exp(\pm 2 i \theta)$ where $\theta$ is such that $\sin^2(\theta) = \alpha$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Apply \tref{kitaev-phase-estimation-algorithm}{Kitaev's phase estimation algorithm} to the unitary $Q$ and the state $\ket{0^m} \otimes U \ket{0^n}$, with $m \ge 1$ sufficiently large as to obtain the desired precision. Since $U \ket{0^n} = \ket{\Psi_0} + \ket{\Psi_1}$ is a linear combination of the two eigenvectors $\ket{\Psi_\pm}$, this will result in either $\pm \theta$.
+        \item Compute $\alpha = \sin^2(\theta)$, which is independent of whether $+\theta$ or $-\theta$ was measured.
+    \end{enumerate}
+\end{topic}
