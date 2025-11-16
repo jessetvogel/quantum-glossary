@@ -221,7 +221,7 @@
 \end{topic}
 
 \begin{topic}{t2-time}{T2 time}
-    The \emph{$T_2^*$ time} (resp. \emph{$T_2^\textup{Hahn}$ time}) of a qubit is the time $T_2$ such that the experiments below result in measuring the qubit in the state $\ket{0}$ with probability
+    The \emph{$T_2^*$ time} (resp. \emph{$T_2^\textup{Hahn}$ time}) of a \tref{qubit}{qubit} is the time $T_2$ such that the experiments below result in measuring the qubit in the state $\ket{0}$ with probability
     \[ \PP(\textup{qubit in state }\ket{0}) = A \cdot e^{-t / T_2} + B \]
     for some constants $A$ and $B$.
 
@@ -252,3 +252,12 @@
 %     before measurement, so that $\PP(\ket{0}) = \tfrac{1}{2} + \tfrac{1}{2} \cos(\delta t)$. Hence, $T_2^* = 1 / \delta$ ???
 % \end{example}
 
+\begin{topic}{t1-time}{T1 time}
+    The \emph{$T_1$ time} of a \tref{qubit}{qubit} is the time $T_1$ such that the following experiment results in measuring the qubit in the state $\ket{1}$ with probability $\PP(\ket{1}) = e^{-t / T_1}$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Prepare the qubit in state $\ket{1}$.
+        \item Wait for a time $t$.
+        \item Measure the qubit in the computational basis.
+    \end{enumerate}
+    By convention, $\ket{1}$ denotes the higher-energy state of the qubit and $\ket{0}$ the lower-energy state.
+\end{topic}
