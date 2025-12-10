@@ -331,3 +331,20 @@
     \[ \bra{\Psi^-} \left( A_1 \otimes B_1  + A_1 \otimes B_2 + A_2 \otimes B_1 - A_2 \otimes B_2 \right) \ket{\Psi^-} = 2 \sqrt{2} \]
     violating Bell's inequality.
 \end{example}
+
+\begin{topic}{werner-state}{Werner state}
+    Let $\mathcal{H}$ be a Hilbert space. A \emph{Werner state} is a \tref{density-matrix}{state} $\rho$ of $\mathcal{H} \otimes \mathcal{H}$ which is invariant under all unitary operations of the form $U \otimes U$, where $U$ is a unitary operation on $\mathcal{H}$. That is,
+    \[ (U \otimes U) \rho (U^\dagger \otimes U^\dagger) = \rho . \]
+\end{topic}
+
+\begin{example}{werner-state}
+    Let $\mathcal{H}$ be the Hilbert space of a \tref{COM:qubit}{qubit}. Then the \tref{COM:bell-states}{Bell state}
+    \[ \ket{\Psi^-} = \frac{1}{\sqrt{2}} \left( \ket{0} \otimes \ket{1} - \ket{1} \otimes \ket{0} \right) \]
+    is a Werner state. Namely, for any unitary $U = \begin{pmatrix} \alpha & \beta \\ \gamma & \delta \end{pmatrix}$, we have
+    \[ \begin{aligned}
+        (U \otimes U) \ket{\Psi^-}
+            &= \frac{1}{\sqrt{2}} \left( (\alpha \ket{0} + \gamma \ket{1}) \otimes (\beta \ket{0} + \delta \ket{1}) - (\beta \ket{0} + \delta \ket{1}) \otimes (\alpha \ket{0} + \gamma \ket{1}) \right) \\
+            &= \frac{1}{\sqrt{2}} \left( (\alpha \delta - \beta \gamma) \ket{0} \otimes \ket{1} - (\alpha \delta - \beta \gamma) \ket{1} \otimes \ket{0} \right) = \det(U) \ket{\Psi^-} .
+    \end{aligned} \]
+    Hence, up to a global phase factor, we obtain the same state.
+\end{example}
