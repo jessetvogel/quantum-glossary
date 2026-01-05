@@ -340,3 +340,40 @@
         \item Compute $\alpha = \sin^2(\theta)$, which is independent of whether $+\theta$ or $-\theta$ was measured.
     \end{enumerate}
 \end{topic}
+
+\begin{topic}{entanglement-purification}{entanglement purification}
+    \emph{Entanglement purification} (\href{https://arxiv.org/pdf/quant-ph/9511027}{Bennett et al.}) is a two-party protocol to obtain a shared \tref{bell-states}{Bell state} $\ket{\Psi^-} = \frac{1}{\sqrt{2}} \left( \ket{0} \otimes \ket{1} - \ket{1} \otimes \ket{0} \right)$ from two such shared states, such that the \tref{GEN:fidelity}{fidelity} of the final state is higher than that of the two input states.
+
+    \textbf{Protocol}: Alice and Bob start with two shared copies of the \tref{GEN:mixed-state}{mixed state} $F \ket{\Psi^-} \bra{\Psi^-} + (1 - F) \rho_\textup{noise}$ for some fidelity $\frac{1}{2} < F \le 1$, where $\bra{\Psi^-} \rho_\textup{noise} \ket{\Psi^-} = 0$.
+    \begin{enumerate}[label=(\roman*)]
+        \item Together, Alice and Bob choose two random rotations $R_1, R_2 \in \SU(2)$, and both apply them to their own qubits. This results in both pairs being in the rotationally symmetric state
+        \[ F \cdot \ket{\Psi^-} \bra{\Psi^-} + \frac{1 - F}{3} (I - \ket{\Psi^-} \bra{\Psi^-}) . \]
+        \item Bob applies a \tref{pauli-gates}{$Y$-gate} to each of his qubits, so that both pairs are in the state
+        \[ F \cdot \ket{\Phi^+} \bra{\Phi^+} + \frac{1 - F}{3} (I - \ket{\Phi^+} \bra{\Phi^+}) , \]
+        where $\ket{\Phi^+} = \frac{1}{\sqrt{2}} \left( \ket{0} \otimes \ket{0} + \ket{1} \otimes \ket{1} \right)$.
+        \item Both Alice and Bob apply a \tref{cnot-gate}{CNOT gate} to their own qubits.
+        % TODO: Write down the complete state
+        % \[ \begin{aligned}
+        %     F^2 \ket{\Phi^+} \bra{\Phi^+} \otimes \ket{\Phi^+} \bra{\Phi^+}
+        %     + \frac{F (1 - F)}{3} \left(
+        %         \ket{\Phi^-} \bra{\Phi^-} \otimes \ket{\Phi^-} \bra{\Phi^-} +
+        %         \ket{\Phi^-} \bra{\Phi^-} \otimes \ket{\Phi^-} \bra{\Phi^-} +
+        %         \ket{\Phi^-} \bra{\Phi^-} \otimes \ket{\Phi^-} \bra{\Phi^-} +
+        %         \ket{\Phi^-} \bra{\Phi^-} \otimes \ket{\Phi^-} \bra{\Phi^-} +
+        %         \ket{\Phi^-} \bra{\Phi^-} \otimes \ket{\Phi^-} \bra{\Phi^-} +
+        %         \ket{\Phi^-} \bra{\Phi^-} \otimes \ket{\Phi^-} \bra{\Phi^-}
+        %     \right)
+        % \end{aligned} \]
+        \item Both Alice and Bob measure their second qubit in the $\{ \ket{+}, \ket{-} \}$-basis. Using classical communication methods, they determine whether their outcomes agree. If not, they abort the protocol and start over. If their outcomes do agree, they continue, and their joint state is given by
+        \[ F' \ket{\Phi^+} \bra{\Phi^+} + (1 - F') \rho'_\textup{noise} \]
+        for some fidelity $F < F' \le 1$, where $\bra{\Phi^+} \rho'_\textup{noise} \ket{\Phi^+} = 0$.
+        \item Bob applies a $Y$-gate to his remaining qubit. The final state is given by
+        \[ F' \ket{\Psi^-} \bra{\Psi^-} + (1 - F') \rho''_\textup{noise} , \]
+        where $\bra{\Psi^-} \rho''_\textup{noise} \ket{\Psi^-} = 0$.
+    \end{enumerate}
+\end{topic}
+
+\begin{example}{entanglement-purification}
+    Specifically, with careful computation one can show that the output fidelity $F'$ is given by
+    \[ F' = \frac{82 F^{4} - 4 F^{3} + 6 F^{2} - 4 F + 1}{104 F^{4} - 56 F^{3} + 48 F^{2} - 20 F + 5} . \]
+\end{example}
