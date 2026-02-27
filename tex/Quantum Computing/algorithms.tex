@@ -262,22 +262,22 @@
 
     \textbf{Problem}: Given some function $f \colon \NN \to \{ 0, \ldots, N - 1 \}$ with the property that there is some unknown $r \in \{ 0, \ldots, N - 1 \}$ such that $f(a) = f(b)$ if and only if $a \equiv b \mod r$, find $r$.
 
-    \textbf{Algorithm}: Denote by $\mathcal{O}$ the query which acts as $\mathcal{O} \left( \ket{a} \otimes \ket{0^n} \right) \mapsto \ket{a} \otimes \ket{f(a)}$. Let $n = \lceil \log_2 N \rceil$ and let $q = 2^\ell$ be such that $N^2 < q \le 2 N^2$.
+    \textbf{Algorithm}: Let $n = \lceil \log_2 N \rceil$ and choose $M = 2^m$ such that $N^2 < M \le 2 N^2$. Denote by $\mathcal{O}$ the query on $(m + n)$ qubits that acts as $\mathcal{O} \left( \ket{a} \otimes \ket{0^n} \right) \mapsto \ket{a} \otimes \ket{f(a)}$.
     \begin{enumerate}[label=(\arabic*)]
-        \item Start with the $(\ell + n)$-qubit state $\ket{0^\ell} \otimes \ket{0^n}$.
-        \item Apply the \tref{quantum-fourier-transform}{quantum Fourier transform} $F_q$ to obtain the state $\frac{1}{\sqrt{q}} \sum_{a = 0}^{q - 1} \ket{a} \otimes \ket{0^n}$. Alternatively, the same result can be achieved by applying a \tref{hadamard-gate}{Hadamard gate} to the first $\ell$ qubits.
-        \item Apply $\mathcal{O}$ to obtain the state $\frac{1}{\sqrt{q}} \sum_{a = 0}^{q - 1} \ket{a} \otimes \ket{f(a)}$.
-        \item Measure the second register to obtain some $f(s)$. Since $f$ has period $r$, we may assume $s < r$. Ignoring from now on the second register, the state collapses to $\frac{1}{\sqrt{m}} \sum_{k = 0}^{m} \ket{s + kr}$ for some $m$.
-        \item Apply the quantum Fourier transform $F_q$ to obtain the state
-        \[ \frac{1}{\sqrt{m}} \sum_{k = 0}^{m - 1} \frac{1}{\sqrt{q}} \sum_{b = 0}^{q - 1} \exp \left( 2 \pi i \frac{(s + kr) b}{q} \right) \ket{b} = \frac{1}{\sqrt{mq}} \sum_{b = 0}^{q - 1} \exp \left( 2 \pi i \frac{sb}{q} \right) \sum_{k = 0}^{m} \exp \left( 2 \pi i \frac{krb}{q} \right) \ket{b} \]
+        \item Start with the $(m + n)$-qubit state $\ket{0^m} \otimes \ket{0^n}$.
+        \item Apply the \tref{quantum-fourier-transform}{quantum Fourier transform} $F_M$ to obtain the state $\frac{1}{\sqrt{M}} \sum_{a = 0}^{M - 1} \ket{a} \otimes \ket{0^n}$. Alternatively, the same result can be achieved by applying a \tref{hadamard-gate}{Hadamard gate} to the first $m$ qubits.
+        \item Apply $\mathcal{O}$ to obtain the state $\frac{1}{\sqrt{M}} \sum_{a = 0}^{M - 1} \ket{a} \otimes \ket{f(a)}$.
+        \item Measure the second register to obtain some $f(s)$. Since $f$ has period $r$, we may assume $s < r$. Ignoring from now on the second register, the state collapses to $\frac{1}{\sqrt{K}} \sum_{k = 0}^{K} \ket{s + kr}$ for some $K$.
+        \item Apply the quantum Fourier transform $F_M$ to obtain the state
+        \[ \frac{1}{\sqrt{K}} \sum_{k = 0}^{K - 1} \frac{1}{\sqrt{M}} \sum_{b = 0}^{M - 1} \exp \left( 2 \pi i \frac{(s + kr) b}{M} \right) \ket{b} = \frac{1}{\sqrt{K M}} \sum_{b = 0}^{M - 1} \exp \left( 2 \pi i \frac{sb}{M} \right) \sum_{k = 0}^{K} \exp \left( 2 \pi i \frac{krb}{M} \right) \ket{b} \]
         and note that
-        \[ \sum_{k = 0}^{m - 1} \exp \left( 2 \pi i \frac{krb}{q} \right) = \begin{cases}
-            m & \textup{ if } \exp \left( 2 \pi i \right) = 1 , \\
-            \frac{1 - \exp(2 \pi i \tfrac{mrb}{q})}{1 - \exp(2 \pi i \tfrac{rb}{q})} & \textup{ if } \exp \left( 2 \pi i \right) \ne 1 . \\
+        \[ \sum_{k = 0}^{K - 1} \exp \left( 2 \pi i \frac{krb}{M} \right) = \begin{cases}
+            K & \textup{ if } \exp \left( 2 \pi i \right) = 1 , \\
+            \frac{1 - \exp(2 \pi i \tfrac{K r b}{M})}{1 - \exp(2 \pi i \tfrac{r b}{M})} & \textup{ if } \exp \left( 2 \pi i \right) \ne 1 . \\
         \end{cases} \]
         \item Measure the state to obtain some $b$. It can be shown that, with high probability, the value $b$ will be such that
-        \[ \left| \frac{b}{q} - \frac{c}{r} \right| \le \frac{1}{2 q} \]
-        for some $0 \le c < r$. In that case, since $r \le N$ and $N^2 < q$, there can be at most \textit{one} such fraction $c/r$ satisfying the above inequality. Hence, $c/r$ can be obtained classically as the fraction with denominator $\le N$ that is closest to $b/q$ (e.g. using a contined-fraction expansion). Moreover, with high probability $c$ will be coprime to $r$, so that $r$ is precisely the denominator of the obtained fraction written in reduced form.
+        \[ \left| \frac{b}{M} - \frac{c}{r} \right| \le \frac{1}{2 M} \]
+        for some $0 \le c < r$. In that case, since $r \le N$ and $N^2 < M$, there can be at most \textit{one} such fraction $c/r$ satisfying the above inequality. Hence, $c/r$ can be obtained classically as the fraction with denominator $\le N$ that is closest to $b / M$ (e.g. using a contined-fraction expansion). Moreover, with high probability $c$ will be coprime to $r$, so that $r$ is precisely the denominator of the obtained fraction written in reduced form.
     \end{enumerate}
     % To see why this works, consider the following two cases:
     %     \begin{itemize}
