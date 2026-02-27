@@ -269,15 +269,15 @@
         \item Apply $\mathcal{O}$ to obtain the state $\frac{1}{\sqrt{M}} \sum_{a = 0}^{M - 1} \ket{a} \otimes \ket{f(a)}$.
         \item Measure the second register to obtain some $f(s)$. Since $f$ has period $r$, we may assume $s < r$. Ignoring from now on the second register, the state collapses to $\frac{1}{\sqrt{K}} \sum_{k = 0}^{K} \ket{s + kr}$ for some $K$.
         \item Apply the quantum Fourier transform $F_M$ to obtain the state
-        \[ \frac{1}{\sqrt{K}} \sum_{k = 0}^{K - 1} \frac{1}{\sqrt{M}} \sum_{b = 0}^{M - 1} \exp \left( 2 \pi i \frac{(s + kr) b}{M} \right) \ket{b} = \frac{1}{\sqrt{K M}} \sum_{b = 0}^{M - 1} \exp \left( 2 \pi i \frac{sb}{M} \right) \sum_{k = 0}^{K} \exp \left( 2 \pi i \frac{krb}{M} \right) \ket{b} \]
+        \[ \frac{1}{\sqrt{K}} \sum_{k = 0}^{K - 1} \frac{1}{\sqrt{M}} \sum_{a = 0}^{M - 1} \exp \left( 2 \pi i \frac{(s + kr) a}{M} \right) \ket{a} = \frac{1}{\sqrt{K M}} \sum_{a = 0}^{M - 1} \exp \left( 2 \pi i \frac{s a}{M} \right) \sum_{k = 0}^{K} \exp \left( 2 \pi i \frac{k r a}{M} \right) \ket{a} \]
         and note that
-        \[ \sum_{k = 0}^{K - 1} \exp \left( 2 \pi i \frac{krb}{M} \right) = \begin{cases}
+        \[ \sum_{k = 0}^{K - 1} \exp \left( 2 \pi i \frac{k r a}{M} \right) = \begin{cases}
             K & \textup{ if } \exp \left( 2 \pi i \right) = 1 , \\
-            \frac{1 - \exp(2 \pi i \tfrac{K r b}{M})}{1 - \exp(2 \pi i \tfrac{r b}{M})} & \textup{ if } \exp \left( 2 \pi i \right) \ne 1 . \\
+            \frac{1 - \exp(2 \pi i \tfrac{K r a}{M})}{1 - \exp(2 \pi i \tfrac{r a}{M})} & \textup{ if } \exp \left( 2 \pi i \right) \ne 1 . \\
         \end{cases} \]
-        \item Measure the state to obtain some $b$. It can be shown that, with high probability, the value $b$ will be such that
-        \[ \left| \frac{b}{M} - \frac{c}{r} \right| \le \frac{1}{2 M} \]
-        for some $0 \le c < r$. In that case, since $r \le N$ and $N^2 < M$, there can be at most \textit{one} such fraction $c/r$ satisfying the above inequality. Hence, $c/r$ can be obtained classically as the fraction with denominator $\le N$ that is closest to $b / M$ (e.g. using a contined-fraction expansion). Moreover, with high probability $c$ will be coprime to $r$, so that $r$ is precisely the denominator of the obtained fraction written in reduced form.
+        \item Measure the state to obtain some $a$. It can be shown that, with high probability, the value $a$ will be such that
+        \[ \left| \frac{a}{M} - \frac{c}{r} \right| \le \frac{1}{2 M} \]
+        for some $0 \le c < r$. In that case, since $r \le N$ and $N^2 < M$, there can be at most \textit{one} such fraction $c/r$ satisfying the above inequality. Hence, $c/r$ can be obtained classically as the fraction with denominator $\le N$ that is closest to $a / M$ (e.g. using a contined-fraction expansion). Moreover, with high probability $c$ will be coprime to $r$, so that $r$ is precisely the denominator of the obtained fraction written in reduced form.
     \end{enumerate}
     % To see why this works, consider the following two cases:
     %     \begin{itemize}
