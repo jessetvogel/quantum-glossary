@@ -1,0 +1,13 @@
+\begin{topic}{hubbard-model}{Hubbard model}
+    The \emph{Hubbard model} on a \href{/math-definitions/#CO:graph}{graph} $G = (V, E)$ is the quantum system with Hilbert space
+    \[ \mathcal{H} = \bigotimes_{v \in V} \mathcal{H}_v \quad \textup{ where } \mathcal{H}_v = \CC^4 \textup{ with basis } \{ \ket{0}, \ket{\uparrow}, \ket{\downarrow}, \ket{\uparrow \downarrow} \} \]
+    and Hamiltonian
+    \[ H = - t \sum_{(u, v) \in E} \sum_{\sigma \in \{ \uparrow, \downarrow \}} \left( c_{u, \sigma}^\dagger c_{v, \sigma} + c_{v, \sigma}^\dagger c_{u, \sigma} \right) + U \sum_{v \in V} n_{v, \uparrow} n_{v, \downarrow} \]
+    where
+    \begin{itemize}
+        \item $c_{v, \sigma}^\dagger$ and $c_{v, \sigma}$ are the usual \textit{creation} and \textit{annihilation operators},
+        \item $t$ is called the \textit{hopping amplitude},
+        \item $U$ is called the \textit{on-site interaction strength},
+        \item $n_{v, \sigma} = c_{v, \sigma}^\dagger c_{v, \sigma}$ is the \textit{number operator}.
+    \end{itemize}
+\end{topic}
