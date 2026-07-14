@@ -353,6 +353,7 @@ br {
 div.math.display.svg {
     display: block;
     width: fit-content;
+    max-width: 50%;
     margin: 8px auto;
     transition: filter var(--transition-time);
 }

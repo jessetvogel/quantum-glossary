@@ -1,0 +1,61 @@
+\begin{topic}{t2-time}{T2 time}
+    The \emph{$T_2^*$ time} (resp. \emph{$T_2^\textup{Hahn}$ time}) of a \tref{qubit}{qubit} is the time $T_2$ such that the experiments below result in measuring the qubit in the state $\ket{0}$ with probability
+    \[ \PP(\textup{qubit in state }\ket{0}) = A \cdot e^{-t / T_2} + B \]
+    for some constants $A$ and $B$.
+
+    \textbf{Experiment for $T_2^*$}:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Prepare the qubit in state $\ket{0}$.
+        \item Apply a \tref{hadamard-gate}{Hadamard gate} to obtain the state $\tfrac{1}{2} (\ket{0} + \ket{1})$.
+        \item Wait for some time $t$.
+        \item Apply another Hadamard gate.
+        \item Measure the qubit.
+    \end{enumerate}
+    \textbf{Experiment for $T_2^\textup{Hahn}$}:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Prepare the qubit in state $\ket{0}$.
+        \item Apply a \tref{hadamard-gate}{Hadamard gate} to obtain the state $\tfrac{1}{2} (\ket{0} + \ket{1})$.
+        \item Wait for some time $t / 2$.
+        \item Apply an \tref{pauli-gates}{$X$ gate}.
+        \item Wait for some time $t / 2$.
+        \item Apply another Hadamard gate.
+        \item Measure the qubit.
+    \end{enumerate}
+\end{topic}
+
+% \begin{example}{t2-time}
+%     Consider qubit noise corresponding to a Hamiltonian $H = \delta \ket{1} \bra{1}$ for some $\delta > 0$. The experiment for $T_2^*$ results in the state 
+%     \[ \left( \tfrac{1}{2} + \tfrac{1}{2} e^{i \delta t} \right) \ket{0} + \left( \tfrac{1}{2} - \tfrac{1}{2} e^{i \delta t} \right) \ket{1} \]
+%     which yields 
+%     before measurement, so that $\PP(\ket{0}) = \tfrac{1}{2} + \tfrac{1}{2} \cos(\delta t)$. Hence, $T_2^* = 1 / \delta$ ???
+% \end{example}
+
+\begin{topic}{t1-time}{T1 time}
+    The \emph{$T_1$ time} of a \tref{qubit}{qubit} is the time $T_1$ such that the following experiment results in measuring the qubit in the state $\ket{1}$ with probability $\PP(\ket{1}) = e^{-t / T_1}$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Prepare the qubit in state $\ket{1}$.
+        \item Wait for a time $t$.
+        \item Measure the qubit in the computational basis.
+    \end{enumerate}
+    By convention, $\ket{1}$ denotes the higher-energy state of the qubit and $\ket{0}$ the lower-energy state.
+\end{topic}
+
+\begin{topic}{quantum-volume}{quantum volume}
+    The \emph{quantum volume} $V_Q$ of a quantum computer is given by $\log_2 V_Q = m$, where $m$ is the largest integer for which the following experiment succeeds with $2 \sigma$ confidence.
+
+    \begin{enumerate}[label=(\arabic*)]
+        \item Construct an \tref{qubit}{$m$-qubit} quantum circuit $U$ consisting of $m$ layers, where each layer consists of a random permutation $\pi$ of the $m$ qubits followed by $\lfloor m / 2 \rfloor$ random $2$-qubit gates in $\SU(4)$ on neighboring pairs of qubits.
+        \[ \svg \ensuremath{\textup{$m$ qubits} \left\{ \rule{0pt}{1.5cm} \right. \begin{quantikz}[row sep=0.1cm]
+        \lstick{$\ket{0}$} & \gate[4]{\pi} \gategroup[4, steps=2, style={dashed, inner sep=6pt}]{layer $1$} & \gate[2]{\SU(4)} & & \gate[4]{\pi} \gategroup[4, steps=2, style={dashed, inner sep=6pt}]{layer $2$} & \gate[2]{\SU(4)} & \ \ldots\ & \gate[4]{\pi} \gategroup[4, steps=2, style={dashed, inner sep=6pt}]{layer $m$} & \gate[2]{\SU(4)} & \meter{} \\
+        \lstick{$\ket{0}$} & & & & & & \ \ldots\ & & & \meter{} \\
+        \lstick{$\ket{0}$} & & \gate[2]{\SU(4)} & & & \gate[2]{\SU(4)} & \ \ldots\ & & \gate[2]{\SU(4)} & \meter{} \\
+        \lstick{$\ket{0}$} & & & & & & \ \ldots\ & & & \meter{}
+    \end{quantikz} } \]
+        \item Simulate the circuit $U$ classically to compute the output probabilities $p_j = \left| \bra{j} U \ket{0} \right|^2$ for $j \in \{ 0, 1 \}^m$.
+        \item Construct $H_U = \{ j \in \{ 0, 1 \}^m \mid p_j > \theta \}$, where $\theta$ is the median of the $p_j$. This set is called the set of \textit{heavy outputs}.
+        \item Run the circuit $U$ on the quantum computer, and compute the fraction $\rho$ of measurements $j \in \{ 0, 1 \}^m$ that are contained in $H_U$.
+        \item The experiment succeeds if $\rho > 2/3$, and fails otherwise.
+    \end{enumerate}
+    Succeeding with $2 \sigma$ confidence means that the average $\overline{\rho}$ of the values of $\rho$ over $M \ge 100$ trials of the experiment satisfies
+    \[ \overline{\rho} - 2 \sqrt{\frac{\overline{\rho} (1 - \overline{\rho})}{M}} > 2/3 . \]
+\end{topic}
